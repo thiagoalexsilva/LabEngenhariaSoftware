@@ -1,0 +1,49 @@
+.body-home{
+	background: url("../images/login-background.jpg") no-repeat top center;
+	min-height: 1200px;
+}
+
+.area-login{
+	background-color: RGBA(60, 155, 41, 0.8);
+	margin-top: 200px;
+	padding: 40px;
+}
+
+.label-field{
+	width: 100%;
+}
+
+.senha-link, .cadastrar-link{
+	color: white;
+	text-decoration: underline;
+	font-size: 10px;
+}
+
+header{
+	background-color: #60BB22;
+	height: 100px;
+}
+
+footer{
+	background-color: #60BB22;
+	height: 100px;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+.logo-header{
+	width: 150px;
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+.c-header, .c-footer{
+	background-color: #60BB22;
+}
+
+body{
+	margin: 0;
+	padding: 0;
+}
