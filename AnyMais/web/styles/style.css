@@ -41,9 +41,38 @@ footer{
 
 .c-header, .c-footer{
 	background-color: #60BB22;
+	width: 100% !important;
 }
 
 body{
 	margin: 0;
 	padding: 0;
+}
+
+.body-cadastro{
+	margin-bottom: 120px;
+}
+
+.tipo-usuario{
+	padding-bottom: 10px;
+}
+
+.cadastrar-field{
+	padding-bottom: 10px;
+}
+
+.coluna1{
+	width: 150px;
+}
+
+.coluna2{
+	width: 130px;
+}
+
+.button-cancelar, .button-cadastrar{
+	background-color: #60BB22;
+	color: white;
+	margin-top: 10px;
+	margin-left: 8px;
+	float: right;
 }
