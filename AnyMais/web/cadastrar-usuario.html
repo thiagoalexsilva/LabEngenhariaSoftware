@@ -25,24 +25,24 @@
                     <table>
                         <tr>
                           <th colspan="2" class="tipo-usuario">
-                              <input type="radio" name="tipo-usuario" value="PF"> Pessoa Física<br>
+                              <input type="radio" name="tipo-usuario" value="PF" required> Pessoa Física<br>
                           </th>
                           <th class="tipo-usuario">
-                              <input type="radio" name="tipo-usuario" value="PJ"> Pessoa Jurídica<br>
+                              <input type="radio" name="tipo-usuario" value="PJ" required> Pessoa Jurídica<br>
                           </th>
                           <th colspan="3"></th>
                         </tr>
                         <tr>
                           <td class="cadastrar-field">Nome </td>
                           <td colspan="5" class="cadastrar-field">
-                              <input type="text" class="label-field" name="nome">
+                              <input type="text" class="label-field" name="nome" required>
                           </td>
                         </tr>
                         <tr>
                           <td class="cadastrar-field"> Sexo </td>
                           <td class="cadastrar-field coluna1">
-                              <select name="sexo">
-                                <option value="-">Selecionar</option>
+                              <select name="sexo" required class="cadastro-seleciona-sexo">
+                                <option></option>
                                 <option value="Feminino">Feminino</option>
                                 <option value="Masculino">Masculino</option>
                                 <option value="Outro">Outro</option>
@@ -50,49 +50,49 @@
                           </td>
                           <td class="cadastrar-field">Data Nascimento </td>
                           <td class="cadastrar-field">
-                              <input type="date" name="nascimento" class="coluna2">
+                              <input type="date" name="nascimento" class="coluna2" required>
                           </td>
                           <td class="cadastrar-field">CPF/CNPJ </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field" name="cpf-cnpj">
+                              <input type="text" class="label-field" name="cpf-cnpj" required>
                           </td>
                         </tr>
                         <tr>
                           <td class="cadastrar-field">Endereço </td>
                           <td colspan="5" class="cadastrar-field">
-                              <input type="text" class="label-field" name="endereco">
+                              <input type="text" class="label-field" name="endereco" required>
                           </td>
                         </tr>
                         <tr>
                           <td class="cadastrar-field">Bairro </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field coluna1" name="bairro">
+                              <input type="text" class="label-field coluna1" name="bairro" required>
                           </td>
                           <td class="cadastrar-field">Complemento </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="text" class="label-field coluna2" name="complemento">
+                              <input type="text" class="label-field coluna2" name="complemento" required>
                           </td>
                         </tr>
                         <tr>
                           <td class="cadastrar-field">CEP </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field coluna1" name="cep">
+                              <input type="text" class="label-field coluna1" name="cep" required> 
                           </td>
                           <td class="cadastrar-field">Cidade </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field coluna2" name="cidade">
+                              <input type="text" class="label-field coluna2" name="cidade" required>
                           </td>
                           <td class="cadastrar-field">UF </td>
                           <td class="cadastrar-field">
-                              <select name="uf">
-                                <option value="-">Selecionar</option>
+                              <select name="uf" required class="cadastro-uf">
+                                <option></option>
                               </select>
                           </td>
                         </tr>
                         <tr>
                           <td class="cadastrar-field">Telefone </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field coluna1" name="telefone">
+                              <input type="text" class="label-field coluna1" name="telefone" required>
                           </td>
                           <td class="cadastrar-field">Celular </td>
                           <td colspan="2" class="cadastrar-field">
@@ -102,21 +102,21 @@
                         <tr>
                           <td class="cadastrar-field">E-mail </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field coluna1" name="email">
+                              <input type="text" class="label-field coluna1" name="email" required>
                           </td>
                           <td class="cadastrar-field">Confirmar E-mail </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="text" class="label-field coluna2" name="confirma-email">
+                              <input type="text" class="label-field coluna2" name="confirma-email" required>
                           </td>
                         </tr>
                         <tr>
                           <td class="cadastrar-field">Senha </td>
                           <td class="cadastrar-field">
-                              <input type="password" class="label-field coluna1" name="senha">
+                              <input type="password" class="label-field coluna1" name="senha" required>
                           </td>
                           <td class="cadastrar-field">Confirmar Senha </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="password" class="label-field coluna2" name="confirma-senha">
+                              <input type="password" class="label-field coluna2" name="confirma-senha" required>
                           </td>
                         </tr>
                         <tr>

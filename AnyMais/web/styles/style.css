@@ -153,6 +153,16 @@ body{
 	margin-left: 10px;
 }
 
-.cadsatra-vacina{
+.cadastra-vacina{
 	margin-left: 10px;
+}
+
+.cadastro-seleciona-sexo{
+	width: 140px;
+	height: 25px;
+}
+
+.cadastro-uf{
+	width: 145px;
+	height: 25px;
 }
