@@ -76,3 +76,64 @@ body{
 	margin-left: 8px;
 	float: right;
 }
+
+.principal{
+	border: 1px solid;
+	width: 550px;
+	height: 400px;
+	float: right;
+	margin-top: 30px;
+}
+
+.menu{
+	float: left;
+	margin-top: 30px;
+}
+
+.title{
+	margin-left: 15px;
+}
+
+.label-field-racas{
+	width: 70%;
+	margin-left: 15px;
+}
+
+.search-button{
+	width: 25px;
+	margin-left: 5px;
+}
+
+.adicionar-pet-button{
+	width: 30px;
+	margin-left: 6px;
+}
+
+.primeiro-pet, .primeiro-porte{
+	font-size: 10px;
+	margin-left: 15px;
+}
+
+.raca-tipo-pet, .porte-pet{
+	font-size: 10px;
+}
+
+.table-racas{
+	margin-left: 15px;
+	width: 500px;
+}
+
+.excluir-button{
+	width: 20px;
+	padding-top: 2px;
+}
+
+.menu-racas-button, .menu-vacinas-button, .logout-button{
+	width: 170px;
+}
+
+.table-raca-title{
+	background-color: #60BB22;
+	color: white;
+	text-align: center;
+}
