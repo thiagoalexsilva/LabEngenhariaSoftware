@@ -74,6 +74,7 @@ body{
 	color: white;
 	margin-top: 10px;
 	margin-left: 8px;
+	margin-right: 5px;
 	float: right;
 }
 
@@ -136,4 +137,13 @@ body{
 	background-color: #60BB22;
 	color: white;
 	text-align: center;
+}
+
+.cadastra-raca-tipo-pet, .cadastra-raca{
+	margin-left: 15px;
+}
+
+.seleciona-porte{
+	width: 150px;
+	height: 25px;
 }
