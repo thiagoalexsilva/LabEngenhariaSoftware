@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
  *
  * @author Gustavo
  */
-public class DAO<T> {
+public final class DAO<T> {
     // T deve ser uma Entity do sistema
     
     private String table;
