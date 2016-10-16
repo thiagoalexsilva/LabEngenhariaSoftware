@@ -1,5 +1,5 @@
--- Centro Federal de Educação Tecnológica de Minas Gerais
--- Departamento de Engenharia da Computação - Lab. Engenharia de Software
+-- Centro Federal de EducaÃ§Ã£o TecnolÃ³gica de Minas Gerais
+-- Departamento de Engenharia da ComputaÃ§Ã£o - Lab. Engenharia de Software
 -- Any+
 -- SQL Database Script
 
@@ -61,16 +61,24 @@ create table Usuario (
   CONSTRAINT pk_Usuario PRIMARY KEY (idUSUARIO, idPESSOA)  
 );
 
+create table Raca_Animal (
+  idRACA INT NOT NULL,
+  nomeRACA VARCHAR(255),
+  
+  CONSTRAINT pk_Raca_Animal PRIMARY KEY (idRACA)  
+);
+
 create table Animal (
   idANIMAL INT NOT NULL,
   idDONO INT,
+  idRACA INT,
   nomeANIMAL VARCHAR(45),
-  racaANIMAL VARCHAR(45) NOT NULL,
   porteANIMAL VARCHAR(45) NOT NULL,
   generoANIMAL VARCHAR(1) NOT NULL,
   
   CONSTRAINT pk_Animal PRIMARY KEY (idANIMAL),
-  CONSTRAINT fk_AnimalPessoa FOREIGN KEY (idDONO) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE
+  CONSTRAINT fk_AnimalPessoa FOREIGN KEY (idDONO) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE,
+  CONSTRAINT fk_RacaAnimal FOREIGN KEY (idRACA) REFERENCES Raca_Animal(idRACA) ON DELETE CASCADE
 );
 
 create table Medicamento (
