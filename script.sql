@@ -34,7 +34,7 @@ create table Petshop (
 );
 
 create table Servico (
-  idSERIVCO INT NOT NULL,
+  idSERVICO INT NOT NULL,
   nomeSERVICO VARCHAR(255),
   descSERVICO VARCHAR(255),
   
@@ -64,7 +64,8 @@ create table Usuario (
 create table Raca_Animal (
   idRACA INT NOT NULL,
   nomeRACA VARCHAR(255),
-  
+  porteRACA VARCHAR(45) NOT NULL,
+  observacaoRACA VARCHAR(255),
   CONSTRAINT pk_Raca_Animal PRIMARY KEY (idRACA)  
 );
 
@@ -73,7 +74,6 @@ create table Animal (
   idDONO INT,
   idRACA INT,
   nomeANIMAL VARCHAR(45),
-  porteANIMAL VARCHAR(45) NOT NULL,
   generoANIMAL VARCHAR(1) NOT NULL,
   
   CONSTRAINT pk_Animal PRIMARY KEY (idANIMAL),

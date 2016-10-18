@@ -22,7 +22,7 @@
         <div class="col-md-4 area-login">
             <img src="images/logo.png" class="img-responsive center-block"/>
             <br><br>
-            <form action="">
+            <form action="racas">
                 <input type="text" class="label-field" name="email" placeholder="E-mail" required>
                 <br><br>
                 <input type="password" class="label-field" name="senha" placeholder="Senha" required>

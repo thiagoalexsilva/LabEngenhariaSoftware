@@ -9,6 +9,7 @@ import controller.GerenciarRacas;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import model.Raca;
  *
  * @author Gustavo
  */
+@WebServlet(name = "RacasServlet", urlPatterns = {"/racas"})
 public class RacasServlet extends HttpServlet {
 
     /**
@@ -34,16 +36,16 @@ public class RacasServlet extends HttpServlet {
         
         String uri = request.getRequestURI();
         System.out.println("Chegou: " + uri);
-        if(uri.equals("racas")){
+        if(uri.equals("/AnyMais/racas")){
         
             Raca[] racas = GerenciarRacas.getInstance().selecionaRacas();
             request.getSession(true).setAttribute("racas", racas); 
             response.sendRedirect("ver-racas.jsp");
         }
-        else if(uri.equals("racas/cadastrar")){
+        else if(uri.equals("/AnyMais/racas/cadastrar")){
             response.sendRedirect("cadastrar-racas.jsp");
         }
-        else if(uri.equals("racas/cadastrado")){
+        else if(uri.equals("/AnyMais/racas/cadastrado")){
             String tipoAnimal = request.getParameter("tipo-pet");
             String nomeRaca = request.getParameter("nome-raca");
             String porte = request.getParameter("porte");
