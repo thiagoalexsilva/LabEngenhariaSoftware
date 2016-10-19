@@ -38,11 +38,13 @@ public class ClienteServlet extends HttpServlet {
         String uri = request.getRequestURI();
         System.out.println("Chegou: " + uri);
         if(uri.equals("/AnyMais/clientes/cadastrar")){
-            response.sendRedirect("cadastrar-clientes.jsp");
+            response.sendRedirect("cadastrar-usuario.jsp");
         }
-        else if(uri.equals("/AnyMais/clientes/cadastrado")){
+        else if(uri.equals("/AnyMais/usuario/cadastrado")){
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
+            String email2 = request.getParameter("confirma-email");
+            String senha2 = request.getParameter("confirma-senha");
             String nome = request.getParameter("nome");
             String endereco = request.getParameter("endereco");
             String bairro = request.getParameter("bairro");
@@ -50,9 +52,23 @@ public class ClienteServlet extends HttpServlet {
             String cidade = request.getParameter("cidade");
             String cep = request.getParameter("cep");
             String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");   
-            String sexo = request.getParameter("sexo");          
+            String telefone = request.getParameter("telefone");
+            String celular = request.getParameter("telefone2");
+            String sexo = request.getParameter("sexo");  
+            //String cpf = request.getParameter("cpf-cnpj");  
+            //String data_nascimento = request.getParameter("nascimento");
             
+            if(sexo.equals("Masculino")) sexo = "M";
+            else if(sexo.equals("Feminino")) sexo = "F";
+            else sexo = "O";
+            
+            if(telefone.isEmpty()) telefone = celular;
+            
+            if (!senha.equals(email2)) //deu ruim
+                request.getSession().setAttribute("status", "falha");
+            if(!email.equals(email2)){} // deu ruim tbm
+                request.getSession().setAttribute("status", "falha");
+                
             Pessoa novo_cliente = new Pessoa(0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, sexo, 1);
             if(GerenciarClientes.getInstance().adicionarCliente(novo_cliente))
                 request.getSession().setAttribute("status", "sucesso");
@@ -61,7 +77,7 @@ public class ClienteServlet extends HttpServlet {
             
             Pessoa cliente = GerenciarClientes.getInstance().selecionarCliente(email);
             request.getSession(true).setAttribute("clientes", cliente); 
-            response.sendRedirect("ver-cliente.jsp");
+            //response.sendRedirect("ver-cliente.jsp");
         }
     }
 
