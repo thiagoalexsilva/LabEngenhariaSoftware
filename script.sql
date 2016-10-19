@@ -1,4 +1,4 @@
--- Centro Federal de Educação Tecnológica de Minas Gerais
+﻿-- Centro Federal de Educação Tecnológica de Minas Gerais
 -- Departamento de Engenharia da Computação - Lab. Engenharia de Software
 -- Any+
 -- SQL Database Script
@@ -10,6 +10,13 @@ create table Pessoa (
   senhaPESSOA VARCHAR(45) NOT NULL,
   generoPESSOA VARCHAR(1),
   tipoPESSSOA INT NOT NULL,
+  enderecoPESSOA VARCHAR(255) NOT NULL,
+  bairroPESSOA VARCHAR(45) NOT NULL,
+  complementoPESSOA VARCHAR(45),
+  cidadePESSOA VARCHAR(45) NOT NULL,
+  cepPESSOA VARCHAR(8) NOT NULL,
+  ufPESSOA VARCHAR(2) NOT NULL,
+  telefonePESSOA VARCHAR(10) NOT NULL,
   
   CONSTRAINT pk_Pessoa PRIMARY KEY (idPessoa)
 );
