@@ -64,9 +64,9 @@ public class ClienteServlet extends HttpServlet {
             
             if(telefone.isEmpty()) telefone = celular;
             
-            if (!senha.equals(email2)) //deu ruim
+            if (!senha.equals(senha2))
                 request.getSession().setAttribute("status", "falha");
-            if(!email.equals(email2)){} // deu ruim tbm
+            if(!email.equals(email2)){}
                 request.getSession().setAttribute("status", "falha");
                 
             Pessoa novo_cliente = new Pessoa(0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, sexo, 1);
