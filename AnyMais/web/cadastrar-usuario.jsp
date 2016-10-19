@@ -16,7 +16,15 @@
                 <img src="images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
-        
+        <div>
+            <% if (session.getAttribute("status") != null)
+                    if (session.getAttribute("status").toString().equals("sucesso")) { %>
+            Sucesso!
+            <% } else if (session.getAttribute("status").equals("falha")) { %>
+            Falha!
+            <% }
+            %>
+        </div>
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8 body-cadastro">
@@ -25,10 +33,10 @@
                     <table>
                         <tr>
                           <th colspan="2" class="tipo-usuario">
-                              <input type="radio" name="tipo-usuario" value="PF" required> Pessoa FÃ­sica<br>
+                              <input type="radio" name="tipo-usuario" value="PF" required> Pessoa Física<br>
                           </th>
                           <th class="tipo-usuario">
-                              <input type="radio" name="tipo-usuario" value="PJ" required> Pessoa JurÃ­dica<br>
+                              <input type="radio" name="tipo-usuario" value="PJ" required> Pessoa Jurídica<br>
                           </th>
                           <th colspan="3"></th>
                         </tr>
@@ -58,7 +66,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td class="cadastrar-field">EndereÃ§o </td>
+                          <td class="cadastrar-field">Endereço </td>
                           <td colspan="5" class="cadastrar-field">
                               <input type="text" class="label-field" name="endereco" required>
                           </td>
