@@ -26,7 +26,7 @@ public class DAORaca {
     public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?);";
     public String SELECT_SQL = "SELECT * FROM RACA_ANIMAL;";
     public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
-    public String DELETE_SQL = "DELETE FROM RACA_ANIMAL WHERE ID_RACA=?;";
+    public String DELETE_SQL = "DELETE FROM RACA_ANIMAL WHERE IDRACA=?;";
 
     public DAORaca(){
         try {
@@ -64,6 +64,7 @@ public class DAORaca {
     public Raca[] selectAll(){
         
         ArrayList<Raca> racas = new ArrayList<Raca>();
+        Raca[] arrayRacas;
         PreparedStatement stmt;
         try {
             stmt = conexao.prepareStatement(SELECT_SQL);
@@ -78,7 +79,13 @@ public class DAORaca {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return (Raca[]) racas.toArray();
+        arrayRacas = new Raca[racas.size()];
+        
+        for(int i=0; i<arrayRacas.length; i++){
+            arrayRacas[i] = racas.get(i);
+        }
+        
+        return arrayRacas;
     }
     
     public boolean update(Raca raca){
@@ -101,12 +108,12 @@ public class DAORaca {
         return false;
     }
     
-    public boolean delete(Raca raca){
+    public boolean delete(int idraca){
         
         PreparedStatement stmt;
         try {
             stmt = conexao.prepareStatement(DELETE_SQL);
-            stmt.setInt(1, raca.getId());
+            stmt.setInt(1, idraca);
             stmt.execute();
             
             return true;

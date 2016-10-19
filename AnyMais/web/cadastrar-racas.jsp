@@ -7,22 +7,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Any+</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-</head>
+    <head>
+        <title>Any+</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/AnyMais/styles/style.css">
+    </head>
     <body>
         <div class="container c-header">
             <header>
-                <img src="images/logo.png" class="img-responsive logo-header"/>
+                <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
-        
+
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -36,7 +36,7 @@
                     <input type="radio" name="tipo-pet" value="cachorro" class="cadastra-raca"> Cachorro
                     <input type="radio" name="tipo-pet" value="gato"> Gato<br>
                     <br>
-                    <form action="">
+                    <form action="/AnyMais/racas/cadastrado" method="POST">
                         <p class="cadastra-raca">Raça:
                             <input type="text" class="label-field-raca" name="nome-raca"> </p>
                         <p class="cadastra-raca">Porte:
@@ -49,8 +49,8 @@
                         <p class="cadastra-raca">Observação:</p><br>
                         <textarea name="observacao" rows="4" cols="50"></textarea> 
                         <br>
-                        <input type="submit" class="button-cancelar" value="Cancelar">
-                        <input type="submit" class="button-cadastrar" value="Cadastrar">
+                        <input type="submit" name="cadastrar" class="button-cancelar" value="Cancelar">
+                        <input type="submit" name="cadastrar" class="button-cadastrar" value="Cadastrar">
                         <br>
                     </form> 
                 </div>

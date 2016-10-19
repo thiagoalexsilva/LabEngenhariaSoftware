@@ -40,7 +40,7 @@ public class GerenciarRacas {
         return daoRaca.update(raca);
     }
     
-    public boolean excluirRaca(Raca raca){
-        return daoRaca.delete(raca);
+    public boolean excluirRaca(int idraca){
+        return daoRaca.delete(idraca);
     }
 }

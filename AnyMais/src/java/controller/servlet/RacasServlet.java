@@ -8,6 +8,7 @@ package controller.servlet;
 import controller.GerenciarRacas;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import model.Raca;
  *
  * @author Gustavo
  */
-@WebServlet(name = "RacasServlet", urlPatterns = {"/racas"})
+@WebServlet(name = "RacasServlet", urlPatterns = {"/racas/*"})
 public class RacasServlet extends HttpServlet {
 
     /**
@@ -40,26 +41,43 @@ public class RacasServlet extends HttpServlet {
         
             Raca[] racas = GerenciarRacas.getInstance().selecionaRacas();
             request.getSession(true).setAttribute("racas", racas); 
-            response.sendRedirect("ver-racas.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-racas.jsp");
+            dispatcher.forward(request, response);
+            
+            request.getSession().removeAttribute("status");
         }
         else if(uri.equals("/AnyMais/racas/cadastrar")){
-            response.sendRedirect("cadastrar-racas.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-racas.jsp");
+            dispatcher.forward(request, response);
         }
         else if(uri.equals("/AnyMais/racas/cadastrado")){
-            String tipoAnimal = request.getParameter("tipo-pet");
-            String nomeRaca = request.getParameter("nome-raca");
-            String porte = request.getParameter("porte");
-            String observacao = request.getParameter("observacao");            
+            String cadastrar = request.getParameter("cadastrar");
+            if(cadastrar != null && cadastrar.equals("Cadastrar")){
+                String tipoAnimal = request.getParameter("tipo-pet");
+                String nomeRaca = request.getParameter("nome-raca");
+                String porte = request.getParameter("porte");
+                String observacao = request.getParameter("observacao");            
+
+                Raca novaRaca = new Raca(1, tipoAnimal, nomeRaca, porte, observacao); //id mock
+                if(GerenciarRacas.getInstance().adicionarRaca(novaRaca))
+                    request.getSession().setAttribute("status", "sucesso");
+                else
+                    request.getSession().setAttribute("status", "falha");
+            }
             
-            Raca novaRaca = new Raca(1, tipoAnimal, nomeRaca, porte, observacao); //id mock
-            if(GerenciarRacas.getInstance().adicionarRaca(novaRaca))
-                request.getSession().setAttribute("status", "sucesso");
-            else
-                request.getSession().setAttribute("status", "falha");
+            response.sendRedirect("/AnyMais/racas");
+        }
+        else if(uri.equals("/AnyMais/racas/excluido")){
+            String excluido = request.getParameter("excluido");
+            if(excluido != null){
+                int idraca = Integer.parseInt(excluido);
+                if(GerenciarRacas.getInstance().excluirRaca(idraca))
+                    request.getSession().setAttribute("status", "sucesso");
+                else
+                    request.getSession().setAttribute("status", "falha");
+            }
             
-            Raca[] racas = GerenciarRacas.getInstance().selecionaRacas();
-            request.getSession(true).setAttribute("racas", racas); 
-            response.sendRedirect("ver-racas.jsp");
+            response.sendRedirect("/AnyMais/racas");
         }
     }
 
