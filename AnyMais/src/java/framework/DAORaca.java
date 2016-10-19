@@ -32,7 +32,7 @@ public class DAORaca {
         try {
             if(conexao == null){
                 Class.forName("org.postgresql.Driver");
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "postgres");
+                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "root");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
