@@ -20,7 +20,7 @@ import model.Pessoa;
  *
  * @author ThiagoAlexandre
  */
-@WebServlet(name = "ClienteServlet", urlPatterns = {"/clientes/*"})
+@WebServlet(name = "ClienteServlet", urlPatterns = {"/usuario/*"})
 public class ClienteServlet extends HttpServlet {
 
     /**
@@ -37,7 +37,7 @@ public class ClienteServlet extends HttpServlet {
         
         String uri = request.getRequestURI();
         System.out.println("Chegou: " + uri);
-        if(uri.equals("/AnyMais/clientes/cadastrar")){
+        if(uri.equals("/AnyMais/usuario/cadastrar")){
             response.sendRedirect("cadastrar-usuario.jsp");
         }
         else if(uri.equals("/AnyMais/usuario/cadastrado")){
