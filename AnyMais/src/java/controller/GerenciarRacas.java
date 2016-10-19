@@ -6,6 +6,7 @@
 package controller;
 
 import framework.DAO;
+import framework.DAORaca;
 import model.Raca;
 
 /**
@@ -15,10 +16,10 @@ import model.Raca;
 public class GerenciarRacas {
     
     private static GerenciarRacas instance;
-    private DAO<Raca> daoRacas;
+    private DAORaca daoRaca;
 
     private GerenciarRacas(){
-        daoRacas = new DAO<Raca>("raca");
+        daoRaca = new DAORaca();
     }
 
     public static GerenciarRacas getInstance(){
@@ -28,18 +29,18 @@ public class GerenciarRacas {
     }
         
     public Raca[] selecionaRacas(){
-        return null;//return daoRacas.selectAll();
+        return daoRaca.selectAll();
     }
     
     public boolean adicionarRaca(Raca raca){
-        return true;//return daoRacas.insert(raca);
+        return daoRaca.insert(raca);
     }
     
     public boolean atualizarRaca(Raca raca){
-        return true;//return daoRacas.update(raca);
+        return daoRaca.update(raca);
     }
     
     public boolean excluirRaca(Raca raca){
-        return true;//daoRacas.delete(raca);
+        return daoRaca.delete(raca);
     }
 }

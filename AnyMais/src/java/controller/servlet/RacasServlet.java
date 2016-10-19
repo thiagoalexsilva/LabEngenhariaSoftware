@@ -51,7 +51,7 @@ public class RacasServlet extends HttpServlet {
             String porte = request.getParameter("porte");
             String observacao = request.getParameter("observacao");            
             
-            Raca novaRaca = new Raca(tipoAnimal, nomeRaca, porte, observacao);
+            Raca novaRaca = new Raca(1, tipoAnimal, nomeRaca, porte, observacao); //id mock
             if(GerenciarRacas.getInstance().adicionarRaca(novaRaca))
                 request.getSession().setAttribute("status", "sucesso");
             else
