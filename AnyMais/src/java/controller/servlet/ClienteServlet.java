@@ -10,6 +10,7 @@ import controller.GerenciarClientes;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import model.Pessoa;
  *
  * @author ThiagoAlexandre
  */
+@WebServlet(name = "ClienteServlet", urlPatterns = {"/clientes/*"})
 public class ClienteServlet extends HttpServlet {
 
     /**
@@ -48,9 +50,10 @@ public class ClienteServlet extends HttpServlet {
             String cidade = request.getParameter("cidade");
             String cep = request.getParameter("cep");
             String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");            
+            String telefone = request.getParameter("telefone");   
+            String sexo = request.getParameter("sexo");          
             
-            Pessoa novo_cliente = new Pessoa(email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone);
+            Pessoa novo_cliente = new Pessoa(0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, sexo, 1);
             if(GerenciarClientes.getInstance().adicionarCliente(novo_cliente))
                 request.getSession().setAttribute("status", "sucesso");
             else

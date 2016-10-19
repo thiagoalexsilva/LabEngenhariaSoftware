@@ -6,19 +6,16 @@ import java.util.Date;
  * @author Erica
  */
 
-public class Usuario extends Pessoa{
+public class Usuario{
     
     private String cpf;
-    private String sexo;
+    private String endereco;
     private Date dataNascimento;
     private String celular;
-    
-    public Usuario(String email, String senha, String nome, String endereco, String bairro, String complemento, 
-                    String cidade, String cep, String uf, String telefone, String cpf, String sexo, Date dataNascimento, 
-                    String celular) {
-        super(email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone);
+
+    public Usuario(String cpf, String endereco, Date dataNascimento, String celular) {
         this.cpf = cpf;
-        this.sexo = sexo;
+        this.endereco = endereco;
         this.dataNascimento = dataNascimento;
         this.celular = celular;
     }
@@ -30,13 +27,13 @@ public class Usuario extends Pessoa{
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
-    public String getSexo() {
-        return sexo;
+
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public Date getDataNascimento() {
@@ -54,4 +51,6 @@ public class Usuario extends Pessoa{
     public void setCelular(String celular) {
         this.celular = celular;
     }
+    
+    
 }

@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/ver-racas.jsp</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/GerenciarRacas.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/cadastrar-racas.jsp</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/RacasServlet.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/Raca.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/framework/DAORaca.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/NewServlet.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/framework/DAOPessoa.java</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/ClienteServlet.java</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/model/Usuario.java</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/RacasServlet.java</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/model/PetShop.java</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/model/Raca.java</file>
+            <file>file:/C:/Users/ThiagoAlexandre/Documents/GitHub/LabEngenhariaSoftware/AnyMais/src/java/model/Pessoa.java</file>
         </group>
     </open-files>
 </project-private>

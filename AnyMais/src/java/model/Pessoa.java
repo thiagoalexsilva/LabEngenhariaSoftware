@@ -1,34 +1,73 @@
 package model;
 
+import java.util.Date;
+
 /**
  * @author Erica
  */
 
-public class Pessoa {
+public class Pessoa{
     
+    private int id;
     private String email;
     private String senha;
     private String nome;
-    private String endereco;
+    private String end;
     private String bairro;
     private String complemento;
     private String cidade;
     private String cep;
     private String uf;
     private String telefone;
-    
-    public Pessoa(String email, String senha, String nome, String endereco, String bairro, String complemento, 
-                    String cidade, String cep, String uf, String telefone){
+    private String sexo;
+    private int tipo;
+
+    public Pessoa(int id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, String sexo, int tipo) {
+        this.id = id;
         this.email = email;
         this.senha = senha;
         this.nome = nome;
-        this.endereco = endereco;
+        this.end = end;
         this.bairro = bairro;
         this.complemento = complemento;
         this.cidade = cidade;
         this.cep = cep;
         this.uf = uf;
         this.telefone = telefone;
+        this.sexo = sexo;
+        this.tipo = tipo;
+    }
+
+    public Pessoa() {
+        this.id = 0;
+        this.email = null;
+        this.senha = null;
+        this.nome = null;
+        this.end = null;
+        this.bairro = null;
+        this.complemento = null;
+        this.cidade = null;
+        this.cep = null;
+        this.uf = null;
+        this.telefone = null;
+        this.sexo = null;
+        this.tipo = 0;
+    }
+    
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -55,12 +94,12 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getEnd() {
+        return end;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setEnd(String end) {
+        this.end = end;
     }
 
     public String getBairro() {
@@ -109,5 +148,13 @@ public class Pessoa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }
