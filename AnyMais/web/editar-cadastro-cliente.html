@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Any+</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+    </head>
+    <body>
+        <div class="container c-header">
+            <header>
+                <img src="images/logo.png" class="img-responsive logo-header"/>
+            </header>
+        </div>
+        
+        <div class="container">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="menu menu-cliente">
+                    <img src="images/profile-image.png" class="menu-profile-image"/><br>
+                    <a href="editar-perfil-cliente.html"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="meus-pets.html"><input type="image" src="images/meus-pets-button.png" class="menu-meus-pets" /></a><br>
+                    <a href="mensagens-cliente.html"><input type="image" src="images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="agendamentos-cliente.html"><input type="image" src="images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="minhas-avaliacoes.html"><input type="image" src="images/minhas-avaliacoes-button.png" class="menu-minhas-avaliacoes" /></a><br>
+                    <input type="image" src="images/logout-button.png" class="logout-button" />
+                </div>
+                <a href="home-cliente.html"><input type="image" src="images/home-button2.png" class="menu2-home2" /></a>
+                <a href="amigos.html"><input type="image" src="images/amigos-button.png" class="menu2-amigos" /></a>
+                <a href="petshop.html"><input type="image" src="images/petshop-button.png" class="menu2-petshop" /></a><br>
+                <div class="principal principal-cliente">
+                    <h4 class="title">Editar Perfil</h4>
+                    
+                    <form class="editar-form" action="">
+                    <table>
+                        <tr>
+                          <td class="editar-cadastro-field">Nome </td>
+                          <td colspan="4" class="editar-cadastro-field">
+                              <input type="text" class="label-field-editar" name="nome" required>
+                          </td>
+                          <td>
+                              <img class="editar-foto" src="images/profile-image.png"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field"> Sexo </td>
+                          <td class="editar-cadastro-field editar-coluna1">
+                              <select name="sexo" required class="editar-seleciona-sexo">
+                                <option></option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Outro">Outro</option>
+                              </select>
+                          </td>
+                          <td class="editar-cadastro-field">Data Nascimento </td>
+                          <td class="editar-cadastro-field">
+                              <input type="date" name="nascimento" class="editar-coluna2" required>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field">Endereço </td>
+                          <td colspan="5" class="editar-cadastro-field">
+                              <input type="text" class="label-field-editar" name="endereco" required>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field">Bairro </td>
+                          <td class="editar-cadastro-field">
+                              <input type="text" class="label-field-teste editar-coluna1" name="bairro" required>
+                          </td>
+                          <td class="editar-cadastro-field">Complemento </td>
+                          <td colspan="2" class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna2" name="complemento" required>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field">CEP </td>
+                          <td class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna1" name="cep" required> 
+                          </td>
+                          <td class="editar-cadastro-field">Cidade </td>
+                          <td class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna2" name="cidade" required>
+                          </td>
+                          <td class="editar-cadastro-field">UF </td>
+                          <td class="editar-cadastro-field">
+                              <select name="uf" required class="editar-uf">
+                                <option></option>
+                              </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field">Telefone </td>
+                          <td class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna1" name="telefone" required>
+                          </td>
+                          <td class="editar-cadastro-field">Celular </td>
+                          <td colspan="2" class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna2" name="celular">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field">E-mail </td>
+                          <td class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna1" name="email" required>
+                          </td>
+                          <td class="editar-cadastro-field">Confirmar E-mail </td>
+                          <td colspan="2" class="editar-cadastro-field">
+                              <input type="text" class="label-field editar-coluna2" name="confirma-email" required>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="editar-cadastro-field">Senha </td>
+                          <td class="editar-cadastro-field">
+                              <input type="password" class="label-field editar-coluna1" name="senha" required>
+                          </td>
+                          <td class="editar-cadastro-field">Confirmar Senha </td>
+                          <td colspan="2" class="editar-cadastro-field">
+                              <input type="password" class="label-field editar-coluna2" name="confirma-senha" required>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td class="editar-cadastro-field">Mensagem </td>
+                            <td colspan="2" class="editar-cadastro-field">
+                              <textarea name="mensagem" rows="2" cols="30"></textarea> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="editar-cadastro-field">
+                                <input type="submit" class="button-cancelar" value="Cancelar">
+                                <input type="submit" class="button-cadastrar" value="Cadastrar">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="container c-footer">
+            <footer></footer>
+        </div>
+    </body>
+</html>
