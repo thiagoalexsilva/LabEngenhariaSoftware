@@ -28,11 +28,19 @@ public class DAORaca {
     public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
     public String DELETE_SQL = "DELETE FROM RACA_ANIMAL WHERE IDRACA=?;";
 
+    public String SELECT_WHERE_SQL = SELECT_SQL + " WHERE ";
+    
+    public String TIPOANIMAL_CACHORRO = "TIPOANIMALRACA = 'CACHORRO'";
+    public String TIPOANIMAL_GATO = "TIPOANIMALRACA = 'GATO'";
+    public String PORTE_PEQUENO = "PORTERACA = 'PEQUENO'";
+    public String PORTE_MEDIO = "PORTERACA = 'MEDIO'";
+    public String PORTE_GRANDE = "PORTERACA = 'GRANDE'";
+        
     public DAORaca(){
         try {
             if(conexao == null){
                 Class.forName("org.postgresql.Driver");
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "root");
+                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "postgres");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,6 +76,65 @@ public class DAORaca {
         PreparedStatement stmt;
         try {
             stmt = conexao.prepareStatement(SELECT_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                racas.add(getRaca(rs));
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        arrayRacas = new Raca[racas.size()];
+        
+        for(int i=0; i<arrayRacas.length; i++){
+            arrayRacas[i] = racas.get(i);
+        }
+        
+        return arrayRacas;
+    }
+    
+    public Raca[] selectAllFiltered(boolean cachorro, boolean gato, boolean pequeno, boolean medio, boolean grande){
+        
+        ArrayList<Raca> racas = new ArrayList<Raca>();
+        Raca[] arrayRacas;
+        PreparedStatement stmt;
+        try {
+            boolean adicionado = false;
+            
+            if(cachorro){
+                if(adicionado)
+                    SELECT_WHERE_SQL += ", ";
+                SELECT_WHERE_SQL += TIPOANIMAL_CACHORRO;
+            }
+
+            if(gato){
+                if(adicionado)
+                    SELECT_WHERE_SQL += ", ";
+                SELECT_WHERE_SQL += TIPOANIMAL_GATO;
+            }
+            
+            if(pequeno){
+                if(adicionado)
+                    SELECT_WHERE_SQL += ", ";
+                SELECT_WHERE_SQL += PORTE_PEQUENO;
+            }
+            
+            if(medio){
+                if(adicionado)
+                    SELECT_WHERE_SQL += ", ";
+                SELECT_WHERE_SQL += PORTE_MEDIO;
+            }
+            
+            if(grande){
+                if(adicionado)
+                    SELECT_WHERE_SQL += ", ";
+                SELECT_WHERE_SQL += PORTE_GRANDE;
+            }
+            
+            stmt = conexao.prepareStatement(SELECT_WHERE_SQL);
             
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
