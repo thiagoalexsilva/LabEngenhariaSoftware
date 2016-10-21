@@ -166,7 +166,7 @@ body{
 }
 
 .menu-racas-button, .menu-vacinas-button, .logout-button, .menu-editar-perfil, .menu-meus-pets,
-.menu-mensagens, .menu-agendamento, .menu-minhas-avaliacoes{
+.menu-mensagens, .menu-agendamento, .menu-minhas-avaliacoes, .menu-servicos{
 	width: 150px;
 	padding-bottom: 5px;
 }
@@ -237,10 +237,18 @@ body{
 	z-index: -1;
 }
 
-.menu2-amigos{
+.menu2-amigos, .menu2-avaliacoes{
 	position: absolute;
 	width: 125px;	
 	margin-top: 24px;
+	margin-left: 155px;
+	z-index: -1;
+}
+
+.menu2-avaliacoes{
+	position: absolute;
+	width: 125px;	
+	margin-top: 25px;
 	margin-left: 155px;
 	z-index: -1;
 }
@@ -257,7 +265,25 @@ body{
 	position: relative;
 }
 
+.principal-petshop{
+	position: relative;
+	margin-top: 50px;
+}
+
 .menu-cliente{
 	position: relative;
 	margin-top: 50px;
+}
+
+.menu-petshop{
+	position: relative;
+	margin-top: 50px;
+}
+
+.selecionar-foto{
+	font-size: 10px;
+	text-align: right;
+	position: absolute;
+	margin-left: 50px;
+	margin-top: 100px;
 }

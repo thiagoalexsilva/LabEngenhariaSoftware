@@ -24,19 +24,17 @@ and open the template in the editor.
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="menu menu-cliente">
+                <div class="menu menu-petshop">
                     <img src="images/profile-image.png" class="menu-profile-image"/><br>
                     <a href="editar-perfil-cliente.html"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
-                    <a href="meus-pets.html"><input type="image" src="images/meus-pets-button.png" class="menu-meus-pets" /></a><br>
+                    <a href="servicos.html"><input type="image" src="images/servicos-button.png" class="menu-servicos" /></a><br>
                     <a href="mensagens-cliente.html"><input type="image" src="images/mensagens-button.png" class="menu-mensagens" /></a><br>
                     <a href="agendamentos-cliente.html"><input type="image" src="images/agendamento-button.png" class="menu-agendamento" /></a><br>
-                    <a href="minhas-avaliacoes.html"><input type="image" src="images/minhas-avaliacoes-button.png" class="menu-minhas-avaliacoes" /></a><br>
                     <input type="image" src="images/logout-button.png" class="logout-button" />
                 </div>
-                <a href="home-cliente.html"><input type="image" src="images/home-button2.png" class="menu2-home2" /></a>
-                <a href="amigos.html"><input type="image" src="images/amigos-button.png" class="menu2-amigos" /></a>
-                <a href="petshop.html"><input type="image" src="images/petshop-button.png" class="menu2-petshop" /></a><br>
-                <div class="principal principal-cliente">
+                <a href="home-petshop.html"><input type="image" src="images/home-button2.png" class="menu2-home2" /></a>
+                <a href="avaliacoes.html"><input type="image" src="images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>
+                <div class="principal principal-petshop">
                     <h4 class="title">Editar Perfil</h4>
                     
                     <form class="editar-form" action="">
@@ -49,21 +47,6 @@ and open the template in the editor.
                           <td>
                               <img class="editar-foto" src="images/profile-image.png"/><br>
                               <u class="selecionar-foto">Selecionar foto...</u>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="editar-cadastro-field"> Sexo </td>
-                          <td class="editar-cadastro-field editar-coluna1">
-                              <select name="sexo" required class="editar-seleciona-sexo">
-                                <option></option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Outro">Outro</option>
-                              </select>
-                          </td>
-                          <td class="editar-cadastro-field">Data Nascimento </td>
-                          <td class="editar-cadastro-field">
-                              <input type="date" name="nascimento" class="editar-coluna2" required>
                           </td>
                         </tr>
                         <tr>
@@ -91,8 +74,10 @@ and open the template in the editor.
                           <td class="editar-cadastro-field">
                               <input type="text" class="label-field editar-coluna2" name="cidade" required>
                           </td>
+                        </tr>
+                        <tr>
                           <td class="editar-cadastro-field">UF </td>
-                          <td class="editar-cadastro-field">
+                          <td colspan="5" class="editar-cadastro-field">
                               <select name="uf" required class="editar-uf">
                                 <option></option>
                               </select>
@@ -103,7 +88,7 @@ and open the template in the editor.
                           <td class="editar-cadastro-field">
                               <input type="text" class="label-field editar-coluna1" name="telefone" required>
                           </td>
-                          <td class="editar-cadastro-field">Celular </td>
+                          <td class="editar-cadastro-field">Telefone 2 </td>
                           <td colspan="2" class="editar-cadastro-field">
                               <input type="text" class="label-field editar-coluna2" name="celular">
                           </td>
