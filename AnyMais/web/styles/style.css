@@ -61,12 +61,48 @@ body{
 	padding-bottom: 10px;
 }
 
+.label-field-editar{
+	width: 330px;
+	height: 20px;
+}
+
+.label-field-teste{
+	width: 100px;
+	height: 20px;
+}
+
+.editar-foto{
+	width: 90px;
+	position: absolute;
+	opacity: 0.8;
+	margin-left: 50px;
+}
+
+.editar-cadastro-field{
+	padding-bottom: 7px;
+}
+
+.editar-coluna1{
+	width: 70px;
+	height: 20px;
+}
+
 .coluna1{
 	width: 150px;
 }
 
 .coluna2{
 	width: 130px;
+}
+
+.editar-coluna2{
+	width: 100px;
+	height: 20px;
+}
+
+.editar-form{
+	font-size: 12px;
+	position: relative;
 }
 
 .button-cancelar, .button-cadastrar{
@@ -129,8 +165,10 @@ body{
 	padding-top: 2px;
 }
 
-.menu-racas-button, .menu-vacinas-button, .logout-button{
-	width: 170px;
+.menu-racas-button, .menu-vacinas-button, .logout-button, .menu-editar-perfil, .menu-meus-pets,
+.menu-mensagens, .menu-agendamento, .menu-minhas-avaliacoes, .menu-servicos{
+	width: 150px;
+	padding-bottom: 5px;
 }
 
 .table-raca-title{
@@ -162,7 +200,90 @@ body{
 	height: 25px;
 }
 
+.editar-seleciona-sexo{
+	width: 100px;
+	height: 20px;
+}
+
 .cadastro-uf{
 	width: 145px;
 	height: 25px;
+}
+
+.editar-uf{
+	width: 45px;
+	height: 20px;
+}
+
+.menu-profile-image{
+	width: 150px;
+	opacity: 0.8;
+	padding-bottom: 8px;
+}
+
+.menu2-home{
+	position: absolute;
+	width: 125px;	
+	margin-top: 23px;
+	margin-left: 35px;
+	z-index: 1;
+}
+
+.menu2-home2{
+	position: absolute;
+	width: 125px;	
+	margin-top: 23px;
+	margin-left: 35px;
+	z-index: -1;
+}
+
+.menu2-amigos, .menu2-avaliacoes{
+	position: absolute;
+	width: 125px;	
+	margin-top: 24px;
+	margin-left: 155px;
+	z-index: -1;
+}
+
+.menu2-avaliacoes{
+	position: absolute;
+	width: 125px;	
+	margin-top: 25px;
+	margin-left: 155px;
+	z-index: -1;
+}
+
+.menu2-petshop{
+	position: absolute;
+	width: 125px;	
+	margin-top: 25px;
+	margin-left: 275px;
+	z-index: -1;
+}
+
+.principal-cliente{
+	position: relative;
+}
+
+.principal-petshop{
+	position: relative;
+	margin-top: 50px;
+}
+
+.menu-cliente{
+	position: relative;
+	margin-top: 50px;
+}
+
+.menu-petshop{
+	position: relative;
+	margin-top: 50px;
+}
+
+.selecionar-foto{
+	font-size: 10px;
+	text-align: right;
+	position: absolute;
+	margin-left: 50px;
+	margin-top: 100px;
 }

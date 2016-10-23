@@ -32,6 +32,10 @@ public class GerenciarRacas {
         return daoRaca.selectAll();
     }
     
+    public Raca[] selecionaRacasComFiltro(boolean cachorro, boolean gato, boolean pequeno, boolean medio, boolean grande){
+        return daoRaca.selectAllFiltered(cachorro, gato, pequeno, medio, grande);
+    }
+    
     public boolean adicionarRaca(Raca raca){
         return daoRaca.insert(raca);
     }
