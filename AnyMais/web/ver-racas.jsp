@@ -4,7 +4,7 @@
     Author     : Gustavo
 --%>
 
-<%@page import="model.Raca"%>
+<%@page import="model.entity.Raca"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,18 +41,18 @@
                     <input type="image" src="images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
+                    <h3 class="title">Raças</h3>
+                    <input type="text" class="label-field-racas" name="procuraRacas">
+                    <input type="image" src="images/search.png" class="search-button" />
+                    <a href="/AnyMais/racas/cadastrar"><input type="image" src="images/adicionar-pet.png" class="adicionar-pet-button" /></a>
+                    <br>
                     <form id="formracas" action="/AnyMais/racas" method="post">
-                        <h3 class="title">Raças</h3>
-                        <input type="text" class="label-field-racas" name="procuraRacas">
-                        <input type="image" src="images/search.png" class="search-button" />
-                        <a href="/AnyMais/racas/cadastrar"><input type="image" src="images/adicionar-pet.png" class="adicionar-pet-button" /></a>
-                        <br>
                         <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" checked="checked"> Cachorro
                         <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato" checked="true"> Gato
 
-                        <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" checked="checked"> Pequeno
+                        <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" checked="checked" > Pequeno
                         <input type="checkbox" name="porte-pet-m" class="porte-pet" value="medio" checked="true"> Médio
-                        <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" checked="checked"> Grande<br>
+                        <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" checked="checked" > Grande<br>
 
                         <br><br>
 
@@ -70,17 +70,17 @@
                                     for (Raca raca : racas) {
                                         int id = raca.getId();
                             %>
-                            <tr>
-                                <td><% out.print(raca.getTipoAnimal()); %></td>
-                                <td><% out.print(raca.getNomeRaca()); %><br></td>
-                                <td><% out.print(raca.getPorte()); %></td>
-                                <td>
-                            <center><input name="image" id="<% out.print(raca.getId()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
-                            </td>
+                                        <tr>
+                                            <td><% out.print(raca.getTipoAnimal()); %></td>
+                                            <td><% out.print(raca.getNomeRaca()); %><br></td>
+                                            <td><% out.print(raca.getPorte()); %></td>
+                                            <td>
+                                                <center><input name="image" id="<% out.print(raca.getId()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                            </td>
 
-                            </tr>
+                                        </tr>
                             <%      }
-                            } else {
+                                } else {
                             %>
                             <tr>
                                 <td></td>
@@ -114,9 +114,18 @@
                 
                 // Links de filtro de raças
                 
-                document.getElementById("formracas").action = "/AnyMais/racas/filtro";
-                document.getElementById("formracas").submit();
-                    
+                var filtros = [];
+                filtros.concat(document.getElementsByName("tipo-pet-c")[0]);
+                filtros.concat(document.getElementsByName("tipo-pet-g")[0]);
+                filtros.concat(document.getElementsByName("porte-pet-p")[0]);
+                filtros.concat(document.getElementsByName("porte-pet-m")[0]);
+                filtros.concat(document.getElementsByName("porte-pet-g")[0]);
+                
+                for (i = 0; i < filtros.length; i++) {
+                    filtros[i].addEventListener('click', function (e) {
+                        document.getElementById("formracas").action = "/AnyMais/racas";
+                        document.getElementById("formracas").submit();
+                    });
                 }
 
             }

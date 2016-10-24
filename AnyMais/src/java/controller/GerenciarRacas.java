@@ -6,8 +6,8 @@
 package controller;
 
 import framework.DAO;
-import framework.DAORaca;
-import model.Raca;
+import model.dao.DAORaca;
+import model.entity.Raca;
 
 /**
  *

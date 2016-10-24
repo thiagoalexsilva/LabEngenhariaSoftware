@@ -7,8 +7,8 @@
 package controller;
 
 import framework.DAO;
-import framework.DAOPessoa;
-import model.Pessoa;
+import model.dao.DAOPessoa;
+import model.entity.Pessoa;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package framework;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Pessoa;
+import model.entity.Pessoa;
 
 /**
  *
@@ -31,16 +31,7 @@ public class DAOPessoa {
     public String SELECT_NEW_ID_SQL = "SELECT MAX(IDPESSOA) FROM PESSOA;";
 
     public DAOPessoa(){
-        try {
-            if(conexao == null){
-                Class.forName("org.postgresql.Driver");
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "root");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        conexao = Conexao.getConexao();
     }
     
     public boolean insert(Pessoa pessoa){
