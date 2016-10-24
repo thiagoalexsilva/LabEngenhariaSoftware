@@ -47,7 +47,7 @@
                     <a href="/AnyMais/racas/cadastrar"><input type="image" src="images/adicionar-pet.png" class="adicionar-pet-button" /></a>
                     <br>
                     <form id="formracas" action="/AnyMais/racas" method="post">
-                        <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" checked="checked"> Cachorro
+                        <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" checked="checked" > Cachorro
                         <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato" checked="true"> Gato
 
                         <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" checked="checked" > Pequeno

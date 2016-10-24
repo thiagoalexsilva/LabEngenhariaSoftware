@@ -5,11 +5,14 @@
         <group>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/ver-racas.jsp</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/GerenciarRacas.java</file>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/cadastrar-racas.jsp</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/GerenciarRacas.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/dao/Conexao.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/dao/DAOPessoa.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/ClienteServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/dao/DAORaca.java</file>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/RacasServlet.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/Raca.java</file>
-            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/framework/DAORaca.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/entity/Raca.java</file>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/hibernate.cfg.xml</file>
         </group>
     </open-files>
