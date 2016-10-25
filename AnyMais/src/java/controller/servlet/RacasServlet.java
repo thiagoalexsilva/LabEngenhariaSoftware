@@ -41,6 +41,7 @@ public class RacasServlet extends HttpServlet {
         System.out.println("Chegou: " + uri);
         if(uri.equals("/AnyMais/racas")){
         
+            String nomeRaca = request.getParameter("nome-raca") != null ? request.getParameter("nome-raca") : "";
             boolean tipoPetC = request.getParameter("tipo-pet-c") != null;
             boolean tipoPetG = request.getParameter("tipo-pet-g") != null;
             boolean portePetP = request.getParameter("porte-pet-p") != null;
@@ -54,9 +55,30 @@ public class RacasServlet extends HttpServlet {
                 portePetM = true;
                 portePetG = true;
                 primeiraExecucao = false;
+                
             }
             
-            Raca[] racas = GerenciarRacas.getInstance().selecionaRacasComFiltro(tipoPetC, tipoPetG, portePetP, portePetM, portePetG);
+            request.getSession(true).removeAttribute("nome-raca");
+            request.getSession(true).removeAttribute("tipo-pet-c");
+            request.getSession(true).removeAttribute("tipo-pet-g");
+            request.getSession(true).removeAttribute("porte-pet-p");
+            request.getSession(true).removeAttribute("porte-pet-m");
+            request.getSession(true).removeAttribute("porte-pet-g");
+            
+            if(nomeRaca != null)
+                request.getSession(true).setAttribute("nome-raca", nomeRaca);
+            if(tipoPetC)
+                request.getSession(true).setAttribute("tipo-pet-c", tipoPetC);
+            if(tipoPetG)
+                request.getSession(true).setAttribute("tipo-pet-g", tipoPetG);
+            if(portePetP)
+                request.getSession(true).setAttribute("porte-pet-p", portePetP);
+            if(portePetM)
+                request.getSession(true).setAttribute("porte-pet-m", portePetM);
+            if(portePetG)
+                request.getSession(true).setAttribute("porte-pet-g", portePetG);
+            
+            Raca[] racas = GerenciarRacas.getInstance().selecionaRacasComFiltro(nomeRaca, tipoPetC, tipoPetG, portePetP, portePetM, portePetG);
             request.getSession(true).setAttribute("racas", racas); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-racas.jsp");

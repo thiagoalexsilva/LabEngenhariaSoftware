@@ -21,6 +21,8 @@ import model.entity.Raca;
  */
 public class DAORaca {
     
+    //TODO: Inserir campo TipoAnimal
+    
     private static Connection conexao;
     
     public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?);";
@@ -68,95 +70,6 @@ public class DAORaca {
         PreparedStatement stmt;
         try {
             stmt = conexao.prepareStatement(SELECT_SQL);
-            
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                racas.add(getRaca(rs));
-            }
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        arrayRacas = new Raca[racas.size()];
-        
-        for(int i=0; i<arrayRacas.length; i++){
-            arrayRacas[i] = racas.get(i);
-        }
-        
-        return arrayRacas;
-    }
-    
-    public Raca[] selectAllFiltered(boolean cachorro, boolean gato, boolean pequeno, boolean medio, boolean grande){
-        
-        ArrayList<Raca> racas = new ArrayList<Raca>();
-        Raca[] arrayRacas;
-        PreparedStatement stmt;
-        try {
-            boolean adicionadoTipo = false;
-            boolean adicionadoPorte = false;
-            boolean adicionadoComando = false;
-            
-            String TIPOANIMAL_SQL = "";
-            String PORTE_SQL = "";
-            String SQL = "";
-            
-/*            if(!cachorro){
-                if(adicionadoTipo)
-                    TIPOANIMAL_SQL += " OR ";
-                TIPOANIMAL_SQL += TIPOANIMAL_NOT_CACHORRO;
-                adicionadoTipo = true;
-            }
-
-            if(!gato){
-                if(adicionadoTipo)
-                    TIPOANIMAL_SQL += " OR ";
-                TIPOANIMAL_SQL += TIPOANIMAL_NOT_GATO;
-                adicionadoTipo = true;
-            }
-*/            
-            if(!pequeno){
-                if(adicionadoPorte)
-                    PORTE_SQL += " OR ";
-                PORTE_SQL += PORTE_NOT_PEQUENO;
-                adicionadoPorte = true;
-            }
-            
-            if(!medio){
-                if(adicionadoPorte)
-                    PORTE_SQL += " OR ";
-                PORTE_SQL += PORTE_NOT_MEDIO;
-                adicionadoPorte = true;
-            }
-            
-            if(!grande){
-                if(adicionadoPorte)
-                    PORTE_SQL += " OR ";
-                PORTE_SQL += PORTE_NOT_GRANDE;
-                adicionadoPorte = true;
-            }
-            
-            
-            
-            if(adicionadoTipo || adicionadoPorte){
-                SQL = SELECT_WHERE_SQL;
-                if(adicionadoTipo)
-                    if(adicionadoComando)
-                        SQL += " AND ";
-                    SQL += "(" + TIPOANIMAL_SQL + ")";
-                    adicionadoComando = true;
-                if(adicionadoPorte)
-                    if(adicionadoComando)
-                        SQL += " AND ";
-                    SQL += "(" + PORTE_SQL + ")";
-                    adicionadoComando = true;
-            }
-            else{
-                SQL = SELECT_SQL;
-            }
-                
-            stmt = conexao.prepareStatement(SQL);
             
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){

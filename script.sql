@@ -71,6 +71,7 @@ create table Usuario (
 create table Raca_Animal (
   idRACA INT NOT NULL,
   nomeRACA VARCHAR(255),
+  tipoAnimalRACA VARCHAR(45),
   porteRACA VARCHAR(45) NOT NULL,
   observacaoRACA VARCHAR(255),
   CONSTRAINT pk_Raca_Animal PRIMARY KEY (idRACA)  
