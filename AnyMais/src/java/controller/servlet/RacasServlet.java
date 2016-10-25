@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Raca;
+import model.entity.Raca;
 
 /**
  *
@@ -39,8 +39,15 @@ public class RacasServlet extends HttpServlet {
         System.out.println("Chegou: " + uri);
         if(uri.equals("/AnyMais/racas")){
         
-            Raca[] racas = GerenciarRacas.getInstance().selecionaRacas();
+            boolean tipoPetC = request.getParameter("tipo-pet-c") != null;
+            boolean tipoPetG = request.getParameter("tipo-pet-g") != null;
+            boolean portePetP = request.getParameter("porte-pet-p") != null;
+            boolean portePetM = request.getParameter("porte-pet-m") != null;
+            boolean portePetG = request.getParameter("porte-pet-g") != null;
+            
+            Raca[] racas = GerenciarRacas.getInstance().selecionaRacasComFiltro(tipoPetC, tipoPetG, portePetP, portePetM, portePetG);
             request.getSession(true).setAttribute("racas", racas); 
+            
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-racas.jsp");
             dispatcher.forward(request, response);
             
@@ -78,18 +85,6 @@ public class RacasServlet extends HttpServlet {
             }
             
             response.sendRedirect("/AnyMais/racas");
-        }
-        else if(uri.equals("/AnyMais/racas/filtros")){
-            boolean tipoPetC = request.getParameter("tipo-pet-c") != null;
-            boolean tipoPetG = request.getParameter("tipo-pet-g") != null;
-            boolean portePetP = request.getParameter("porte-pet-p") != null;
-            boolean portePetM = request.getParameter("porte-pet-m") != null;
-            boolean portePetG = request.getParameter("porte-pet-g") != null;
-            
-            Raca[] racas = GerenciarRacas.getInstance().selecionaRacasComFiltro(tipoPetC, tipoPetG, portePetP, portePetM, portePetG);
-            request.getSession(true).setAttribute("racas", racas); 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-racas.jsp");
-            dispatcher.forward(request, response);
         }
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package framework;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Raca;
+import model.entity.Raca;
 
 /**
  *
@@ -24,29 +24,21 @@ public class DAORaca {
     private static Connection conexao;
     
     public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?);";
-    public String SELECT_SQL = "SELECT * FROM RACA_ANIMAL;";
+    public String SELECT_SQL = "SELECT * FROM RACA_ANIMAL";
     public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
     public String DELETE_SQL = "DELETE FROM RACA_ANIMAL WHERE IDRACA=?;";
 
     public String SELECT_WHERE_SQL = SELECT_SQL + " WHERE ";
     
-    public String TIPOANIMAL_CACHORRO = "TIPOANIMALRACA = 'CACHORRO'";
-    public String TIPOANIMAL_GATO = "TIPOANIMALRACA = 'GATO'";
-    public String PORTE_PEQUENO = "PORTERACA = 'PEQUENO'";
-    public String PORTE_MEDIO = "PORTERACA = 'MEDIO'";
-    public String PORTE_GRANDE = "PORTERACA = 'GRANDE'";
+    public String NOMERACA_NOT = "NOMERACA <> ";
+    public String TIPOANIMAL_NOT_CACHORRO = "TIPOANIMALRACA <> 'CACHORRO'";
+    public String TIPOANIMAL_NOT_GATO = "TIPOANIMALRACA <> 'GATO'";
+    public String PORTE_NOT_PEQUENO = "PORTERACA <> 'PEQUENO'";
+    public String PORTE_NOT_MEDIO = "PORTERACA <> 'MEDIO'";
+    public String PORTE_NOT_GRANDE = "PORTERACA <> 'GRANDE'";
         
     public DAORaca(){
-        try {
-            if(conexao == null){
-                Class.forName("org.postgresql.Driver");
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "postgres");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        conexao = Conexao.getConexao();
     }
     
     public boolean insert(Raca raca){
@@ -102,39 +94,69 @@ public class DAORaca {
         Raca[] arrayRacas;
         PreparedStatement stmt;
         try {
-            boolean adicionado = false;
+            boolean adicionadoTipo = false;
+            boolean adicionadoPorte = false;
+            boolean adicionadoComando = false;
             
-            if(cachorro){
-                if(adicionado)
-                    SELECT_WHERE_SQL += ", ";
-                SELECT_WHERE_SQL += TIPOANIMAL_CACHORRO;
+            String TIPOANIMAL_SQL = "";
+            String PORTE_SQL = "";
+            String SQL = "";
+            
+/*            if(!cachorro){
+                if(adicionadoTipo)
+                    TIPOANIMAL_SQL += " OR ";
+                TIPOANIMAL_SQL += TIPOANIMAL_NOT_CACHORRO;
+                adicionadoTipo = true;
             }
 
-            if(gato){
-                if(adicionado)
-                    SELECT_WHERE_SQL += ", ";
-                SELECT_WHERE_SQL += TIPOANIMAL_GATO;
+            if(!gato){
+                if(adicionadoTipo)
+                    TIPOANIMAL_SQL += " OR ";
+                TIPOANIMAL_SQL += TIPOANIMAL_NOT_GATO;
+                adicionadoTipo = true;
+            }
+*/            
+            if(!pequeno){
+                if(adicionadoPorte)
+                    PORTE_SQL += " OR ";
+                PORTE_SQL += PORTE_NOT_PEQUENO;
+                adicionadoPorte = true;
             }
             
-            if(pequeno){
-                if(adicionado)
-                    SELECT_WHERE_SQL += ", ";
-                SELECT_WHERE_SQL += PORTE_PEQUENO;
+            if(!medio){
+                if(adicionadoPorte)
+                    PORTE_SQL += " OR ";
+                PORTE_SQL += PORTE_NOT_MEDIO;
+                adicionadoPorte = true;
             }
             
-            if(medio){
-                if(adicionado)
-                    SELECT_WHERE_SQL += ", ";
-                SELECT_WHERE_SQL += PORTE_MEDIO;
+            if(!grande){
+                if(adicionadoPorte)
+                    PORTE_SQL += " OR ";
+                PORTE_SQL += PORTE_NOT_GRANDE;
+                adicionadoPorte = true;
             }
             
-            if(grande){
-                if(adicionado)
-                    SELECT_WHERE_SQL += ", ";
-                SELECT_WHERE_SQL += PORTE_GRANDE;
-            }
             
-            stmt = conexao.prepareStatement(SELECT_WHERE_SQL);
+            
+            if(adicionadoTipo || adicionadoPorte){
+                SQL = SELECT_WHERE_SQL;
+                if(adicionadoTipo)
+                    if(adicionadoComando)
+                        SQL += " AND ";
+                    SQL += "(" + TIPOANIMAL_SQL + ")";
+                    adicionadoComando = true;
+                if(adicionadoPorte)
+                    if(adicionadoComando)
+                        SQL += " AND ";
+                    SQL += "(" + PORTE_SQL + ")";
+                    adicionadoComando = true;
+            }
+            else{
+                SQL = SELECT_SQL;
+            }
+                
+            stmt = conexao.prepareStatement(SQL);
             
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
