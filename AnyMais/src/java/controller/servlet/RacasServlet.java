@@ -23,6 +23,8 @@ import model.entity.Raca;
 @WebServlet(name = "RacasServlet", urlPatterns = {"/racas/*"})
 public class RacasServlet extends HttpServlet {
 
+    private boolean primeiraExecucao = true;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,6 +46,15 @@ public class RacasServlet extends HttpServlet {
             boolean portePetP = request.getParameter("porte-pet-p") != null;
             boolean portePetM = request.getParameter("porte-pet-m") != null;
             boolean portePetG = request.getParameter("porte-pet-g") != null;
+            
+            if(primeiraExecucao){
+                tipoPetC = true;
+                tipoPetG = true;
+                portePetP = true;
+                portePetM = true;
+                portePetG = true;
+                primeiraExecucao = false;
+            }
             
             Raca[] racas = GerenciarRacas.getInstance().selecionaRacasComFiltro(tipoPetC, tipoPetG, portePetP, portePetM, portePetG);
             request.getSession(true).setAttribute("racas", racas); 

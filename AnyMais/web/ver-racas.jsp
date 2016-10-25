@@ -47,12 +47,17 @@
                     <a href="/AnyMais/racas/cadastrar"><input type="image" src="images/adicionar-pet.png" class="adicionar-pet-button" /></a>
                     <br>
                     <form id="formracas" action="/AnyMais/racas" method="post">
-                        <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" checked="checked" > Cachorro
-                        <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato" checked="true"> Gato
+                        <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" 
+                               <% out.println(session.getAttribute("tipo-pet-c") != null ? "checked" : ""); %> > Cachorro
+                        <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato"
+                               <% out.println(session.getAttribute("tipo-pet-g") != null ? "checked" : ""); %> > Gato
 
-                        <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" checked="checked" > Pequeno
-                        <input type="checkbox" name="porte-pet-m" class="porte-pet" value="medio" checked="true"> Médio
-                        <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" checked="checked" > Grande<br>
+                        <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" 
+                               <% out.println(session.getAttribute("porte-pet-p") != null ? "checked" : ""); %> > Pequeno
+                        <input type="checkbox" name="porte-pet-m" class="porte-pet" value="medio" 
+                               <% out.println(session.getAttribute("porte-pet-m") != null ? "checked" : ""); %> > Médio
+                        <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" 
+                               <% out.println(session.getAttribute("porte-pet-g") != null ? "checked" : ""); %> > Grande<br>
 
                         <br><br>
 
@@ -115,14 +120,14 @@
                 // Links de filtro de raças
                 
                 var filtros = [];
-                filtros.concat(document.getElementsByName("tipo-pet-c")[0]);
-                filtros.concat(document.getElementsByName("tipo-pet-g")[0]);
-                filtros.concat(document.getElementsByName("porte-pet-p")[0]);
-                filtros.concat(document.getElementsByName("porte-pet-m")[0]);
-                filtros.concat(document.getElementsByName("porte-pet-g")[0]);
+                filtros.push(document.getElementsByName("tipo-pet-c")[0]);
+                filtros.push(document.getElementsByName("tipo-pet-g")[0]);
+                filtros.push(document.getElementsByName("porte-pet-p")[0]);
+                filtros.push(document.getElementsByName("porte-pet-m")[0]);
+                filtros.push(document.getElementsByName("porte-pet-g")[0]);
                 
                 for (i = 0; i < filtros.length; i++) {
-                    filtros[i].addEventListener('click', function (e) {
+                    filtros[i].addEventListener("click", function () {
                         document.getElementById("formracas").action = "/AnyMais/racas";
                         document.getElementById("formracas").submit();
                     });

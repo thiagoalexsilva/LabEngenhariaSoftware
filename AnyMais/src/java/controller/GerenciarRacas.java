@@ -6,6 +6,7 @@
 package controller;
 
 import framework.DAO;
+import java.util.ArrayList;
 import model.dao.DAORaca;
 import model.entity.Raca;
 
@@ -33,7 +34,26 @@ public class GerenciarRacas {
     }
     
     public Raca[] selecionaRacasComFiltro(boolean cachorro, boolean gato, boolean pequeno, boolean medio, boolean grande){
-        return daoRaca.selectAllFiltered(cachorro, gato, pequeno, medio, grande);
+        Raca[] todasRacas = daoRaca.selectAll();
+        
+        ArrayList<Raca> filtroRacas = new ArrayList<Raca>();
+        
+        for(Raca raca : todasRacas){
+            if((cachorro && raca.getTipoAnimal().toUpperCase().equals("CACHORRO"))
+                    ||
+               (gato && raca.getTipoAnimal().toUpperCase().equals("GATO"))){
+                
+                if((pequeno && raca.getPorte().toUpperCase().equals("PEQUENO"))
+                        ||
+                   (medio && raca.getPorte().toUpperCase().equals("MEDIO"))
+                        ||
+                   (grande && raca.getPorte().toUpperCase().equals("GRANDE"))){
+                    filtroRacas.add(raca);
+                }
+            }    
+        }
+        
+        return filtroRacas.toArray(new Raca[filtroRacas.size()]);
     }
     
     public boolean adicionarRaca(Raca raca){
