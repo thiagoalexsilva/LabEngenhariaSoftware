@@ -27,6 +27,7 @@ public class Conexao {
         try {
             if(conexao == null){
                 Class.forName("org.postgresql.Driver");
+                DriverManager.setLoginTimeout(20);
                 conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5433/anymais", "postgres", "postgres");
             }
         } catch (SQLException ex) {
