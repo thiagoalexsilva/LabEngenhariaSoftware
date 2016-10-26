@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.Pessoa;
 import model.entity.Usuario;
 
 /**
@@ -56,10 +57,12 @@ public class ClienteServlet extends HttpServlet {
             String cep = request.getParameter("cep");
             String uf = request.getParameter("uf");
             String telefone = request.getParameter("telefone");
-            String celular = request.getParameter("telefone2");
+            String celular = request.getParameter("celular");
             String sexo = request.getParameter("sexo");  
             String cpf = request.getParameter("cpf-cnpj");  
             String dataNascimento = request.getParameter("nascimento");
+            int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
+            String mensagem = request.getParameter("mensagem");
             
             // ------------ validacoes de verificacoes --------//
             if(sexo.equals("Masculino")) sexo = "M";
@@ -77,7 +80,7 @@ public class ClienteServlet extends HttpServlet {
             
             // ------------ validacoes de verificacoes --------//
                 
-            user_active = new Usuario( cpf, sexo, dataNascimento, celular, 0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, 1);
+            Usuario user_active = new Usuario(1, cpf, sexo, dataNascimento, celular, 1, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
             if(GerenciarClientes.getInstance().adicionarCliente(user_active))
                 request.getSession().setAttribute("status", "sucesso");
             else
@@ -86,7 +89,7 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("/AnyMais/usuario");
         }
         else if(uri.equals("/AnyMais/usuario/atualizar")){
-            request.getSession(true).setAttribute("cliente", user_active);
+            request.getSession(true).setAttribute("usuario", user_active);
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editar-cadastro_cliente.jsp");
             dispatcher.forward(request, response);
@@ -94,7 +97,8 @@ public class ClienteServlet extends HttpServlet {
             request.getSession().removeAttribute("status");
         }
         else if(uri.equals("/AnyMais/usuario/atualizado")){
-            String email = request.getParameter("email");
+            
+            /*String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             String email2 = request.getParameter("confirma-email");
             String senha2 = request.getParameter("confirma-senha");
@@ -110,6 +114,8 @@ public class ClienteServlet extends HttpServlet {
             String sexo = request.getParameter("sexo");  
             String cpf = request.getParameter("cpf-cnpj");  
             String dataNascimento = request.getParameter("nascimento");
+            int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
+            String mensagem = request.getParameter("mensagem");
             
             // ------------ validacoes de verificacoes --------//
                         
@@ -132,7 +138,38 @@ public class ClienteServlet extends HttpServlet {
             if(GerenciarClientes.getInstance().atualizarCliente(user_active))
                 request.getSession().setAttribute("status", "sucesso");
             else
-                request.getSession().setAttribute("status", "falha");
+                request.getSession().setAttribute("status", "falha");*/
+            
+            String cadastrar = request.getParameter("cadastrar");
+            if(cadastrar != null && cadastrar.equals("Atualizar")){
+                int u_id = ((Usuario) request.getSession(true).getAttribute("usuario")).getId();
+                String email = request.getParameter("email");
+                String senha = request.getParameter("senha");
+                String email2 = request.getParameter("confirma-email");
+                String senha2 = request.getParameter("confirma-senha");
+                String nome = request.getParameter("nome");
+                String endereco = request.getParameter("endereco");
+                String bairro = request.getParameter("bairro");
+                String complemento = request.getParameter("complemento");
+                String cidade = request.getParameter("cidade");
+                String cep = request.getParameter("cep");
+                String uf = request.getParameter("uf");
+                String telefone = request.getParameter("telefone");
+                String celular = request.getParameter("telefone2");
+                String sexo = request.getParameter("sexo");  
+                String cpf = request.getParameter("cpf-cnpj");  
+                String dataNascimento = request.getParameter("nascimento");
+                int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
+                String mensagem = request.getParameter("mensagem");            
+
+                Usuario usuarioAtualizado = new Usuario(0, cpf, sexo, dataNascimento, celular, u_id, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
+                if(GerenciarClientes.getInstance().atualizarCliente(usuarioAtualizado))
+                    request.getSession().setAttribute("status", "sucesso");
+                else
+                    request.getSession().setAttribute("status", "falha");
+                
+                
+            }
             
             response.sendRedirect("/AnyMais/usuario");
         }
@@ -146,6 +183,9 @@ public class ClienteServlet extends HttpServlet {
             }
             
             response.sendRedirect("/AnyMais/usuario");
+        }else if(uri.equals("/AnyMais/usuario/)")){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

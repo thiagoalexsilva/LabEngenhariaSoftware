@@ -1,3 +1,4 @@
+<%@page import="model.entity.Usuario"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -44,7 +45,8 @@ and open the template in the editor.
                         <tr>
                           <td class="editar-cadastro-field">Nome </td>
                           <td colspan="4" class="editar-cadastro-field">
-                              <input type="text" class="label-field-editar" name="nome" required>
+                              <input type="text" class="label-field-editar" name="nome" required
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getNome().toUpperCase() : ""); %>">
                           </td>
                           <td>
                               <img class="editar-foto" src="images/profile-image.png"/><br>
@@ -55,41 +57,47 @@ and open the template in the editor.
                           <td class="editar-cadastro-field"> Sexo </td>
                           <td class="editar-cadastro-field editar-coluna1">
                               <select name="sexo" required class="editar-seleciona-sexo">
-                                <option></option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Outro">Outro</option>
+                                <option value="-" <% out.print(session.getAttribute("usuario") == null ? "selected" : ""); %>></option>
+                                <option value="Feminino" <% out.print(session.getAttribute("usuario") != null && ((Usuario) session.getAttribute("usuario")).getSexo().toUpperCase().equals("FEMININO") ? "selected" : ""); %>>Feminino</option>
+                                <option value="Masculino" <% out.print(session.getAttribute("usuario") != null && ((Usuario) session.getAttribute("usuario")).getSexo().toUpperCase().equals("MASCULINO") ? "selected" : ""); %>>Masculino</option>
+                                <option value="Outro" <% out.print(session.getAttribute("usuario") != null && ((Usuario) session.getAttribute("usuario")).getSexo().toUpperCase().equals("OUTRO") ? "selected" : ""); %>>Outro</option>
                               </select>
                           </td>
                           <td class="editar-cadastro-field">Data Nascimento </td>
                           <td class="editar-cadastro-field">
-                              <input type="date" name="nascimento" class="editar-coluna2" required>
+                              <input type="date" name="nascimento" class="editar-coluna2" required
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getDataNascimento(): 0); %>">
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">Endereço </td>
                           <td colspan="5" class="editar-cadastro-field">
-                              <input type="text" class="label-field-editar" name="endereco" required>
+                              <input type="text" class="label-field-editar" name="endereco" required
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getEnd(): 0); %>">
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">Bairro </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field-teste editar-coluna1" name="bairro" required>
+                              <input type="text" class="label-field-teste editar-coluna1" name="bairro" required
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getBairro(): 0); %>">
                           </td>
                           <td class="editar-cadastro-field">Complemento </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="complemento" required>
+                              <input type="text" class="label-field editar-coluna2" name="complemento"
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getComplemento(): 0); %>">
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">CEP </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna1" name="cep" required> 
+                              <input type="text" class="label-field editar-coluna1" name="cep" required
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getCep(): 0); %>"> 
                           </td>
                           <td class="editar-cadastro-field">Cidade </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="cidade" required>
+                              <input type="text" class="label-field editar-coluna2" name="cidade" required
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getCidade(): 0); %>">
                           </td>
                           <td class="editar-cadastro-field">UF </td>
                           <td class="editar-cadastro-field">
@@ -128,37 +136,42 @@ and open the template in the editor.
                         <tr>
                           <td class="editar-cadastro-field">Telefone </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna1" name="telefone" required>
+                              <input type="text" class="label-field editar-coluna1" name="telefone"
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getTelefone() : 0); %>">
                           </td>
                           <td class="editar-cadastro-field">Celular </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="celular">
+                              <input type="text" class="label-field editar-coluna2" name="celular"
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getCelular(): 0); %>">
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">E-mail </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna1" name="email" required>
+                              <input type="text" class="label-field editar-coluna1" name="email" 
+                                     value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getEmail(): 0); %>">
                           </td>
                           <td class="editar-cadastro-field">Confirmar E-mail </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="confirma-email" required>
+                              <input type="text" class="label-field editar-coluna2" name="confirma-email" >
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">Senha </td>
                           <td class="editar-cadastro-field">
-                              <input type="password" class="label-field editar-coluna1" name="senha" required>
+                              <input type="password" class="label-field editar-coluna1" name="senha">
                           </td>
                           <td class="editar-cadastro-field">Confirmar Senha </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="password" class="label-field editar-coluna2" name="confirma-senha" required>
+                              <input type="password" class="label-field editar-coluna2" name="confirma-senha">
                           </td>
                         </tr>
                         <tr>
                             <td class="editar-cadastro-field">Mensagem </td>
                             <td colspan="2" class="editar-cadastro-field">
-                              <textarea name="mensagem" rows="2" cols="30"></textarea> 
+                                <textarea name="mensagem" rows="2" cols="30">
+                                  <% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getMensagem() : ""); %>
+                                </textarea> 
                             </td>
                         </tr>
                         <tr>

@@ -29,7 +29,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8 body-cadastro">
                 <h3>Cadastro</h3>
-                <form action="/AnyMais/usuario/cadastrado">
+                <form id="formusuario" action="/AnyMais/usuario/cadastrado" method="POST">
                     <table>
                         <tr>
                           <th colspan="2" class="tipo-usuario">

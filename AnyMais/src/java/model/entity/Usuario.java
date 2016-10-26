@@ -8,17 +8,21 @@ import java.util.Date;
 
 public class Usuario extends Pessoa{
     
+    private int u_id;
     private String cpf;
     private String sexo;
     private String dataNascimento;
     private String celular;
+    private String mensagem;
 
-    public Usuario(String cpf, String sexo, String dataNascimento, String celular, int id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, int tipo) {
+    public Usuario(int id, String cpf, String sexo, String dataNascimento, String celular, int u_id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, int tipo, String mensagem) {
         super(id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
         this.cpf = cpf;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
         this.celular = celular;
+        this.u_id = u_id;
+        this.mensagem = mensagem;
     }
 
     public Usuario() {
@@ -31,6 +35,10 @@ public class Usuario extends Pessoa{
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+    
+    public int getU_id() {
+        return u_id;
     }
 
     public String getSexo() {
@@ -57,5 +65,11 @@ public class Usuario extends Pessoa{
         this.celular = celular;
     }
 
-    
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
 }

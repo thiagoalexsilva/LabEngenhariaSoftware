@@ -30,7 +30,7 @@ public class VacinaMedicamento {
     
     public VacinaMedicamento(int id, String tipoAnimal, String nome, Integer periodicidade, String observacao){
         this.id = id;
-//        this.tipo = tipo;
+        //this.tipo = tipo;
         this.tipoAnimal = tipoAnimal;
         this.nome = nome;
         this.observacao = observacao;

@@ -22,7 +22,7 @@ import model.entity.Usuario;
 public class DAOUsuario {
     private static Connection conexao;
     
-    private String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private String SELECT_SQL = "SELECT * FROM PESSOA WHERE EMAILPESSOA=?;";
     private String SELECT_NEW_ID_SQL = "SELECT MAX(IDPESSOA) FROM PESSOA;";
     
@@ -32,32 +32,80 @@ public class DAOUsuario {
             + "WHERE CPFUSUARIO=?;";
     private String DELETE_USUARIO_SQL = "DELETE FROM USUARIO WHERE IDUSUARIO=?;";
     private String SELECT_NEW_ID_USUARIO_SQL = "SELECT MAX(IDUSUARIO) FROM USUARIO;";
-    private String SELECT_CPF_USUARIO = "SELECT COUNT(*) "
+    private String SELECT_CPF_USUARIO = "SELECT COUNT(*) "          //count????
             + "FROM USUARIO U INNER JOIN PESSOA P ON (U.IDUSUARIO = P.IDUSUARIO)"
             + "WHERE U.CPFUSUARIO=?"
             + "OR P.EMAILPESSOA=?";
 
+    public String SELECT_MAX_ID_PESSOA_SQL = "SELECT COALESCE(MAX(IDPESSOA), 0)+1 FROM PESSOA;";
+    public String SELECT_MAX_ID_USUARIO_SQL = "SELECT COALESCE(MAX(IDUSUARIO), 0)+1 FROM USUARIO;";
+    
     public DAOUsuario(){
         conexao = Conexao.getConexao();
     }
     
+    private int nextIdPessoa(){
+        
+        PreparedStatement stmt;
+        try {
+            stmt = conexao.prepareStatement(SELECT_MAX_ID_PESSOA_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            return id;
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+    
+    private int nextIdUsuario(){
+        
+        PreparedStatement stmt;
+        try {
+            stmt = conexao.prepareStatement(SELECT_MAX_ID_USUARIO_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            return id;
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+    
+    
     public boolean insert(Usuario usuario){
         int userid, pessoaid;
         PreparedStatement stmt;
-        try {
-            userid = newId(SELECT_NEW_ID_USUARIO_SQL);
-            stmt = conexao.prepareStatement(INSERT_USUARIO_SQL);
-            stmt.setInt(1, userid);
-            stmt.setString(2, usuario.getCpf());
-            stmt.setString(3, usuario.getSexo());
-            stmt.setString(4, usuario.getDataNascimento());
-            stmt.setString(5, usuario.getCelular());
-            
-            stmt.execute();
-            
+        try {        
+            //userid = newId(SELECT_NEW_ID_USUARIO_SQL);
+            int userId = nextIdUsuario();
             pessoaid = newId(SELECT_NEW_ID_SQL);
+            
             stmt = conexao.prepareStatement(INSERT_SQL);
-            stmt.setInt(1, pessoaid);
+            
+            stmt.setInt(1, nextIdPessoa());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setString(4, usuario.getNome());
+            stmt.setString(5, usuario.getEnd());
+            stmt.setString(6, usuario.getBairro());
+            stmt.setString(7, usuario.getComplemento());
+            stmt.setString(8, usuario.getCidade());
+            stmt.setString(9, usuario.getCep());
+            stmt.setString(10, usuario.getUf());
+            stmt.setString(11, usuario.getTelefone());
+            stmt.setInt(12, usuario.getTipo());
+            stmt.setInt(13, userId);
+            
+            /*stmt.setInt(1, pessoaid);
             stmt.setString(2, usuario.getNome());
             stmt.setString(3, usuario.getEmail());
             stmt.setString(4, usuario.getSenha());
@@ -69,10 +117,20 @@ public class DAOUsuario {
             stmt.setString(10, usuario.getCep());
             stmt.setString(11, usuario.getUf());
             stmt.setString(12, usuario.getTelefone());
-            stmt.setInt(13, userid);
+            stmt.setInt(13, userid);*/
             
             stmt.execute();
             
+            stmt = conexao.prepareStatement(INSERT_USUARIO_SQL);
+            
+            stmt.setInt(1, userId);
+            stmt.setString(2, usuario.getCpf());
+            stmt.setString(3, usuario.getSexo());
+            stmt.setString(4, usuario.getDataNascimento());
+            stmt.setString(5, usuario.getCelular());
+            
+            stmt.execute();
+ 
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,7 +205,7 @@ public class DAOUsuario {
         PreparedStatement stmt;
             
         try {
-            int id              = rs.getInt(1);
+            /*8int id              = rs.getInt(1);
             String nome         = rs.getString(2);
             String email        = rs.getString(3);
             String senha        = rs.getString(4);
@@ -159,18 +217,33 @@ public class DAOUsuario {
             String cep          = rs.getString(10);
             String uf           = rs.getString(11);
             String telefone     = rs.getString(12);
+            int u_id            = rs.getInt(13);*/
+            
+            int id              = rs.getInt(1);
+            String email        = rs.getString(2);
+            String senha        = rs.getString(3);
+            String nome         = rs.getString(4);
+            String end          = rs.getString(5);
+            String bairro       = rs.getString(6);
+            String complemento  = rs.getString(7);
+            String cidade       = rs.getString(8);
+            String cep          = rs.getString(9);
+            String uf           = rs.getString(10);
+            String telefone     = rs.getString(11);
+            int tipo            = rs.getInt(12);
             int u_id            = rs.getInt(13);
             
             stmt = conexao.prepareStatement(SELECT_USUARIO_SQL);
             stmt.setInt(1, u_id);
             
             ResultSet u_rs = stmt.executeQuery();
-            String cpf = u_rs.getString(1);
-            String sexo = u_rs.getString(2);
-            String dataNascimento = u_rs.getString(3);
-            String celular = u_rs.getString(4);
+            int new_id = u_rs.getInt(1);
+            String cpf = u_rs.getString(2);
+            String sexo = u_rs.getString(3);
+            String dataNascimento = u_rs.getString(4);
+            String celular = u_rs.getString(5);
             
-            return new Usuario(null, sexo, dataNascimento, celular, id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
+            return new Usuario(id, cpf, sexo, dataNascimento, celular, new_id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
