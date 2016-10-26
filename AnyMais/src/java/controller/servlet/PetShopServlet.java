@@ -42,10 +42,10 @@ public class PetShopServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String uri = request.getRequestURI();
-        if(uri.equals("Anymais/petshop/cadastrar")){
+        if(uri.equals("/AnyMais/petshop/cadastrar")){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
-        } else if(uri.equals("Anymais/petshop/cadastrado")){
+        } else if(uri.equals("/AnyMais/petshop/cadastrado")){
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             String confirmacao_email = request.getParameter("confirma-email");
@@ -121,6 +121,9 @@ public class PetShopServlet extends HttpServlet {
             }
             
             response.sendRedirect("/AnyMais/petshop");
+        }else if(uri.equals("/AnyMais/petshop/)")){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-petshop.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

@@ -46,4 +46,8 @@ public class GerenciarPetShop {
     public boolean excluirPetShop(int idPetShop){
         return daoPetShop.delete(idPetShop) && daoPessoa.delete(idPetShop);
     }
+    
+    public boolean verificarCNPJ_Email(String cnpj, String email){
+        return daoPetShop.checkCNPJ_Email(cnpj, email);
+    }
 }

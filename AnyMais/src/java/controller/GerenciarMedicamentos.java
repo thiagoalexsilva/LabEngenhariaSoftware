@@ -33,20 +33,20 @@ public class GerenciarMedicamentos {
         return daoMedicamento.selectAll();
     }
     
-    public VacinaMedicamento[] selecionaMedicamentosComFiltro(String nome, boolean medicamento, boolean vacina, boolean cachorro, boolean gato, boolean hora, boolean dia, boolean semana, boolean mes, boolean ano){
+    public VacinaMedicamento[] selecionaMedicamentosComFiltro(String nome, boolean cachorro, boolean gato){
         VacinaMedicamento[] todosMedicamentos = daoMedicamento.selectAll();
         
         ArrayList<VacinaMedicamento> filtroMedicamentos = new ArrayList<VacinaMedicamento>();
         
         for(VacinaMedicamento medicamentos : todosMedicamentos){
-            if((medicamento && medicamentos.getTipo().toUpperCase().equals("MEDICAMENTO"))
+            /*if((medicamento && medicamentos.getTipo().toUpperCase().equals("MEDICAMENTO"))
                     ||
-               (vacina && medicamentos.getTipoAnimal().toUpperCase().equals("VACINA"))){
+               (vacina && medicamentos.getTipoAnimal().toUpperCase().equals("VACINA"))){*/
                 
                 if((cachorro && medicamentos.getTipoAnimal().toUpperCase().equals("CACHORRO"))
                         ||
                    (gato && medicamentos.getTipoAnimal().toUpperCase().equals("GATO"))){
-                    if((hora && medicamentos.getPeriodicidade() >= 0)
+                    /*if((hora && medicamentos.getPeriodicidade() >= 0)
                             ||
                        (dia && medicamentos.getPeriodicidade() >= 0)
                             ||
@@ -54,7 +54,7 @@ public class GerenciarMedicamentos {
                              ||
                        (mes && medicamentos.getPeriodicidade() >= 0)
                              ||
-                       (ano && medicamentos.getPeriodicidade() >= 0)){      
+                       (ano && medicamentos.getPeriodicidade() >= 0)){      */
                    
                         if(nome.isEmpty() || nome.toUpperCase().equals(medicamentos.getNome().toUpperCase())){
                             filtroMedicamentos.add(medicamentos);
@@ -63,7 +63,7 @@ public class GerenciarMedicamentos {
                     
                     }
                 }
-            }
+          //  }
             //Descomentar linhas acima
             //Eliminar linhas abaixo
             //trocar ordens acima rs
@@ -74,7 +74,7 @@ public class GerenciarMedicamentos {
                 }
             }*/
             
-        }
+        //}
         
         return filtroMedicamentos.toArray(new VacinaMedicamento[filtroMedicamentos.size()]);
     }

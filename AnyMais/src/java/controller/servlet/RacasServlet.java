@@ -38,7 +38,7 @@ public class RacasServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String uri = request.getRequestURI();
-        System.out.println("Chegou: " + uri);
+        //System.out.println("Chegou: " + uri);
         if(uri.equals("/AnyMais/racas")){
         
             String nomeRaca = request.getParameter("nome-raca") != null ? request.getParameter("nome-raca") : "";

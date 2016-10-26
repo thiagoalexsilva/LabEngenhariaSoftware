@@ -32,6 +32,10 @@ public class DAOPetShop {
     public String UPDATE_PETSHOP_SQL = "UPDATE PETSHOP TELEFONE2=?" + "WHERE CNPJPET=?;";
     public String DELETE_PETSHOP_SQL = "DELETE FROM PETSHOP WHERE IDPET=?;";
     public String SELECT_NEW_ID_PETSHOP_SQL = "SELECT MAX(IDPET) FROM PETSHOP;";
+    private String SELECT_CNPJ_PETSHOP = "SELECT COUNT(*) "
+            + "FROM PETSHOP PS INNER JOIN PESSOA P ON (PS.IDPET = P.IDPET)"
+            + "WHERE PS.CNPJPET=?"
+            + "OR P.EMAILPESSOA=?";
     
     public DAOPetShop(){
         conexao = Conexao.getConexao();
@@ -183,5 +187,23 @@ public class DAOPetShop {
             Logger.getLogger(DAOPetShop.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+    
+    public boolean checkCNPJ_Email(String cnpj, String email) {
+       PreparedStatement stmt;
+        
+        try {
+            stmt = conexao.prepareStatement(SELECT_CNPJ_PETSHOP);
+            stmt.setString(1, cnpj);
+            stmt.setString(2, email);
+            
+            ResultSet rs = stmt.executeQuery();
+            int qntd = rs.getInt(1);
+            
+            return qntd != 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPetShop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

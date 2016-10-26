@@ -20,7 +20,7 @@ import model.entity.VacinaMedicamento;
  *
  * @author ana
  */
-@WebServlet(name = "MedicamentoServlet", urlPatterns = {"/MedicamentoServlet"})
+@WebServlet(name = "MedicamentoServlet", urlPatterns = {"/medicamentos/*"})
 public class MedicamentoServlet extends HttpServlet {
     
     private boolean primeiraExecucao = true;
@@ -38,30 +38,30 @@ public class MedicamentoServlet extends HttpServlet {
             throws ServletException, IOException {
        
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/VacinaseMedicamentos")){
+        if(uri.equals("/AnyMais/medicamentos")){
             
             boolean tipoPetC = request.getParameter("tipo-pet-c") != null;
             boolean tipoPetG = request.getParameter("tipo-pet-g") != null;
-            String nome= request.getParameter("nome-medicamento") != null ? request.getParameter("nome-medicamento") : "";
-            boolean tipoMedM = request.getParameter("tipo-med-m") != null;
-            boolean tipoMedV= request.getParameter("tipo-med-v") != null;
-            boolean periodMedH = request.getParameter("period-med-h") != null;
-            boolean periodMedD = request.getParameter("period-med-d") != null;
-            boolean periodMedS = request.getParameter("period-med-s") != null;
-            boolean periodMedM = request.getParameter("period-med-m") != null;
-            boolean periodMedA = request.getParameter("period-med-a") != null;
+            String nome = request.getParameter("nome-medicamento") != null ? request.getParameter("nome-medicamento") : "";
+            //boolean tipoMedM = request.getParameter("tipo-med-m") != null;
+            //boolean tipoMedV= request.getParameter("tipo-med-v") != null;
+            //boolean periodMedH = request.getParameter("period-med-h") != null;
+            //boolean periodMedD = request.getParameter("period-med-d") != null;
+            //boolean periodMedS = request.getParameter("period-med-s") != null;
+            //boolean periodMedM = request.getParameter("period-med-m") != null;
+            //boolean periodMedA = request.getParameter("period-med-a") != null;
            
             
             if(primeiraExecucao){
                 tipoPetC = true;
                 tipoPetG = true;
-                tipoMedM = true;
-                tipoMedV = true;
-                periodMedH = true;
-                periodMedD = true;
-                periodMedS = true;
-                periodMedM = true;
-                periodMedA= true;
+                //tipoMedM = true;
+                //tipoMedV = true;
+                //periodMedH = true;
+                //periodMedD = true;
+                //periodMedS = true;
+                //periodMedM = true;
+                //periodMedA= true;
                 primeiraExecucao = false;
                 
             }
@@ -69,13 +69,13 @@ public class MedicamentoServlet extends HttpServlet {
             request.getSession(true).removeAttribute("nome-medicamento");
             request.getSession(true).removeAttribute("tipo-pet-c");
             request.getSession(true).removeAttribute("tipo-pet-g");
-            request.getSession(true).removeAttribute("tipo-med-m");
-            request.getSession(true).removeAttribute("tipo-med-v");
-            request.getSession(true).removeAttribute("period-med-h");
-            request.getSession(true).removeAttribute("period-med-d");
-            request.getSession(true).removeAttribute("period-med-s");
-            request.getSession(true).removeAttribute("period-med-m");
-            request.getSession(true).removeAttribute("period-med-a");
+            //request.getSession(true).removeAttribute("tipo-med-m");
+            //request.getSession(true).removeAttribute("tipo-med-v");
+            //request.getSession(true).removeAttribute("period-med-h");
+            //request.getSession(true).removeAttribute("period-med-d");
+            //request.getSession(true).removeAttribute("period-med-s");
+            //request.getSession(true).removeAttribute("period-med-m");
+            //request.getSession(true).removeAttribute("period-med-a");
             
           
             
@@ -85,7 +85,7 @@ public class MedicamentoServlet extends HttpServlet {
                 request.getSession(true).setAttribute("tipo-pet-c", tipoPetC);
             if(tipoPetG)
                 request.getSession(true).setAttribute("tipo-pet-g", tipoPetG);
-            if(tipoMedM)
+            /*if(tipoMedM)
                 request.getSession(true).setAttribute("tipo-med-m", tipoMedM);
             if(tipoMedV)
                 request.getSession(true).setAttribute("porte-pet-m", tipoMedV);
@@ -98,40 +98,41 @@ public class MedicamentoServlet extends HttpServlet {
             if(periodMedM)
                 request.getSession(true).setAttribute("period-med-m", periodMedM);
             if(periodMedA)
-                request.getSession(true).setAttribute("period-med-a", periodMedA);
+                request.getSession(true).setAttribute("period-med-a", periodMedA);*/
           
             
-            VacinaMedicamento[] medicamentos = GerenciarMedicamentos.getInstance().selecionaMedicamentosComFiltro(nome, tipoMedM, tipoMedV, tipoPetC, tipoPetG, periodMedH, periodMedD, periodMedS, periodMedM, periodMedA);
-            request.getSession(true).setAttribute("medicamentos", medicamentos); 
+            VacinaMedicamento[] medicamentos = GerenciarMedicamentos.getInstance().selecionaMedicamentosComFiltro(nome, tipoPetC, tipoPetG);
+            request.getSession(true).setAttribute("medicamento", medicamentos); 
             
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-medicamentos.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-vacinas-medicamentos.jsp");
             dispatcher.forward(request, response);
             
+            request.getSession().removeAttribute("medicamento");
             request.getSession().removeAttribute("status");
         }
-        else if(uri.equals("/AnyMais/VacinaseMedicamentos/cadastrar")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-medicamentos.jsp");
+        else if(uri.equals("/AnyMais/medicamentos/cadastrar")){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-vacinas-medicamentos.jsp");
             dispatcher.forward(request, response);
         }
-        else if(uri.equals("/AnyMais/VacinaseMedicamentos/cadastrado")){
+        else if(uri.equals("/AnyMais/medicamentos/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Cadastrar")){
-                String tipo = request.getParameter("tipo-med");
+                //String tipo = request.getParameter("tipo-med");
                 String tipoAnimal = request.getParameter("tipo-pet");
-                String nome = request.getParameter("nome");
+                String nome = request.getParameter("nome-medicamento");
                 Integer periodicidade = Integer.parseInt(request.getParameter("periodicidade"));
                 String observacao = request.getParameter("observacao");            
 
-                VacinaMedicamento novoMed = new VacinaMedicamento(tipo, tipoAnimal, nome, periodicidade, observacao);
+                VacinaMedicamento novoMed = new VacinaMedicamento(1, tipoAnimal, nome, periodicidade, observacao);
                 if(GerenciarMedicamentos.getInstance().adicionarMedicamento(novoMed))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
             }
             
-            response.sendRedirect("/AnyMais/VacinaseMedicamentos");
+            response.sendRedirect("/AnyMais/medicamentos");
         }
-        else if(uri.equals("/AnyMais/VacinaseMedicamentos/excluido")){
+        else if(uri.equals("/AnyMais/medicamentos/excluido")){
             String excluido = request.getParameter("excluido");
             if(excluido != null){
                 int idmed_vac = Integer.parseInt(excluido);
@@ -141,7 +142,45 @@ public class MedicamentoServlet extends HttpServlet {
                     request.getSession().setAttribute("status", "falha");
             }
             
-            response.sendRedirect("/AnyMais/VacinaseMedicamentos");
+            response.sendRedirect("/AnyMais/medicamentos");
+        } else if(uri.equals("/AnyMais/medicamentos/atualizar")){
+            String atualizado = request.getParameter("atualizado");
+            if(atualizado != null){
+                int idmed_vac = Integer.parseInt(atualizado);
+                VacinaMedicamento[] medicamentos = GerenciarMedicamentos.getInstance().selecionaMedicamentos();
+                VacinaMedicamento medicamentoAtualizacao = null;
+                for(VacinaMedicamento medicamento : medicamentos){
+                    if(medicamento.getId() == idmed_vac){
+                        medicamentoAtualizacao = medicamento;
+                        break;
+                    }
+                }
+                request.getSession(true).setAttribute("medicamento", medicamentoAtualizacao);
+            }
+            else{
+                request.getSession(true).removeAttribute("medicamento");
+            }
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-vacinas-medicamentos.jsp");
+            dispatcher.forward(request, response);
+        } else if(uri.equals("/AnyMais/medicamentos/atualizado")){
+            String cadastrar = request.getParameter("cadastrar");
+            if(cadastrar != null && cadastrar.equals("Atualizar")){
+                int idmed_vac = ((VacinaMedicamento) request.getSession(true).getAttribute("medicamento")).getId();
+                String tipoAnimal = request.getParameter("tipo-pet");
+                String nome = request.getParameter("nome-medicamento");
+                int periodicidade = ((VacinaMedicamento) request.getSession(true).getAttribute("medicamento")).getPeriodicidade();
+                String observacao = request.getParameter("observacao");            
+
+                VacinaMedicamento medicamentoAtualizado = new VacinaMedicamento(idmed_vac, tipoAnimal, nome, periodicidade, observacao);
+                if(GerenciarMedicamentos.getInstance().atualizarMedicamento(medicamentoAtualizado))
+                    request.getSession().setAttribute("status", "sucesso");
+                else
+                    request.getSession().setAttribute("status", "falha");
+                
+                
+            }
+            
+            response.sendRedirect("/AnyMais/medicamentos");
         }
     }
 

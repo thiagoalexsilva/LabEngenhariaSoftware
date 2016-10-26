@@ -150,7 +150,7 @@ body{
 	margin-left: 5px;
 }
 
-.adicionar-pet-button{
+.adicionar-pet-button, .adicionar-medicamento-button{
 	width: 30px;
 	margin-left: 6px;
 }

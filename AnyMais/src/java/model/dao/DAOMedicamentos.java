@@ -122,12 +122,13 @@ public class DAOMedicamentos {
     
     private VacinaMedicamento getMedicamento(ResultSet rs){
         try {
-            String tipo = rs.getString(1);
+            int id = rs.getInt(1);
+            //String tipo = rs.getString(1);
             String tipoAnimal = rs.getString(2);
             String nomeMedicamento = rs.getString(3);
             int periodicidade = rs.getInt(4);
             String descMedicamento = rs.getString(5);
-            return new VacinaMedicamento(tipo, tipoAnimal, nomeMedicamento, periodicidade, descMedicamento); 
+            return new VacinaMedicamento(id, tipoAnimal, nomeMedicamento, periodicidade, descMedicamento); 
         } catch (SQLException ex) {
             Logger.getLogger(DAOMedicamentos.class.getName()).log(Level.SEVERE, null, ex);
         }

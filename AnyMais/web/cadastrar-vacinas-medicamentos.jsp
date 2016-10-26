@@ -35,50 +35,37 @@
                     <input type="image" src="images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
-                    <h3 class="title">Cadastrar Vacinas e Medicamentos</h3>
-                    <form action="">
-                        <table>
-                            <tr>
-                                <td>
-                                    <input type="radio" name="tipo-pet" value="cachorro" class="cadastra-raca label-field-vacina"> Cachorro
-                                </td>
-                                <td>
-                                    <input type="radio" name="tipo-pet" value="gato" class="label-field-vacina"> Gato<br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p class="cadastra-vacina">Nome:</p>
-                                </td>
-                                <td>
-                                    <input type="text" class="label-field-vacina" name="nome-raca">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p class="cadastra-vacina">Periodicidade:</p>
-                                </td>
-                                <td>
-                                    <input type="number" name="periodicidade" class="label-periodo label-field-vacina" min="0">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p class="cadastra-vacina">Observação:</p><br>
-                                </td>
-                                <td colspan="2">
-                                    <textarea rows="4" cols="50" class="label-field-vacina"></textarea> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input type="submit" class="button-cancelar" value="Cancelar">
-                                    <input type="submit" class="button-cadastrar" value="Cadastrar">
-                                </td>
-                            </tr>
+                    <form id="formmedicamentos" action="/AnyMais/medicamentos/cadastrado" method="POST">
+                        <% if(session.getAttribute("raca") == null){ %>
+                            <h3 class="title">Cadastrar Vacinas e Medicamentos</h3>
+                        <% } 
+                            else{ %>
+                            <h3 class="title">Atualizar Vacinas e Medicamentos</h3>
+                        <% } %>
+                            <input type="radio" name="tipo-pet" value="cachorro" class="cadastra-raca label-field-vacina"
+                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinaMedicamento) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
+                            <input type="radio" name="tipo-pet" value="gato" class="label-field-vacina"
+                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinaMedicamento) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                             <br>
-                        </table>
-                    </form> 
+                            <p class="cadastra-vacina">Nome:
+                                <input type="text" class="label-field-vacina" name="nome-medicamento"
+                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getNome().toUpperCase() : ""); %>"></p>
+                            
+                            <p class="cadastra-vacina">Periodicidade:
+                                <input type="number" name="periodicidade" class="label-periodo label-field-vacina" min="0"
+                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getPeriodicidade() : 0); %>"></p>
+                            
+                            <p class="cadastra-vacina">Observação:</p><br>
+                                <textarea name="observacao" rows="4" cols="50" class="label-field-vacina">
+                                    <% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getObservacao() : ""); %>
+                                </textarea>
+                                <br>
+                                
+                            <input type="submit" name="cancelar" class="button-cancelar" value="Cancelar">
+                            <input type="submit" name="cadastrar" class="button-cadastrar"
+                                   value="<% out.print(session.getAttribute("medicamento") == null ? "Cadastrar" : "Atualizar"); %>">
+                            <br>
+                    </form>
                 </div>
             </div>
             <div class="col-md-2"></div>
@@ -86,5 +73,24 @@
         <div class="container c-footer">
             <footer></footer>
         </div>
+                            
+        <script>
+            function load(){
+                var cadastrar = document.getElementsByName("cadastrar")[0];
+                
+                cadastrar.addEventListener("click", function(e){
+                    if(e.target.value == "Cadastrar"){
+                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/cadastrado";
+                        document.getElementById("formmedicamentos").submit();
+                    }
+                    else if(e.target.value == "Atualizar"){
+                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/atualizado";
+                        document.getElementById("formmedicamentos").submit();
+                    }
+                });
+            }
+            
+            load();
+        </script>                   
     </body>
 </html>
