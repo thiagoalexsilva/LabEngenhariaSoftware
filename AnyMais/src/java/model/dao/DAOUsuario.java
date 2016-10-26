@@ -22,16 +22,20 @@ import model.entity.Usuario;
 public class DAOUsuario {
     private static Connection conexao;
     
-    public String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    public String SELECT_SQL = "SELECT * FROM PESSOA WHERE EMAILPESSOA=?;";
-    public String SELECT_NEW_ID_SQL = "SELECT MAX(IDPESSOA) FROM PESSOA;";
+    private String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private String SELECT_SQL = "SELECT * FROM PESSOA WHERE EMAILPESSOA=?;";
+    private String SELECT_NEW_ID_SQL = "SELECT MAX(IDPESSOA) FROM PESSOA;";
     
-    public String INSERT_USUARIO_SQL = "INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?);";
-    public String SELECT_USUARIO_SQL = "SELECT * FROM USUARIO WHERE IDUSUARIO=?;";
-    public String UPDATE_USUARIO_SQL = "UPDATE USUARIO SET GENEROUSUARIO=?, DATANASICMENTOUSUARIO=?, CELULARUSUARIO=?"
+    private String INSERT_USUARIO_SQL = "INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?);";
+    private String SELECT_USUARIO_SQL = "SELECT * FROM USUARIO WHERE IDUSUARIO=?;";
+    private String UPDATE_USUARIO_SQL = "UPDATE USUARIO SET GENEROUSUARIO=?, DATANASICMENTOUSUARIO=?, CELULARUSUARIO=?"
             + "WHERE CPFUSUARIO=?;";
-    public String DELETE_USUARIO_SQL = "DELETE FROM USUARIO WHERE IDUSUARIO=?;";
-    public String SELECT_NEW_ID_USUARIO_SQL = "SELECT MAX(IDUSUARIO) FROM USUARIO;";
+    private String DELETE_USUARIO_SQL = "DELETE FROM USUARIO WHERE IDUSUARIO=?;";
+    private String SELECT_NEW_ID_USUARIO_SQL = "SELECT MAX(IDUSUARIO) FROM USUARIO;";
+    private String SELECT_CPF_USUARIO = "SELECT COUNT(*) "
+            + "FROM USUARIO U INNER JOIN PESSOA P ON (U.IDUSUARIO = P.IDUSUARIO)"
+            + "WHERE U.CPFUSUARIO=?"
+            + "OR P.EMAILPESSOA=?";
 
     public DAOUsuario(){
         conexao = Conexao.getConexao();
@@ -161,11 +165,12 @@ public class DAOUsuario {
             stmt.setInt(1, u_id);
             
             ResultSet u_rs = stmt.executeQuery();
+            String cpf = u_rs.getString(1);
             String sexo = u_rs.getString(2);
             String dataNascimento = u_rs.getString(3);
             String celular = u_rs.getString(4);
             
-            return new Usuario(null, sexo, dataNascimento, celular, u_id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
+            return new Usuario(null, sexo, dataNascimento, celular, id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,5 +193,23 @@ public class DAOUsuario {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+
+    public boolean checkCPF_Email(String cpf, String email) {
+       PreparedStatement stmt;
+        
+        try {
+            stmt = conexao.prepareStatement(SELECT_CPF_USUARIO);
+            stmt.setString(1, cpf);
+            stmt.setString(2, email);
+            
+            ResultSet rs = stmt.executeQuery();
+            int qntd = rs.getInt(1);
+            
+            return qntd != 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
