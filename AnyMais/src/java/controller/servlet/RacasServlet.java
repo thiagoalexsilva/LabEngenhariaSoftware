@@ -84,6 +84,7 @@ public class RacasServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-racas.jsp");
             dispatcher.forward(request, response);
             
+            request.getSession().removeAttribute("raca");
             request.getSession().removeAttribute("status");
         }
         else if(uri.equals("/AnyMais/racas/cadastrar")){
@@ -93,7 +94,7 @@ public class RacasServlet extends HttpServlet {
         else if(uri.equals("/AnyMais/racas/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Cadastrar")){
-                String tipoAnimal = request.getParameter("tipo-pet");
+                String tipoAnimal = request.getParameter("tipo");
                 String nomeRaca = request.getParameter("nome-raca");
                 String porte = request.getParameter("porte");
                 String observacao = request.getParameter("observacao");            
@@ -115,6 +116,46 @@ public class RacasServlet extends HttpServlet {
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
+            }
+            
+            response.sendRedirect("/AnyMais/racas");
+        }
+        else if(uri.equals("/AnyMais/racas/atualizar")){
+            String atualizado = request.getParameter("atualizado");
+            if(atualizado != null){
+                int idraca = Integer.parseInt(atualizado);
+                Raca[] racas = GerenciarRacas.getInstance().selecionaRacas();
+                Raca racaAtualizacao = null;
+                for(Raca raca : racas){
+                    if(raca.getId() == idraca){
+                        racaAtualizacao = raca;
+                        break;
+                    }
+                }
+                request.getSession(true).setAttribute("raca", racaAtualizacao);
+            }
+            else{
+                request.getSession(true).removeAttribute("raca");
+            }
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-racas.jsp");
+            dispatcher.forward(request, response);
+        }
+        else if(uri.equals("/AnyMais/racas/atualizado")){
+            String cadastrar = request.getParameter("cadastrar");
+            if(cadastrar != null && cadastrar.equals("Atualizar")){
+                int idRaca = ((Raca) request.getSession(true).getAttribute("raca")).getId();
+                String tipoAnimal = request.getParameter("tipo");
+                String nomeRaca = request.getParameter("nome-raca");
+                String porte = request.getParameter("porte");
+                String observacao = request.getParameter("observacao");            
+
+                Raca racaAtualizada = new Raca(idRaca, tipoAnimal, nomeRaca, porte, observacao);
+                if(GerenciarRacas.getInstance().atualizarRaca(racaAtualizada))
+                    request.getSession().setAttribute("status", "sucesso");
+                else
+                    request.getSession().setAttribute("status", "falha");
+                
+                
             }
             
             response.sendRedirect("/AnyMais/racas");

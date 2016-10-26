@@ -67,8 +67,10 @@
                                 <th class="table-raca-title">Raça</th>
                                 <th class="table-raca-title">Porte</th>
                                 <th class="table-raca-title"></th>
+                                <th class="table-raca-title"></th>
                             </tr>
                             <input type="hidden" name="excluido" value=""/>
+                            <input type="hidden" name="atualizado" value=""/>
                             <%
                                 if (session.getAttribute("racas") instanceof Raca[]) {
                                     Raca[] racas = (Raca[]) session.getAttribute("racas");
@@ -80,7 +82,10 @@
                                             <td><% out.print(raca.getNomeRaca()); %><br></td>
                                             <td><% out.print(raca.getPorte()); %></td>
                                             <td>
-                                                <center><input name="image" id="<% out.print(raca.getId()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<% out.print(raca.getId()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                            </td>
+                                            <td>
+                                                <center><input name="atualizar" id="<% out.print(raca.getId()); %>" type="image" src="images/edit.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>
@@ -107,24 +112,34 @@
 
                 // Links de exclusão de raças
 
-                var imagens = document.getElementsByName("image");
+                var excluir = document.getElementsByName("excluir");
                 var i = 0;
-                for (i = 0; i < imagens.length; i++) {
-                    imagens[i].addEventListener('click', function (e) {
+                for (i = 0; i < excluir.length; i++) {
+                    excluir[i].addEventListener('click', function (e) {
                         document.getElementsByName("excluido")[0].value = e.target.id;
                         document.getElementById("formracas").action = "/AnyMais/racas/excluido";
                         document.getElementById("formracas").submit();
                     });
                 }
                 
-                // Links de filtro de raças
+                var atualizar = document.getElementsByName("atualizar");
+                var i = 0;
+                for (i = 0; i < atualizar.length; i++) {
+                    atualizar[i].addEventListener('click', function (e) {
+                        document.getElementsByName("atualizado")[0].value = e.target.id;
+                        document.getElementById("formracas").action = "/AnyMais/racas/atualizar";
+                        document.getElementById("formracas").submit();
+                    });
+                }
                 
                 var adicionarRaca = document.getElementsByName("adicionar-raca")[0];
                 adicionarRaca.addEventListener("click", function(){
                     document.getElementById("formracas").action = "/AnyMais/racas/cadastrar";
                     document.getElementById("formracas").submit();
                 });
-
+                
+                // Links de filtro de raças
+                
                 var filtros = [];
                 filtros.push(document.getElementsByName("procuraRacas")[0]);
                 filtros.push(document.getElementsByName("tipo-pet-c")[0]);

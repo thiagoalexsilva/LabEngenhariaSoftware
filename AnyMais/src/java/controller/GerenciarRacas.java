@@ -39,29 +39,33 @@ public class GerenciarRacas {
         ArrayList<Raca> filtroRacas = new ArrayList<Raca>();
         
         for(Raca raca : todasRacas){
-            /*if((cachorro && raca.getTipoAnimal().toUpperCase().equals("CACHORRO"))
+            if((cachorro && raca.getTipoAnimal().toUpperCase().equals("CACHORRO"))
                     ||
-               (gato && raca.getTipoAnimal().toUpperCase().equals("GATO"))){
+               (gato && raca.getTipoAnimal().toUpperCase().equals("GATO"))
+                    ||
+               (!cachorro && !gato)){
                 
                 if((pequeno && raca.getPorte().toUpperCase().equals("PEQUENO"))
                         ||
                    (medio && raca.getPorte().toUpperCase().equals("MEDIO"))
                         ||
-                   (grande && raca.getPorte().toUpperCase().equals("GRANDE"))){
+                   (grande && raca.getPorte().toUpperCase().equals("GRANDE"))
+                        ||
+                   (!grande && !medio && !pequeno)){
                     if(nome.isEmpty() || nome.toUpperCase().equals(raca.getNomeRaca().toUpperCase())){
                         filtroRacas.add(raca);
                     }
                 }
-            }*/ 
+            } 
             
             //Descomentar linhas acima
             //Eliminar linhas abaixo
-            
+            /*
             if(cachorro && raca.getId()%2 == 0 || gato && raca.getId()%2 == 1){
                 if(nome.isEmpty() || nome.toUpperCase().equals(raca.getNomeRaca().toUpperCase())){
                     filtroRacas.add(raca);
                 }
-            }
+            }*/
             
         }
         

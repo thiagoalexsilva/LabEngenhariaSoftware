@@ -25,22 +25,33 @@ public class DAORaca {
     
     private static Connection conexao;
     
-    public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?);";
+    public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?, ?);";
     public String SELECT_SQL = "SELECT * FROM RACA_ANIMAL";
-    public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
+    public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, TIPOANIMALRACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
     public String DELETE_SQL = "DELETE FROM RACA_ANIMAL WHERE IDRACA=?;";
 
-    public String SELECT_WHERE_SQL = SELECT_SQL + " WHERE ";
-    
-    public String NOMERACA_NOT = "NOMERACA <> ";
-    public String TIPOANIMAL_NOT_CACHORRO = "TIPOANIMALRACA <> 'CACHORRO'";
-    public String TIPOANIMAL_NOT_GATO = "TIPOANIMALRACA <> 'GATO'";
-    public String PORTE_NOT_PEQUENO = "PORTERACA <> 'PEQUENO'";
-    public String PORTE_NOT_MEDIO = "PORTERACA <> 'MEDIO'";
-    public String PORTE_NOT_GRANDE = "PORTERACA <> 'GRANDE'";
-        
+    public String SELECT_MAX_ID_SQL = "SELECT COALESCE(MAX(IDRACA), 0)+1 FROM RACA_ANIMAL;";
+       
     public DAORaca(){
         conexao = Conexao.getConexao();
+    }
+    
+    private int nextId(){
+        
+        PreparedStatement stmt;
+        try {
+            stmt = conexao.prepareStatement(SELECT_MAX_ID_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            return id;
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
     }
     
     public boolean insert(Raca raca){
@@ -48,10 +59,11 @@ public class DAORaca {
         PreparedStatement stmt;
         try {
             stmt = conexao.prepareStatement(INSERT_SQL);
-            stmt.setInt(1, raca.getId());
+            stmt.setInt(1, nextId());
             stmt.setString(2, raca.getNomeRaca());
-            stmt.setString(3, raca.getPorte());
-            stmt.setString(4, raca.getObservacao());
+            stmt.setString(3, raca.getTipoAnimal());
+            stmt.setString(4, raca.getPorte());
+            stmt.setString(5, raca.getObservacao());
             
             stmt.execute();
             
@@ -96,9 +108,10 @@ public class DAORaca {
         try {
             stmt = conexao.prepareStatement(UPDATE_SQL);
             stmt.setString(1, raca.getNomeRaca());
-            stmt.setString(2, raca.getPorte());
-            stmt.setString(3, raca.getObservacao());
-            stmt.setInt(4, raca.getId());
+            stmt.setString(2, raca.getTipoAnimal());
+            stmt.setString(3, raca.getPorte());
+            stmt.setString(4, raca.getObservacao());
+            stmt.setInt(5, raca.getId());
             
             stmt.execute();
             
@@ -130,9 +143,10 @@ public class DAORaca {
         try {
             int id = rs.getInt(1);
             String nomeRaca = rs.getString(2);
-            String porteRaca = rs.getString(3);
-            String observacao = rs.getString(4);
-            return new Raca(id, nomeRaca, nomeRaca, porteRaca, observacao); //primeiro nomeRaca = tipoAnimal
+            String tipoAnimalRaca = rs.getString(3);
+            String porteRaca = rs.getString(4);
+            String observacao = rs.getString(5);
+            return new Raca(id, tipoAnimalRaca, nomeRaca, porteRaca, observacao);
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }

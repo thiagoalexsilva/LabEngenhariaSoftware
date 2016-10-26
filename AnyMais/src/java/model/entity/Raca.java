@@ -15,7 +15,7 @@ public class Raca {
     @Column(name="idraca", nullable=false, unique=true)
     private int id;
     
-    //@Column(name="tipoanimalraca", nullable=false, unique=true)
+    @Column(name="tipoanimalraca", nullable=false, unique=true)
     private String tipoAnimal;
     
     @Column(name="nomeraca", nullable=false, unique=true)
