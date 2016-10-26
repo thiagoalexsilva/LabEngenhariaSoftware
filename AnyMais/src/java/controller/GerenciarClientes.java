@@ -7,8 +7,9 @@
 package controller;
 
 import framework.DAO;
-import model.dao.DAOPessoa;
+import model.dao.DAOUsuario;
 import model.entity.Pessoa;
+import model.entity.Usuario;
 
 /**
  *
@@ -16,10 +17,10 @@ import model.entity.Pessoa;
  */
 public class GerenciarClientes {
    private static GerenciarClientes instance;
-    private DAOPessoa daoCliente;
+    private DAOUsuario daoCliente;
 
     private GerenciarClientes(){
-        daoCliente = new DAOPessoa();
+        daoCliente = new DAOUsuario();
     }
 
     public static GerenciarClientes getInstance(){
@@ -32,11 +33,11 @@ public class GerenciarClientes {
         return daoCliente.select(email);
     }
     
-    public boolean adicionarCliente(Pessoa cliente){
+    public boolean adicionarCliente(Usuario cliente){
         return daoCliente.insert(cliente);
     }
     
-    public boolean atualizarCliente(Pessoa cliente){
+    public boolean atualizarCliente(Usuario cliente){
         return daoCliente.update(cliente);
     }
     

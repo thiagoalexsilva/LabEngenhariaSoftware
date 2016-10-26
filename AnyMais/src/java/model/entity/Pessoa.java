@@ -19,10 +19,9 @@ public class Pessoa{
     private String cep;
     private String uf;
     private String telefone;
-    private String sexo;
     private int tipo;
 
-    public Pessoa(int id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, String sexo, int tipo) {
+    public Pessoa(int id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, int tipo) {
         this.id = id;
         this.email = email;
         this.senha = senha;
@@ -34,31 +33,6 @@ public class Pessoa{
         this.cep = cep;
         this.uf = uf;
         this.telefone = telefone;
-        this.sexo = sexo;
-        this.tipo = tipo;
-    }
-
-    public Pessoa() {
-        this.id = 0;
-        this.email = null;
-        this.senha = null;
-        this.nome = null;
-        this.end = null;
-        this.bairro = null;
-        this.complemento = null;
-        this.cidade = null;
-        this.cep = null;
-        this.uf = null;
-        this.telefone = null;
-        this.sexo = null;
-        this.tipo = 0;
-    }
-    
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 
@@ -150,11 +124,13 @@ public class Pessoa{
         this.telefone = telefone;
     }
 
-    public String getSexo() {
-        return sexo;
+    public int getTipo() {
+        return tipo;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
+
+    
 }
