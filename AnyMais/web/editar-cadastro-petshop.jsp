@@ -1,9 +1,11 @@
+<%-- 
+    Document   : editar-cadastro-petshop
+    Created on : 25/10/2016, 23:40:29
+    Author     : Erica
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Any+</title>
@@ -26,13 +28,13 @@ and open the template in the editor.
             <div class="col-md-8">
                 <div class="menu menu-petshop">
                     <img src="images/profile-image.png" class="menu-profile-image"/><br>
-                    <a href="editar-perfil-cliente.html"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="editar-cadastro-petshop.jsp"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
                     <a href="servicos.html"><input type="image" src="images/servicos-button.png" class="menu-servicos" /></a><br>
                     <a href="mensagens-cliente.html"><input type="image" src="images/mensagens-button.png" class="menu-mensagens" /></a><br>
                     <a href="agendamentos-cliente.html"><input type="image" src="images/agendamento-button.png" class="menu-agendamento" /></a><br>
                     <input type="image" src="images/logout-button.png" class="logout-button" />
                 </div>
-                <a href="home-petshop.html"><input type="image" src="images/home-button2.png" class="menu2-home2" /></a>
+                <a href="home-petshop.jsp"><input type="image" src="images/home-button2.png" class="menu2-home2" /></a>
                 <a href="avaliacoes.html"><input type="image" src="images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>
                 <div class="principal principal-petshop">
                     <h4 class="title">Editar Perfil</h4>
@@ -78,8 +80,35 @@ and open the template in the editor.
                         <tr>
                           <td class="editar-cadastro-field">UF </td>
                           <td colspan="5" class="editar-cadastro-field">
-                              <select name="uf" required class="editar-uf">
+                              <select name="uf" required class="editar-cadastro-uf">
                                 <option></option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
                               </select>
                           </td>
                         </tr>
@@ -121,6 +150,7 @@ and open the template in the editor.
                         </tr>
                         <tr>
                             <td colspan="6" class="editar-cadastro-field">
+                                <input type="submit" class="button-deletar" value="Deletar Conta">
                                 <input type="submit" class="button-cancelar" value="Cancelar">
                                 <input type="submit" class="button-cadastrar" value="Cadastrar">
                             </td>

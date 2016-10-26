@@ -114,6 +114,15 @@ body{
 	float: right;
 }
 
+.button-deletar{
+	background-color: red;
+	color: white;
+	margin-top: 10px;
+	margin-left: 8px;
+	margin-right: 5px;
+	float: right;
+}
+
 .principal{
 	border: 1px solid;
 	width: 550px;
@@ -210,8 +219,8 @@ body{
 	height: 25px;
 }
 
-.editar-uf{
-	width: 45px;
+.editar-cadastro-uf{
+	width: 70px;
 	height: 20px;
 }
 

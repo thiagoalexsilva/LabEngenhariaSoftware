@@ -76,4 +76,20 @@ private static Connection conexao;
         
         return false;
     }    
+    
+    public boolean delete(int idPetShop){
+        
+        PreparedStatement stmt;
+        try {
+            stmt = conexao.prepareStatement(DELETE_SQL);
+            stmt.setInt(1, idPetShop);
+            stmt.execute();
+            
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
 }

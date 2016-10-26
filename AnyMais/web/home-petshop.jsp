@@ -1,9 +1,11 @@
+<%-- 
+    Document   : home-petshop
+    Created on : 25/10/2016, 23:31:58
+    Author     : Erica
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Any+</title>
@@ -26,7 +28,7 @@ and open the template in the editor.
             <div class="col-md-8">
                 <div class="menu menu-cliente">
                     <img src="images/profile-image.png" class="menu-profile-image"/><br>
-                    <a href="editar-perfil-cliente.html"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="editar-cadastro-petshop.html"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
                     <a href="servicos.html"><input type="image" src="images/servicos-button.png" class="menu-servicos" /></a><br>
                     <a href="mensagens-cliente.html"><input type="image" src="images/mensagens-button.png" class="menu-mensagens" /></a><br>
                     <a href="agendamentos-cliente.html"><input type="image" src="images/agendamento-button.png" class="menu-agendamento" /></a><br>
