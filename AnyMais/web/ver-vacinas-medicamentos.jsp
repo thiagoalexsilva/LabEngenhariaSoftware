@@ -1,3 +1,10 @@
+<%-- 
+    Document   : ver-vacinas-medicamentos
+    Created on : 26/10/2016, 03:56:56
+    Author     : ana
+--%>
+<%@page import="model.entity.VacinaMedicamento"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html lang="en">
