@@ -6,18 +6,23 @@ import java.util.Date;
  * @author Erica
  */
 
-public class Usuario{
+public class Usuario extends Pessoa{
     
     private String cpf;
-    private String endereco;
-    private Date dataNascimento;
+    private String sexo;
+    private String dataNascimento;
     private String celular;
 
-    public Usuario(String cpf, String endereco, Date dataNascimento, String celular) {
+    public Usuario(String cpf, String sexo, String dataNascimento, String celular, int id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, int tipo) {
+        super(id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
         this.cpf = cpf;
-        this.endereco = endereco;
+        this.sexo = sexo;
         this.dataNascimento = dataNascimento;
         this.celular = celular;
+    }
+
+    public Usuario() {
+        super(0, null, null, null, null, null, null, null, null, null, null, 0);
     }
 
     public String getCpf() {
@@ -28,19 +33,19 @@ public class Usuario{
         this.cpf = cpf;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
-    public Date getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -51,6 +56,6 @@ public class Usuario{
     public void setCelular(String celular) {
         this.celular = celular;
     }
-    
+
     
 }
