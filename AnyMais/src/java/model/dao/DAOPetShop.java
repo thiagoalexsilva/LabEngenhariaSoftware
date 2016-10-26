@@ -23,7 +23,7 @@ import model.entity.Usuario;
 public class DAOPetShop {
     public static Connection conexao;
     
-    public String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    public String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     public String SELECT_SQL = "SELECT * FROM PESSOA WHERE EMAILPESSOA=?;";
     public String SELECT_NEW_ID_SQL = "SELECT MAX(IDPESSOA) FROM PESSOA;";
     
@@ -37,41 +37,84 @@ public class DAOPetShop {
             + "WHERE PS.CNPJPET=?"
             + "OR P.EMAILPESSOA=?";
     
+    public String SELECT_MAX_ID_PESSOA_SQL = "SELECT COALESCE(MAX(IDPESSOA), 0)+1 FROM PESSOA;";
+    public String SELECT_MAX_ID_PETSHOP_SQL = "SELECT COALESCE(MAX(IDPET), 0)+1 FROM PETSHOP;";
+    
     public DAOPetShop(){
         conexao = Conexao.getConexao();
     }    
     
+    private int nextIdPetShop(){
+        
+        PreparedStatement stmt;
+        try {
+            stmt = conexao.prepareStatement(SELECT_MAX_ID_PETSHOP_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            return id;
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPetShop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+    
+    private int nextIdPessoa(){
+        
+        PreparedStatement stmt;
+        try {
+            stmt = conexao.prepareStatement(SELECT_MAX_ID_PESSOA_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int id = rs.getInt(1);
+            return id;
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPetShop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return 0;
+    }
+    
     public boolean insert(PetShop petshop){
-        int petshopId, pessoaId;
+        int pessoaId;
         PreparedStatement stmt;
         
         try{
-            petshopId = newId(SELECT_NEW_ID_PETSHOP_SQL);
+            int petshopId = nextIdPetShop();
+            //petshopId = newId(SELECT_NEW_ID_PETSHOP_SQL);
             stmt = conexao.prepareStatement(INSERT_PETSHOP_SQL);
-            stmt.setInt(1, petshopId);
-            stmt.setString(2, petshop.getCnpj());
-            stmt.setString(3, petshop.getTelefone2());
-            
-            stmt.execute();
-            
-            pessoaId = newId(SELECT_NEW_ID_SQL);
+                      
+            //pessoaId = newId(SELECT_NEW_ID_SQL);
             stmt = conexao.prepareStatement(INSERT_SQL);
-            stmt.setInt(1, pessoaId);
-            stmt.setString(2, petshop.getNome());
-            stmt.setString(3, petshop.getEmail());
-            stmt.setString(4, petshop.getSenha());
-            stmt.setInt(5, petshop.getTipo());
-            stmt.setString(6, petshop.getEnd());
-            stmt.setString(7, petshop.getBairro());
-            stmt.setString(8, petshop.getComplemento());
-            stmt.setString(9, petshop.getCidade());
-            stmt.setString(10, petshop.getCep());
-            stmt.setString(11, petshop.getUf());
-            stmt.setString(12, petshop.getTelefone());
-            stmt.setInt(13, petshopId);
+            stmt.setInt(1, nextIdPessoa());
+            stmt.setString(2, petshop.getEmail());
+            stmt.setString(3, petshop.getSenha());
+            stmt.setString(4, petshop.getNome());
+            stmt.setString(5, petshop.getEnd());
+            stmt.setString(6, petshop.getBairro());
+            stmt.setString(7, petshop.getComplemento());
+            stmt.setString(8, petshop.getCidade());
+            stmt.setString(9, petshop.getCep());
+            stmt.setString(10, petshop.getUf());
+            stmt.setString(11, petshop.getTelefone());
+            stmt.setInt(12, petshop.getTipo());
+            stmt.setInt(14, petshopId);
             
             stmt.execute();
             
+            stmt = conexao.prepareStatement(INSERT_PETSHOP_SQL);
+            
+            stmt.setInt(1, petshopId);
+            stmt.setString(2, petshop.getTelefone2());
+            stmt.setString(3, petshop.getCnpj());
+
+            stmt.execute();
+
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOPetShop.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,7 +168,7 @@ public class DAOPetShop {
             stmt.setInt(1, idPetShop);
             
             ResultSet rs = stmt.executeQuery();
-            int pet_id = rs.getInt(13);
+            int pet_id = rs.getInt(14);
             
             stmt = conexao.prepareStatement(DELETE_PETSHOP_SQL);
             stmt.setInt(1, idPetShop);
@@ -144,27 +187,28 @@ public class DAOPetShop {
             
         try {
             int id              = rs.getInt(1);
-            String nome         = rs.getString(2);
-            String email        = rs.getString(3);
-            String senha        = rs.getString(4);
-            int tipo            = rs.getInt(5);
-            String end          = rs.getString(6);
-            String bairro       = rs.getString(7);
-            String complemento  = rs.getString(8);
-            String cidade       = rs.getString(9);
-            String cep          = rs.getString(10);
-            String uf           = rs.getString(11);
-            String telefone     = rs.getString(12);
-            int pet_id          = rs.getInt(13);
+            String email        = rs.getString(2);
+            String senha        = rs.getString(3);
+            String nome         = rs.getString(4);
+            String end          = rs.getString(5);
+            String bairro       = rs.getString(6);
+            String complemento  = rs.getString(7);
+            String cidade       = rs.getString(8);
+            String cep          = rs.getString(9);
+            String uf           = rs.getString(10);
+            String telefone     = rs.getString(11);
+            int tipo            = rs.getInt(12);
+            int p_id            = rs.getInt(14);
             
             stmt = conexao.prepareStatement(SELECT_PETSHOP_SQL);
-            stmt.setInt(1, pet_id);
+            stmt.setInt(1, p_id);
             
             ResultSet u_rs = stmt.executeQuery();
+            int new_id = u_rs.getInt(1);
             String telefone2 = u_rs.getString(2);
             String cnpj = u_rs.getString(3);
             
-            return new PetShop(cnpj, id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, telefone2, tipo);
+            return new PetShop(id, cnpj, new_id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, telefone2, tipo);
         } catch (SQLException ex) {
             Logger.getLogger(DAOPetShop.class.getName()).log(Level.SEVERE, null, ex);
         }

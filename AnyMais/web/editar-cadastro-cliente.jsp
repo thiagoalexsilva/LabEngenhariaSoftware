@@ -40,7 +40,7 @@ and open the template in the editor.
                 <div class="principal principal-cliente">
                     <h4 class="title">Editar Perfil</h4>
                     
-                    <form class="editar-form" action="/AnyMais/usuario/atualizado">
+                    <form id="formcliente" class="editar-form" action="/AnyMais/usuario/atualizado">
                     <table>
                         <tr>
                           <td class="editar-cadastro-field">Nome </td>
@@ -141,7 +141,7 @@ and open the template in the editor.
                           </td>
                           <td class="editar-cadastro-field">Celular </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="celular"
+                              <input type="text" class="label-field editar-coluna2" name="telefone2"
                                      value="<% out.print(session.getAttribute("usuario") != null ? ((Usuario) session.getAttribute("usuario")).getCelular(): 0); %>">
                           </td>
                         </tr>
@@ -189,5 +189,20 @@ and open the template in the editor.
         <div class="container c-footer">
             <footer></footer>
         </div>
+                                
+        <script>
+            function load(){
+                var cadastrar = document.getElementsByName("cadastrar")[0];
+                
+                cadastrar.addEventListener("click", function(e){
+                    if(e.target.value == "Atualizar"){
+                        document.getElementById("formcliente").action = "/AnyMais/racas/atualizado";
+                        document.getElementById("formcliente").submit();
+                    }
+                });
+            }
+            
+            load();
+            </script>
     </body>
 </html>

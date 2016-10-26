@@ -6,19 +6,25 @@ package model.entity;
 
 public class PetShop extends Pessoa{
     
+    private int p_id;
     private String cnpj;
     private String telefone2;
 
-    public PetShop(String cnpj, int id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, String telefone2, int tipo) {
+    public PetShop(int id, String cnpj, int p_id, String email, String senha, String nome, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, String telefone2, int tipo) {
         super(id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
         this.cnpj = cnpj;
         this.telefone2 = telefone2;
+        this.p_id = p_id;
     }
 
     public PetShop() {
         super(0, null, null, null, null, null, null, null, null, null, null, 0);
     }
 
+    public int getP_Id() {
+        return p_id;
+    }
+    
     public String getCnpj() {
         return cnpj;
     }

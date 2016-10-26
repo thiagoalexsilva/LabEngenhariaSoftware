@@ -131,7 +131,7 @@
                           </td>
                           <td class="cadastrar-field">Telefone 2 </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="text" class="label-field coluna2" name="celular">
+                              <input type="text" class="label-field coluna2" name="telefone2">
                           </td>
                         </tr>
                         <tr>

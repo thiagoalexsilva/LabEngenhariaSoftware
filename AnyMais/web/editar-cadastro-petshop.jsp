@@ -4,6 +4,7 @@
     Author     : Erica
 --%>
 
+<%@page import="model.entity.PetShop"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -39,12 +40,13 @@
                 <div class="principal principal-petshop">
                     <h4 class="title">Editar Perfil</h4>
                     
-                    <form class="editar-form" action="">
+                    <form id="formpetshop" class="editar-form" action="">
                     <table>
                         <tr>
                           <td class="editar-cadastro-field">Nome </td>
                           <td colspan="4" class="editar-cadastro-field">
-                              <input type="text" class="label-field-editar" name="nome" required>
+                              <input type="text" class="label-field-editar" name="nome" required
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getNome().toUpperCase() : ""); %>">>
                           </td>
                           <td>
                               <img class="editar-foto" src="images/profile-image.png"/><br>
@@ -54,27 +56,32 @@
                         <tr>
                           <td class="editar-cadastro-field">Endereço </td>
                           <td colspan="5" class="editar-cadastro-field">
-                              <input type="text" class="label-field-editar" name="endereco" required>
+                              <input type="text" class="label-field-editar" name="endereco" required
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getEnd().toUpperCase() : ""); %>">>
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">Bairro </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field-teste editar-coluna1" name="bairro" required>
+                              <input type="text" class="label-field-teste editar-coluna1" name="bairro" required
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getBairro().toUpperCase() : ""); %>">>
                           </td>
                           <td class="editar-cadastro-field">Complemento </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="complemento" required>
+                              <input type="text" class="label-field editar-coluna2" name="complemento" 
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getComplemento().toUpperCase() : ""); %>">>
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">CEP </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna1" name="cep" required> 
+                              <input type="text" class="label-field editar-coluna1" name="cep" required
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getCep().toUpperCase() : ""); %>">> 
                           </td>
                           <td class="editar-cadastro-field">Cidade </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="cidade" required>
+                              <input type="text" class="label-field editar-coluna2" name="cidade" required
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getCidade().toUpperCase() : ""); %>">>
                           </td>
                         </tr>
                         <tr>
@@ -115,31 +122,34 @@
                         <tr>
                           <td class="editar-cadastro-field">Telefone </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna1" name="telefone" required>
+                              <input type="text" class="label-field editar-coluna1" name="telefone"
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getTelefone() : ""); %>">>
                           </td>
                           <td class="editar-cadastro-field">Telefone 2 </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="celular">
+                              <input type="text" class="label-field editar-coluna2" name="celular"
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getTelefone2() : ""); %>">>
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">E-mail </td>
                           <td class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna1" name="email" required>
+                              <input type="text" class="label-field editar-coluna1" name="email" required
+                                     value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getEmail().toUpperCase() : ""); %>">>
                           </td>
                           <td class="editar-cadastro-field">Confirmar E-mail </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="text" class="label-field editar-coluna2" name="confirma-email" required>
+                              <input type="text" class="label-field editar-coluna2" name="confirma-email">
                           </td>
                         </tr>
                         <tr>
                           <td class="editar-cadastro-field">Senha </td>
                           <td class="editar-cadastro-field">
-                              <input type="password" class="label-field editar-coluna1" name="senha" required>
+                              <input type="password" class="label-field editar-coluna1" name="senha">
                           </td>
                           <td class="editar-cadastro-field">Confirmar Senha </td>
                           <td colspan="2" class="editar-cadastro-field">
-                              <input type="password" class="label-field editar-coluna2" name="confirma-senha" required>
+                              <input type="password" class="label-field editar-coluna2" name="confirma-senha">
                           </td>
                         </tr>
                         <tr>
@@ -164,5 +174,21 @@
         <div class="container c-footer">
             <footer></footer>
         </div>
+                          
+                          
+        <script>
+            function load(){
+                var cadastrar = document.getElementsByName("cadastrar")[0];
+                
+                cadastrar.addEventListener("click", function(e){
+                    if(e.target.value == "Atualizar"){
+                        document.getElementById("formpetshop").action = "/AnyMais/petshop/atualizado";
+                        document.getElementById("formpetshop").submit();
+                    }
+                });
+            }
+            
+            load();
+            </script>
     </body>
 </html>

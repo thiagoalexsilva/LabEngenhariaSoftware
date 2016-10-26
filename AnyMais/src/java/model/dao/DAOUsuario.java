@@ -26,7 +26,7 @@ public class DAOUsuario {
     private String SELECT_SQL = "SELECT * FROM PESSOA WHERE EMAILPESSOA=?;";
     private String SELECT_NEW_ID_SQL = "SELECT MAX(IDPESSOA) FROM PESSOA;";
     
-    private String INSERT_USUARIO_SQL = "INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?);";
+    private String INSERT_USUARIO_SQL = "INSERT INTO USUARIO VALUES (?, ?, ?, ?, ?, ?);";
     private String SELECT_USUARIO_SQL = "SELECT * FROM USUARIO WHERE IDUSUARIO=?;";
     private String UPDATE_USUARIO_SQL = "UPDATE USUARIO SET GENEROUSUARIO=?, DATANASICMENTOUSUARIO=?, CELULARUSUARIO=?"
             + "WHERE CPFUSUARIO=?;";
@@ -82,7 +82,7 @@ public class DAOUsuario {
     
     
     public boolean insert(Usuario usuario){
-        int userid, pessoaid;
+        int pessoaid;
         PreparedStatement stmt;
         try {        
             //userid = newId(SELECT_NEW_ID_USUARIO_SQL);
@@ -128,6 +128,7 @@ public class DAOUsuario {
             stmt.setString(3, usuario.getSexo());
             stmt.setString(4, usuario.getDataNascimento());
             stmt.setString(5, usuario.getCelular());
+            stmt.setString(6, usuario.getMensagem());
             
             stmt.execute();
  
@@ -168,6 +169,7 @@ public class DAOUsuario {
             stmt.setString(2, usuario.getDataNascimento());
             stmt.setString(3, usuario.getCelular());
             stmt.setString(4, usuario.getCpf());
+            stmt.setString(5, usuario.getMensagem());
             
             stmt.execute();
             
@@ -187,10 +189,10 @@ public class DAOUsuario {
             stmt.setString(1, email);
             
             ResultSet rs = stmt.executeQuery();
-            int u_id = rs.getInt(13);
+            int p_id = rs.getInt(14);
             
             stmt = conexao.prepareStatement(DELETE_USUARIO_SQL);
-            stmt.setInt(1, u_id);
+            stmt.setInt(1, p_id);
             stmt.execute();
            
             return true;
@@ -242,8 +244,9 @@ public class DAOUsuario {
             String sexo = u_rs.getString(3);
             String dataNascimento = u_rs.getString(4);
             String celular = u_rs.getString(5);
+            String mensagem = u_rs.getString(6);
             
-            return new Usuario(id, cpf, sexo, dataNascimento, celular, new_id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo);
+            return new Usuario(id, cpf, sexo, dataNascimento, celular, new_id, email, senha, nome, end, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

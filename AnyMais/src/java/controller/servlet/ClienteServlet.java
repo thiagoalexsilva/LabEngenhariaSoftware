@@ -57,7 +57,7 @@ public class ClienteServlet extends HttpServlet {
             String cep = request.getParameter("cep");
             String uf = request.getParameter("uf");
             String telefone = request.getParameter("telefone");
-            String celular = request.getParameter("celular");
+            String celular = request.getParameter("telefone2");
             String sexo = request.getParameter("sexo");  
             String cpf = request.getParameter("cpf-cnpj");  
             String dataNascimento = request.getParameter("nascimento");
