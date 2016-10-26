@@ -7,6 +7,7 @@
 package controller;
 
 import framework.DAO;
+import model.dao.DAOPessoa;
 import model.dao.DAOUsuario;
 import model.entity.Pessoa;
 import model.entity.Usuario;
@@ -18,9 +19,11 @@ import model.entity.Usuario;
 public class GerenciarClientes {
    private static GerenciarClientes instance;
     private DAOUsuario daoCliente;
+    private DAOPessoa daoPessoa;
 
     private GerenciarClientes(){
         daoCliente = new DAOUsuario();
+        daoPessoa = new DAOPessoa();
     }
 
     public static GerenciarClientes getInstance(){
@@ -29,7 +32,7 @@ public class GerenciarClientes {
         return instance;
     }
         
-    public Pessoa selecionarCliente(String email){
+    public Usuario selecionarCliente(String email){
         return daoCliente.select(email);
     }
     
@@ -38,10 +41,10 @@ public class GerenciarClientes {
     }
     
     public boolean atualizarCliente(Usuario cliente){
-        return daoCliente.update(cliente);
+        return daoCliente.update(cliente) && daoPessoa.update(cliente);
     }
     
     public boolean excluirCliente(String email, String senha){
-        return daoCliente.delete(email, senha);
+        return daoCliente.delete(email, senha) && daoPessoa.delete(email, senha);
     } 
 }

@@ -39,7 +39,7 @@ and open the template in the editor.
                 <div class="principal principal-cliente">
                     <h4 class="title">Editar Perfil</h4>
                     
-                    <form class="editar-form" action="">
+                    <form class="editar-form" action="/AnyMais/usuario/atualizado">
                     <table>
                         <tr>
                           <td class="editar-cadastro-field">Nome </td>
@@ -67,7 +67,7 @@ and open the template in the editor.
                           </td>
                         </tr>
                         <tr>
-                          <td class="editar-cadastro-field">EndereÃ§o </td>
+                          <td class="editar-cadastro-field">Endereço </td>
                           <td colspan="5" class="editar-cadastro-field">
                               <input type="text" class="label-field-editar" name="endereco" required>
                           </td>
@@ -95,6 +95,33 @@ and open the template in the editor.
                           <td class="editar-cadastro-field">
                               <select name="uf" required class="editar-uf">
                                 <option></option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
                               </select>
                           </td>
                         </tr>
@@ -137,7 +164,7 @@ and open the template in the editor.
                         <tr>
                             <td colspan="6" class="editar-cadastro-field">
                                 <input type="submit" class="button-cancelar" value="Cancelar">
-                                <input type="submit" class="button-cadastrar" value="Cadastrar">
+                                <input type="submit" class="button-cadastrar" value="Atualizar">
                             </td>
                         </tr>
                     </table>
