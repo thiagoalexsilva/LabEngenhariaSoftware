@@ -105,20 +105,11 @@ public class DAOUsuario {
         
         PreparedStatement stmt;
         try {
-            stmt = conexao.prepareStatement(UPDATE_SQL);
-            stmt.setInt(1, usuario.getId());
-            stmt.setString(2, usuario.getNome());
-            stmt.setString(3, usuario.getEmail());
-            stmt.setString(4, usuario.getSenha());
-            stmt.setString(5, usuario.getSexo());
-            stmt.setInt(6, usuario.getTipo());
-            stmt.setString(7, usuario.getEnd());
-            stmt.setString(8, usuario.getBairro());
-            stmt.setString(9, usuario.getComplemento());
-            stmt.setString(10, usuario.getCidade());
-            stmt.setString(11, usuario.getCep());
-            stmt.setString(12, usuario.getUf());
-            stmt.setString(13, usuario.getTelefone());
+            stmt = conexao.prepareStatement(UPDATE_USUARIO_SQL);
+            stmt.setString(1, usuario.getSexo());
+            stmt.setString(2, usuario.getDataNascimento());
+            stmt.setString(3, usuario.getCelular());
+            stmt.setString(4, usuario.getCpf());
             
             stmt.execute();
             
@@ -143,12 +134,7 @@ public class DAOUsuario {
             stmt = conexao.prepareStatement(DELETE_USUARIO_SQL);
             stmt.setInt(1, u_id);
             stmt.execute();
-            
-            stmt = conexao.prepareStatement(DELETE_SQL);
-            stmt.setString(1, email);
-            stmt.setString(2, senha);
-            stmt.execute();
-            
+           
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
