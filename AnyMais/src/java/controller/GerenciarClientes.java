@@ -47,4 +47,8 @@ public class GerenciarClientes {
     public boolean excluirCliente(String email, String senha){
         return daoCliente.delete(email, senha) && daoPessoa.delete(email, senha);
     } 
+    
+    public boolean verificarCPF_Email(String cpf, String email){
+        return daoCliente.checkCPF_Email(cpf, email);
+    }
 }

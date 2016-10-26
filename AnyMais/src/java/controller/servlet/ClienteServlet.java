@@ -66,14 +66,14 @@ public class ClienteServlet extends HttpServlet {
             else if(sexo.equals("Feminino")) sexo = "F";
             else sexo = "O";
             
-            if(telefone.isEmpty()) telefone = celular;
-                
             if(email.isEmpty() || senha.isEmpty() || senha2.isEmpty() || nome.isEmpty() || email2.isEmpty() || endereco.isEmpty()
                     || bairro.isEmpty() || cidade.isEmpty() || cep.isEmpty() || uf.isEmpty() || sexo.isEmpty() || cpf.isEmpty()
                     || dataNascimento.isEmpty() || !senha.equals(senha2) || !email.equals(email2) || cpf.length() < 11 || senha.length() < 8
                     || senha2.length() < 8 || (!telefone.isEmpty() && telefone.length() < 9) || (!celular.isEmpty() && celular.length() < 9))
                 request.getSession().setAttribute("status", "falha");
             
+            if(GerenciarClientes.getInstance().verificarCPF_Email(cpf, email))
+                request.getSession().setAttribute("status", "Ja existe usuario com email ou cpf informados.");
             
             // ------------ validacoes de verificacoes --------//
                 
@@ -112,6 +112,7 @@ public class ClienteServlet extends HttpServlet {
             String dataNascimento = request.getParameter("nascimento");
             
             // ------------ validacoes de verificacoes --------//
+                        
             if(sexo.equals("Masculino")) sexo = "M";
             else if(sexo.equals("Feminino")) sexo = "F";
             else sexo = "O";
