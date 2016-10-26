@@ -1,15 +1,24 @@
-﻿-- Centro Federal de Educação Tecnológica de Minas Gerais
+-- Centro Federal de Educação Tecnológica de Minas Gerais
 -- Departamento de Engenharia da Computação - Lab. Engenharia de Software
 -- Any+
 -- SQL Database Script
 
+create table Usuario (
+  idUSUARIO INT NOT NULL,
+  cpfUSUARIO VARCHAR(11),
+  generoUSUARIO VARCHAR(1),
+  dataNascimentoUSUARIO VARCHAR(10),
+  celularUSUARIO VARCHAR(12),
+
+  CONSTRAINT pk_Usuario PRIMARY KEY (idUSUARIO)
+);
+
+
 create table Pessoa (
   idPESSOA INT NOT NULL,
-  nomePESSOA VARCHAR (45) NOT NULL,
   emailPESSOA VARCHAR(45) NOT NULL,
   senhaPESSOA VARCHAR(45) NOT NULL,
-  generoPESSOA VARCHAR(1),
-  tipoPESSSOA INT NOT NULL,
+  nomePESSOA VARCHAR (45) NOT NULL,
   enderecoPESSOA VARCHAR(255) NOT NULL,
   bairroPESSOA VARCHAR(45) NOT NULL,
   complementoPESSOA VARCHAR(45),
@@ -17,8 +26,12 @@ create table Pessoa (
   cepPESSOA VARCHAR(8) NOT NULL,
   ufPESSOA VARCHAR(2) NOT NULL,
   telefonePESSOA VARCHAR(10) NOT NULL,
+  tipoPESSOA INT NOT NULL,
+  idUSUARIO INT,
+  idPET INT,
   
-  CONSTRAINT pk_Pessoa PRIMARY KEY (idPessoa)
+  CONSTRAINT pk_Pessoa PRIMARY KEY (idPessoa),
+  CONSTRAINT fk_UsuarioPessoa FOREIGN KEY (idUSUARIO) REFERENCES Usuario(idUSUARIO) ON DELETE CASCADE
 );
 
 create table Admin (
@@ -40,6 +53,9 @@ create table Petshop (
   CONSTRAINT fk_PetshopPessoa FOREIGN KEY (idPESSOA) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE
 );
 
+alter table Pessoa 
+ADD CONSTRAINT fk_PetShop FOREIGN KEY (idPET) references Petshop(idPET) ON DELETE CASCADE;
+
 create table Servico (
   idSERVICO INT NOT NULL,
   nomeSERVICO VARCHAR(255),
@@ -55,17 +71,6 @@ create table Pet_Servico (
   CONSTRAINT fk_PetServPetshop FOREIGN KEY (idPET) REFERENCES Petshop(idPET) ON DELETE CASCADE,
   CONSTRAINT fk_PetServServico FOREIGN KEY (idSERVICO) REFERENCES Servico(idSERVICO) ON DELETE CASCADE,
   CONSTRAINT pk_Pet_Servico PRIMARY KEY (idPET, idSERVICO)  
-);
-
-create table Usuario (
-  idUSUARIO INT NOT NULL,
-  idPESSOA INT,
-  enderecoUSUARIO VARCHAR(255),
-  telefoneUSUARIO VARCHAR(12),
-  cpfUSUARIO VARCHAR(11),
-  
-  CONSTRAINT fk_UsuarioPessoa FOREIGN KEY (idPESSOA) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE,
-  CONSTRAINT pk_Usuario PRIMARY KEY (idUSUARIO, idPESSOA)  
 );
 
 create table Raca_Animal (
@@ -89,38 +94,25 @@ create table Animal (
   CONSTRAINT fk_RacaAnimal FOREIGN KEY (idRACA) REFERENCES Raca_Animal(idRACA) ON DELETE CASCADE
 );
 
-create table Medicamento (
-  idMEDICAMENTO INT NOT NULL,
-  nomeMEDICAMENTO VARCHAR(255),
-  descMEDICAMENTO VARCHAR(255),
+create table Medicamento_Vacina (
+  idMED_VAC INT NOT NULL,
+  tipoMED_VAC VARCHAR(45),
+  tipoAnimalMED_VAC VARCHAR(45),
+  nomeMED_VAC VARCHAR(255),
+  descMED_VAC VARCHAR(255),
   
-  CONSTRAINT pk_Medicamento PRIMARY KEY (idMEDICAMENTO)  
+  
+  CONSTRAINT pk_Medicamento_Vacina PRIMARY KEY (idMED_VAC)  
 );
 
-create table Animal_Medicamento (
+create table Animal_MedVac (
   idANIMAL INT NOT NULL,
-  idMEDICAMENTO INT NOT NULL,
-  periodicidadeMED INT,
+  idMED_VAC INT NOT NULL,
+  periodicidadeMED_VAC INT,
   
   CONSTRAINT fk_AniMedAnimal FOREIGN KEY (idANIMAL) REFERENCES Animal(idANIMAL) ON DELETE CASCADE,
-  CONSTRAINT fk_AniMedMedicamento FOREIGN KEY (idMEDICAMENTO) REFERENCES Medicamento(idMEDICAMENTO) ON DELETE CASCADE,
-  CONSTRAINT pk_Animal_Medicamento PRIMARY KEY (idANIMAL, idMEDICAMENTO) 
+  CONSTRAINT fk_AniMedMedicamento FOREIGN KEY (idMED_VAC) REFERENCES Medicamento_Vacina(idMED_VAC) ON DELETE CASCADE,
+  CONSTRAINT pk_Animal_Medicamento PRIMARY KEY (idANIMAL, idMED_VAC) 
 );
 
-create table Vacina (
-  idVACINA INT NOT NULL,
-  nomeVACINA VARCHAR(255),
-  descVACINA VARCHAR(255),
-  
-  CONSTRAINT pk_Vacina PRIMARY KEY (idVACINA) 
-);
 
-create table Animal_Vacina (
-  idANIMAL INT NOT NULL,
-  idVACINA INT NOT NULL,
-  periodicidadeVAC INT,
-  
-  CONSTRAINT fk_AniVacAnimal FOREIGN KEY (idANIMAL) REFERENCES Animal(idANIMAL) ON DELETE CASCADE,
-  CONSTRAINT fk_AniVacVacina FOREIGN KEY (idVACINA) REFERENCES Vacina(idVACINA) ON DELETE CASCADE,
-  CONSTRAINT pk_Animal_Vacina PRIMARY KEY (idANIMAL, idVACINA) 
-);
