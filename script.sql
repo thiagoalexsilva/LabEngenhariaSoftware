@@ -1,4 +1,4 @@
--- Centro Federal de Educação Tecnológica de Minas Gerais
+﻿-- Centro Federal de Educação Tecnológica de Minas Gerais
 -- Departamento de Engenharia da Computação - Lab. Engenharia de Software
 -- Any+
 -- SQL Database Script
@@ -9,6 +9,7 @@ create table Usuario (
   generoUSUARIO VARCHAR(1),
   dataNascimentoUSUARIO VARCHAR(10),
   celularUSUARIO VARCHAR(12),
+  mensagemUSUARIO VARCHAR(255),
 
   CONSTRAINT pk_Usuario PRIMARY KEY (idUSUARIO)
 );
@@ -44,13 +45,10 @@ create table Admin (
 
 create table Petshop (
   idPET INT NOT NULL,
-  idPESSOA INT,
-  enderecoPET VARCHAR(255) NOT NULL,
   telefonePET VARCHAR(12),
   cnpjPET VARCHAR(14) NOT NULL,
   
-  CONSTRAINT pk_Petshop PRIMARY KEY (idPET),
-  CONSTRAINT fk_PetshopPessoa FOREIGN KEY (idPESSOA) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE
+  CONSTRAINT pk_Petshop PRIMARY KEY (idPET)
 );
 
 alter table Pessoa 
