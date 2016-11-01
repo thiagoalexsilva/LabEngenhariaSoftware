@@ -1,116 +1,104 @@
-﻿-- Centro Federal de Educação Tecnológica de Minas Gerais
--- Departamento de Engenharia da Computação - Lab. Engenharia de Software
--- Any+
--- SQL Database Script
+CREATE SCHEMA `anymais` ;
 
-create table Usuario (
-  idUSUARIO INT NOT NULL,
-  cpfUSUARIO VARCHAR(11),
-  generoUSUARIO VARCHAR(1),
-  dataNascimentoUSUARIO VARCHAR(10),
-  celularUSUARIO VARCHAR(12),
-  mensagemUSUARIO VARCHAR(255),
+CREATE  TABLE `anymais`.`pessoa` (
 
-  CONSTRAINT pk_Usuario PRIMARY KEY (idUSUARIO)
-);
+  `idPessoa` INT NOT NULL ,
+
+  `tipoPessoa` INT NOT NULL ,
+
+  `nome` VARCHAR(50) NOT NULL ,
+
+  `sexo` VARCHAR(1) NULL ,
+
+  `dataNascimento` DATE NULL ,
+
+  `cpfCnpj` VARCHAR(14) NOT NULL ,
+
+  `endereco` VARCHAR(150) NOT NULL ,
+
+  `bairro` VARCHAR(45) NOT NULL ,
+
+  `complemento` VARCHAR(45) NULL ,
+
+  `cep` VARCHAR(8) NOT NULL ,
+
+  `cidade` VARCHAR(45) NOT NULL ,
+
+  `uf` VARCHAR(45) NOT NULL ,
+
+  `telefone` VARCHAR(13) NULL ,
+
+  `telefone2` VARCHAR(13) NULL ,
+
+  `email` VARCHAR(70) NOT NULL ,
+
+  `confirmaEmail` VARCHAR(70) NOT NULL ,
+
+  `senha` VARCHAR(15) NOT NULL ,
+
+  `confirmaSenha` VARCHAR(15) NOT NULL ,
+
+  PRIMARY KEY (`idPessoa`) );
 
 
-create table Pessoa (
-  idPESSOA INT NOT NULL,
-  emailPESSOA VARCHAR(45) NOT NULL,
-  senhaPESSOA VARCHAR(45) NOT NULL,
-  nomePESSOA VARCHAR (45) NOT NULL,
-  enderecoPESSOA VARCHAR(255) NOT NULL,
-  bairroPESSOA VARCHAR(45) NOT NULL,
-  complementoPESSOA VARCHAR(45),
-  cidadePESSOA VARCHAR(45) NOT NULL,
-  cepPESSOA VARCHAR(8) NOT NULL,
-  ufPESSOA VARCHAR(2) NOT NULL,
-  telefonePESSOA VARCHAR(10) NOT NULL,
-  tipoPESSOA INT NOT NULL,
-  idUSUARIO INT,
-  idPET INT,
-  
-  CONSTRAINT pk_Pessoa PRIMARY KEY (idPessoa),
-  CONSTRAINT fk_UsuarioPessoa FOREIGN KEY (idUSUARIO) REFERENCES Usuario(idUSUARIO) ON DELETE CASCADE
-);
+CREATE  TABLE `anymais`.`animal` (
 
-create table Admin (
-  idADMIN INT NOT NULL,
-  idPESSOA INT,
-  
-  CONSTRAINT pk_Admin PRIMARY KEY (idADMIN),
-  CONSTRAINT fk_AdminPessoa FOREIGN KEY (idPESSOA) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE
-);
+  `idAnimal` INT NOT NULL ,
 
-create table Petshop (
-  idPET INT NOT NULL,
-  telefonePET VARCHAR(12),
-  cnpjPET VARCHAR(14) NOT NULL,
-  
-  CONSTRAINT pk_Petshop PRIMARY KEY (idPET)
-);
+  `tipoAnimal` INT NOT NULL ,
 
-alter table Pessoa 
-ADD CONSTRAINT fk_PetShop FOREIGN KEY (idPET) references Petshop(idPET) ON DELETE CASCADE;
+  `nome` VARCHAR(45) NOT NULL ,
 
-create table Servico (
-  idSERVICO INT NOT NULL,
-  nomeSERVICO VARCHAR(255),
-  descSERVICO VARCHAR(255),
-  
-  CONSTRAINT pk_Servico PRIMARY KEY (idSERVICO)
-);
+  `raca` VARCHAR(50) NOT NULL ,
 
-create table Pet_Servico (
-  idPET INT NOT NULL,
-  idSERVICO INT NOT NULL,
-  
-  CONSTRAINT fk_PetServPetshop FOREIGN KEY (idPET) REFERENCES Petshop(idPET) ON DELETE CASCADE,
-  CONSTRAINT fk_PetServServico FOREIGN KEY (idSERVICO) REFERENCES Servico(idSERVICO) ON DELETE CASCADE,
-  CONSTRAINT pk_Pet_Servico PRIMARY KEY (idPET, idSERVICO)  
-);
+  `dataNascimento` DATE NOT NULL ,
 
-create table Raca_Animal (
-  idRACA INT NOT NULL,
-  nomeRACA VARCHAR(255),
-  tipoAnimalRACA VARCHAR(45),
-  porteRACA VARCHAR(45) NOT NULL,
-  observacaoRACA VARCHAR(255),
-  CONSTRAINT pk_Raca_Animal PRIMARY KEY (idRACA)  
-);
+  `peso` INT NOT NULL ,
 
-create table Animal (
-  idANIMAL INT NOT NULL,
-  idDONO INT,
-  idRACA INT,
-  nomeANIMAL VARCHAR(45),
-  generoANIMAL VARCHAR(1) NOT NULL,
-  
-  CONSTRAINT pk_Animal PRIMARY KEY (idANIMAL),
-  CONSTRAINT fk_AnimalPessoa FOREIGN KEY (idDONO) REFERENCES Pessoa(idPESSOA) ON DELETE CASCADE,
-  CONSTRAINT fk_RacaAnimal FOREIGN KEY (idRACA) REFERENCES Raca_Animal(idRACA) ON DELETE CASCADE
-);
+  `tamanho` INT NOT NULL ,
 
-create table Medicamento_Vacina (
-  idMED_VAC INT NOT NULL,
-  tipoMED_VAC VARCHAR(45),
-  tipoAnimalMED_VAC VARCHAR(45),
-  nomeMED_VAC VARCHAR(255),
-  descMED_VAC VARCHAR(255),
-  
-  
-  CONSTRAINT pk_Medicamento_Vacina PRIMARY KEY (idMED_VAC)  
-);
+  `cor` VARCHAR(45) NOT NULL ,
 
-create table Animal_MedVac (
-  idANIMAL INT NOT NULL,
-  idMED_VAC INT NOT NULL,
-  periodicidadeMED_VAC INT,
-  
-  CONSTRAINT fk_AniMedAnimal FOREIGN KEY (idANIMAL) REFERENCES Animal(idANIMAL) ON DELETE CASCADE,
-  CONSTRAINT fk_AniMedMedicamento FOREIGN KEY (idMED_VAC) REFERENCES Medicamento_Vacina(idMED_VAC) ON DELETE CASCADE,
-  CONSTRAINT pk_Animal_Medicamento PRIMARY KEY (idANIMAL, idMED_VAC) 
-);
+  `sexo` VARCHAR(1) NOT NULL ,
+
+  `descricao` VARCHAR(256) NULL ,
+
+  `imagem` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idAnimal`) );
+
+
+CREATE  TABLE `anymais`.`raca` (
+
+  `idRaca` INT NOT NULL ,
+
+  `tipoAnimal` INT NOT NULL ,
+
+  `nomeRaca` VARCHAR(60) NOT NULL ,
+
+  `porte` VARCHAR(45) NOT NULL ,
+
+  `observacao` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idRaca`) );
+
+
+CREATE  TABLE `anymais`.`vacinasMedicamentos` (
+
+  `idVacinasMedicamentos` INT NOT NULL ,
+
+  `tipo` INT NOT NULL ,
+
+  `tipoAnimal` INT NOT NULL ,
+
+  `nome` VARCHAR(60) NOT NULL ,
+
+  `periodicidade` INT NOT NULL ,
+
+  `tempo` VARCHAR(45) NOT NULL ,
+
+  `observacao` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idVacinasMedicamentos`) );
 
 
