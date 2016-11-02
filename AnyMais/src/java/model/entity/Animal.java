@@ -8,6 +8,8 @@ import java.util.Date;
 
 public class Animal {
     
+    private int id;
+    private int tipo;
     private String nome;
     private Raca raca;
     private Date dataNascimento;
@@ -16,9 +18,11 @@ public class Animal {
     private String cor;
     private String sexo;
     private String descricao;
-    
-    public Animal(String nome, Raca raca, Date dataNascimento, float peso, float tamanho, String cor, 
-                    String sexo, String descricao){
+    private String imagem;
+
+    public Animal(int id, int tipo, String nome, Raca raca, Date dataNascimento, float peso, float tamanho, String cor, String sexo, String descricao, String imagem) {
+        this.id = id;
+        this.tipo = tipo;
         this.nome = nome;
         this.raca = raca;
         this.dataNascimento = dataNascimento;
@@ -27,6 +31,23 @@ public class Animal {
         this.cor = cor;
         this.sexo = sexo;
         this.descricao = descricao;
+        this.imagem = imagem;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     public String getNome() {
@@ -84,7 +105,7 @@ public class Animal {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
+
     public String getDescricao() {
         return descricao;
     }
@@ -92,4 +113,14 @@ public class Animal {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+    
+    
 }

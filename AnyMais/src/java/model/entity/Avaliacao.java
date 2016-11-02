@@ -6,31 +6,31 @@ package model.entity;
 
 public class Avaliacao {
     
-    private Usuario usuario;
-    private PetShop petshop;
+    private Pessoa usuario;
+    private Pessoa petshop;
     private int nota;
     private String mensagem;
 
-    public Avaliacao(Usuario usuario, PetShop petshop, int nota, String mensagem){
+    public Avaliacao(Pessoa usuario, Pessoa petshop, int nota, String mensagem){
         this.usuario = usuario;
         this.petshop = petshop;
         this.nota = nota;
         this.mensagem = mensagem;
     }
 
-    public Usuario getUsuario() {
+    public Pessoa getPessoa() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setPessoa(Pessoa usuario) {
         this.usuario = usuario;
     }
 
-    public PetShop getPetshop() {
+    public Pessoa getPetshop() {
         return petshop;
     }
 
-    public void setPetshop(PetShop petshop) {
+    public void setPetshop(Pessoa petshop) {
         this.petshop = petshop;
     }
 

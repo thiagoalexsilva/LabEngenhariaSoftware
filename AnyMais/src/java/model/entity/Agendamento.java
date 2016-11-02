@@ -9,13 +9,13 @@ import java.util.Date;
 public class Agendamento {
     
     private Animal pet;
-    private Usuario dono;
+    private Pessoa dono;
     private Servico tipo;
     private Date data;
     private String hora;
     private String observacao;
     
-    public Agendamento(Animal pet, Usuario dono, Servico tipo, Date data, String hora, String observacao){
+    public Agendamento(Animal pet, Pessoa dono, Servico tipo, Date data, String hora, String observacao){
         this.pet = pet;
         this.dono = dono;
         this.tipo = tipo;
@@ -32,11 +32,11 @@ public class Agendamento {
         this.pet = pet;
     }
 
-    public Usuario getDono() {
+    public Pessoa getDono() {
         return dono;
     }
 
-    public void setDono(Usuario dono) {
+    public void setDono(Pessoa dono) {
         this.dono = dono;
     }
 

@@ -14,10 +14,10 @@ public class VacinaMedicamento {
     private int id;
     
     @Column(name="tipoMED_VAC", nullable=false, unique=true)
-    private String tipo;
+    private int tipo;
     
     @Column(name="tipoAnimalMED_VAC", nullable=false, unique=true)
-    private String tipoAnimal;
+    private int tipoAnimal;
     
     @Column(name="nomeMED_VAC", nullable=false, unique=true)
     private String nome;
@@ -26,34 +26,40 @@ public class VacinaMedicamento {
     private String observacao;
     
     //@Column(name="descMED_VAC", nullable=false, unique=true)
-    private Integer periodicidade;
-    
-    public VacinaMedicamento(int id, String tipoAnimal, String nome, Integer periodicidade, String observacao){
+    private int periodicidade;
+    private String tempo;
+
+    public VacinaMedicamento(int id, int tipo, int tipoAnimal, String nome, String observacao, int periodicidade, String tempo) {
         this.id = id;
-        //this.tipo = tipo;
+        this.tipo = tipo;
         this.tipoAnimal = tipoAnimal;
         this.nome = nome;
         this.observacao = observacao;
         this.periodicidade = periodicidade;
+        this.tempo = tempo;
     }
-    
+
     public int getId() {
         return id;
     }
-    
-    public String getTipo() {
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(int tipo) {
         this.tipo = tipo;
     }
 
-    public String getTipoAnimal() {
+    public int getTipoAnimal() {
         return tipoAnimal;
     }
 
-    public void setTipoAnimal(String tipoAnimal) {
+    public void setTipoAnimal(int tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
     }
 
@@ -72,12 +78,21 @@ public class VacinaMedicamento {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
-    public Integer getPeriodicidade(){
+
+    public int getPeriodicidade() {
         return periodicidade;
     }
-    
-    public void setPeriodicidade(){
+
+    public void setPeriodicidade(int periodicidade) {
         this.periodicidade = periodicidade;
     }
+
+    public String getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(String tempo) {
+        this.tempo = tempo;
+    }
+    
 }

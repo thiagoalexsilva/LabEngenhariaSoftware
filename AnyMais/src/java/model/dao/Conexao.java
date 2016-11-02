@@ -17,18 +17,16 @@ import java.util.logging.Logger;
  */
 public class Conexao {
     
-    private static Connection conexao;
+    private Connection conexao;
     
-    private Conexao(){
-        getConexao();
-    }
+    Conexao(){}
     
-    public static Connection getConexao(){
+    public Connection openConexao(){
         try {
             if(conexao == null){
                 Class.forName("org.postgresql.Driver");
                 DriverManager.setLoginTimeout(20);
-                conexao = DriverManager.getConnection("jdbc:postgresql://localhost:5432/anymais", "postgres", "root");
+                conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/anymais","root","root");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
@@ -39,5 +37,11 @@ public class Conexao {
         return conexao;
     }
     
-    
+    public void closeConexao(){
+        try {
+            conexao.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

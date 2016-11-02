@@ -5,7 +5,6 @@
  */
 package controller;
 
-import framework.DAO;
 import java.util.ArrayList;
 import model.dao.DAOMedicamentos;
 import model.entity.VacinaMedicamento;
@@ -36,16 +35,16 @@ public class GerenciarMedicamentos {
     public VacinaMedicamento[] selecionaMedicamentosComFiltro(String nome, boolean cachorro, boolean gato){
         VacinaMedicamento[] todosMedicamentos = daoMedicamento.selectAll();
         
-        ArrayList<VacinaMedicamento> filtroMedicamentos = new ArrayList<VacinaMedicamento>();
+        ArrayList<VacinaMedicamento> filtroMedicamentos = new ArrayList<>();
         
         for(VacinaMedicamento medicamentos : todosMedicamentos){
             /*if((medicamento && medicamentos.getTipo().toUpperCase().equals("MEDICAMENTO"))
                     ||
                (vacina && medicamentos.getTipoAnimal().toUpperCase().equals("VACINA"))){*/
                 
-                if((cachorro && medicamentos.getTipoAnimal().toUpperCase().equals("CACHORRO"))
+                if((cachorro && medicamentos.getTipoAnimal() == 1) //cachorro
                         ||
-                   (gato && medicamentos.getTipoAnimal().toUpperCase().equals("GATO"))){
+                   (gato && medicamentos.getTipoAnimal() == 2)){ //gato
                     /*if((hora && medicamentos.getPeriodicidade() >= 0)
                             ||
                        (dia && medicamentos.getPeriodicidade() >= 0)

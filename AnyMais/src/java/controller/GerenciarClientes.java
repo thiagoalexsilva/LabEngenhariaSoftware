@@ -6,11 +6,8 @@
 
 package controller;
 
-import framework.DAO;
 import model.dao.DAOPessoa;
-import model.dao.DAOUsuario;
 import model.entity.Pessoa;
-import model.entity.Usuario;
 
 /**
  *
@@ -18,12 +15,10 @@ import model.entity.Usuario;
  */
 public class GerenciarClientes {
    private static GerenciarClientes instance;
-    private DAOUsuario daoCliente;
-    private DAOPessoa daoPessoa;
+    private DAOPessoa daoUsuario;
 
     private GerenciarClientes(){
-        daoCliente = new DAOUsuario();
-        daoPessoa = new DAOPessoa();
+        daoUsuario = new DAOPessoa();
     }
 
     public static GerenciarClientes getInstance(){
@@ -32,23 +27,23 @@ public class GerenciarClientes {
         return instance;
     }
         
-    public Usuario selecionarCliente(String email){
-        return daoCliente.select(email);
+    public Pessoa selecionarCliente(String email, String nome){
+        return daoUsuario.select(email, nome);
     }
     
-    public boolean adicionarCliente(Usuario cliente){
-        return daoCliente.insert(cliente);
+    public boolean adicionarCliente(Pessoa cliente){
+        return daoUsuario.insert(cliente);
     }
     
-    public boolean atualizarCliente(Usuario cliente){
-        return daoCliente.update(cliente) && daoPessoa.update(cliente);
+    public boolean atualizarCliente(Pessoa cliente){
+        return daoUsuario.update(cliente);
     }
     
-    public boolean excluirCliente(String email, String senha){
-        return daoCliente.delete(email, senha) && daoPessoa.delete(email, senha);
+    public boolean excluirCliente(int id){
+        return daoUsuario.delete(id);
     } 
     
     public boolean verificarCPF_Email(String cpf, String email){
-        return daoCliente.checkCPF_Email(cpf, email);
+        return daoUsuario.checkCPF_Email(cpf, email);
     }
 }

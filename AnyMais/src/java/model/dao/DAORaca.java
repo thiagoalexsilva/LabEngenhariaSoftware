@@ -6,7 +6,6 @@
 package model.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +22,8 @@ public class DAORaca {
     
     //TODO: Inserir campo TipoAnimal
     
-    private static Connection conexao;
-    
+    private Conexao conexao;
+    private Connection con;
     public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?, ?);";
     public String SELECT_SQL = "SELECT * FROM RACA_ANIMAL";
     public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, TIPOANIMALRACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
@@ -33,14 +32,15 @@ public class DAORaca {
     public String SELECT_MAX_ID_SQL = "SELECT COALESCE(MAX(IDRACA), 0)+1 FROM RACA_ANIMAL;";
        
     public DAORaca(){
-        conexao = Conexao.getConexao();
+        conexao = new Conexao();
     }
     
     private int nextId(){
         
+        con = conexao.openConexao();
         PreparedStatement stmt;
         try {
-            stmt = conexao.prepareStatement(SELECT_MAX_ID_SQL);
+            stmt = con.prepareStatement(SELECT_MAX_ID_SQL);
             
             ResultSet rs = stmt.executeQuery();
             rs.next();
@@ -51,14 +51,16 @@ public class DAORaca {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        conexao.closeConexao();
         return 0;
     }
     
     public boolean insert(Raca raca){
         
+        con = conexao.openConexao();
         PreparedStatement stmt;
         try {
-            stmt = conexao.prepareStatement(INSERT_SQL);
+            stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
             stmt.setString(2, raca.getNomeRaca());
             stmt.setString(3, raca.getTipoAnimal());
@@ -72,16 +74,18 @@ public class DAORaca {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        conexao.closeConexao();
         return false;
     }
     
     public Raca[] selectAll(){
         
+        con = conexao.openConexao();
         ArrayList<Raca> racas = new ArrayList<Raca>();
         Raca[] arrayRacas;
         PreparedStatement stmt;
         try {
-            stmt = conexao.prepareStatement(SELECT_SQL);
+            stmt = con.prepareStatement(SELECT_SQL);
             
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
@@ -99,14 +103,16 @@ public class DAORaca {
             arrayRacas[i] = racas.get(i);
         }
         
+        conexao.closeConexao();
         return arrayRacas;
     }
     
     public boolean update(Raca raca){
         
+        con = conexao.openConexao();
         PreparedStatement stmt;
         try {
-            stmt = conexao.prepareStatement(UPDATE_SQL);
+            stmt = con.prepareStatement(UPDATE_SQL);
             stmt.setString(1, raca.getNomeRaca());
             stmt.setString(2, raca.getTipoAnimal());
             stmt.setString(3, raca.getPorte());
@@ -120,14 +126,16 @@ public class DAORaca {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        conexao.closeConexao();
         return false;
     }
     
     public boolean delete(int idraca){
         
+        con = conexao.openConexao();
         PreparedStatement stmt;
         try {
-            stmt = conexao.prepareStatement(DELETE_SQL);
+            stmt = con.prepareStatement(DELETE_SQL);
             stmt.setInt(1, idraca);
             stmt.execute();
             
@@ -136,6 +144,7 @@ public class DAORaca {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        conexao.closeConexao();
         return false;
     }
     
