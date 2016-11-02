@@ -102,3 +102,19 @@ CREATE  TABLE `anymais`.`vacinasMedicamentos` (
   PRIMARY KEY (`idVacinasMedicamentos`) );
 
 
+ALTER TABLE `anymais`.`pessoa` DROP COLUMN `confirmaSenha` , DROP COLUMN `confirmaEmail` , ADD COLUMN `image` VARCHAR(256) NULL  AFTER `senha` , ADD COLUMN `descricao` VARCHAR(256) NULL  AFTER `image` ;
+
+ALTER TABLE `anymais`.`animal` DROP COLUMN `raca` , ADD COLUMN `idRaca` INT(11) NOT NULL  AFTER `nome` , CHANGE COLUMN `peso` `peso` FLOAT NOT NULL  , CHANGE COLUMN `tamanho` `tamanho` FLOAT NOT NULL  , 
+
+  ADD CONSTRAINT `idRaca`
+
+  FOREIGN KEY (`idRaca` )
+
+  REFERENCES `anymais`.`raca` (`idRaca` )
+
+  ON DELETE NO ACTION
+
+  ON UPDATE NO ACTION
+
+, ADD INDEX `idRaca` (`idRaca` ASC) ;
+
