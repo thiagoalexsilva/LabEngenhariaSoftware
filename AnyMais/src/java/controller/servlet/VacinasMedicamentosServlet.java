@@ -5,7 +5,7 @@
  */
 package controller.servlet;
 
-import controller.GerenciarMedicamentos;
+import controller.GerenciarVacinasMedicamentos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -14,14 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entity.VacinaMedicamento;
+import model.entity.VacinasMedicamentos;
 
 /**
  *
  * @author ana
  */
 @WebServlet(name = "MedicamentoServlet", urlPatterns = {"/medicamentos/*"})
-public class MedicamentoServlet extends HttpServlet {
+public class VacinasMedicamentosServlet extends HttpServlet {
     
     private boolean primeiraExecucao = true;
 
@@ -101,7 +101,7 @@ public class MedicamentoServlet extends HttpServlet {
                 request.getSession(true).setAttribute("period-med-a", periodMedA);*/
           
             
-            VacinaMedicamento[] medicamentos = GerenciarMedicamentos.getInstance().selecionaMedicamentosComFiltro(nome, tipoPetC, tipoPetG);
+            VacinasMedicamentos[] medicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaMedicamentosComFiltro(nome, tipoPetC, tipoPetG);
             request.getSession(true).setAttribute("medicamento", medicamentos); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-vacinas-medicamentos.jsp");
@@ -123,8 +123,8 @@ public class MedicamentoServlet extends HttpServlet {
                 Integer periodicidade = Integer.parseInt(request.getParameter("periodicidade"));
                 String observacao = request.getParameter("observacao");            
 
-                VacinaMedicamento novoMed = new VacinaMedicamento(1, tipoAnimal, nome, periodicidade, observacao);
-                if(GerenciarMedicamentos.getInstance().adicionarMedicamento(novoMed))
+                VacinasMedicamentos novoMed = new VacinasMedicamentos(1, tipoAnimal, nome, periodicidade, observacao);
+                if(GerenciarVacinasMedicamentos.getInstance().adicionarMedicamento(novoMed))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
@@ -136,7 +136,7 @@ public class MedicamentoServlet extends HttpServlet {
             String excluido = request.getParameter("excluido");
             if(excluido != null){
                 int idmed_vac = Integer.parseInt(excluido);
-                if(GerenciarMedicamentos.getInstance().excluirMedicamento(idmed_vac))
+                if(GerenciarVacinasMedicamentos.getInstance().excluirMedicamento(idmed_vac))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
@@ -147,9 +147,9 @@ public class MedicamentoServlet extends HttpServlet {
             String atualizado = request.getParameter("atualizado");
             if(atualizado != null){
                 int idmed_vac = Integer.parseInt(atualizado);
-                VacinaMedicamento[] medicamentos = GerenciarMedicamentos.getInstance().selecionaMedicamentos();
-                VacinaMedicamento medicamentoAtualizacao = null;
-                for(VacinaMedicamento medicamento : medicamentos){
+                VacinasMedicamentos[] medicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaMedicamentos();
+                VacinasMedicamentos medicamentoAtualizacao = null;
+                for(VacinasMedicamentos medicamento : medicamentos){
                     if(medicamento.getId() == idmed_vac){
                         medicamentoAtualizacao = medicamento;
                         break;
@@ -165,14 +165,14 @@ public class MedicamentoServlet extends HttpServlet {
         } else if(uri.equals("/AnyMais/medicamentos/atualizado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int idmed_vac = ((VacinaMedicamento) request.getSession(true).getAttribute("medicamento")).getId();
+                int idmed_vac = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getId();
                 String tipoAnimal = request.getParameter("tipo-pet");
                 String nome = request.getParameter("nome-medicamento");
-                int periodicidade = ((VacinaMedicamento) request.getSession(true).getAttribute("medicamento")).getPeriodicidade();
+                int periodicidade = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getPeriodicidade();
                 String observacao = request.getParameter("observacao");            
 
-                VacinaMedicamento medicamentoAtualizado = new VacinaMedicamento(idmed_vac, tipoAnimal, nome, periodicidade, observacao);
-                if(GerenciarMedicamentos.getInstance().atualizarMedicamento(medicamentoAtualizado))
+                VacinasMedicamentos medicamentoAtualizado = new VacinasMedicamentos(idmed_vac, tipoAnimal, nome, periodicidade, observacao);
+                if(GerenciarVacinasMedicamentos.getInstance().atualizarMedicamento(medicamentoAtualizado))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");

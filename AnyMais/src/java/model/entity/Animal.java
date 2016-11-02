@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class Animal {
     
-    private int id;
-    private int tipo;
+    private int idAnimal;
+    private int tipoAnimal;
     private String nome;
-    private Raca raca;
+    private Raca idRaca;
     private Date dataNascimento;
     private float peso;
     private float tamanho;
@@ -20,11 +20,12 @@ public class Animal {
     private String descricao;
     private String imagem;
 
-    public Animal(int id, int tipo, String nome, Raca raca, Date dataNascimento, float peso, float tamanho, String cor, String sexo, String descricao, String imagem) {
-        this.id = id;
-        this.tipo = tipo;
+    public Animal(int idAnimal, int tipoAnimal, String nome, Raca idRaca, Date dataNascimento, float peso, float tamanho,
+            String cor, String sexo, String descricao, String imagem) {
+        this.idAnimal = idAnimal;
+        this.tipoAnimal = tipoAnimal;
         this.nome = nome;
-        this.raca = raca;
+        this.idRaca = idRaca;
         this.dataNascimento = dataNascimento;
         this.peso = peso;
         this.tamanho = tamanho;
@@ -34,20 +35,20 @@ public class Animal {
         this.imagem = imagem;
     }
 
-    public int getId() {
-        return id;
+    public int getIdAnimal() {
+        return idAnimal;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdAnimal(int idAnimal) {
+        this.idAnimal = idAnimal;
     }
 
-    public int getTipo() {
-        return tipo;
+    public int getTipoAnimal() {
+        return tipoAnimal;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public void setTipoAnimal(int tipoAnimal) {
+        this.tipoAnimal = tipoAnimal;
     }
 
     public String getNome() {
@@ -58,12 +59,12 @@ public class Animal {
         this.nome = nome;
     }
 
-    public Raca getRaca() {
-        return raca;
+    public Raca getIdRaca() {
+        return idRaca;
     }
 
-    public void setRaca(Raca raca) {
-        this.raca = raca;
+    public void setIdRaca(Raca idRaca) {
+        this.idRaca = idRaca;
     }
 
     public Date getDataNascimento() {

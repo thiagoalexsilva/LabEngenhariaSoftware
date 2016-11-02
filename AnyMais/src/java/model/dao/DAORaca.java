@@ -20,16 +20,14 @@ import model.entity.Raca;
  */
 public class DAORaca {
     
-    //TODO: Inserir campo TipoAnimal
-    
     private Conexao conexao;
     private Connection con;
-    public String INSERT_SQL = "INSERT INTO RACA_ANIMAL VALUES (?, ?, ?, ?, ?);";
-    public String SELECT_SQL = "SELECT * FROM RACA_ANIMAL";
-    public String UPDATE_SQL = "UPDATE RACA_ANIMAL SET NOMERACA=?, TIPOANIMALRACA=?, PORTERACA=?, OBSERVACAORACA=? WHERE IDRACA=?;";
-    public String DELETE_SQL = "DELETE FROM RACA_ANIMAL WHERE IDRACA=?;";
+    public String INSERT_SQL = "INSERT INTO RACA VALUES (?, ?, ?, ?, ?);";
+    public String SELECT_SQL = "SELECT * FROM RACA";
+    public String UPDATE_SQL = "UPDATE RACA SET TIPOANIMAL=?, NOMERACA=?, PORTE=?, OBSERVACAO=? WHERE IDRACA=?;";
+    public String DELETE_SQL = "DELETE FROM RACA WHERE IDRACA=?;";
 
-    public String SELECT_MAX_ID_SQL = "SELECT COALESCE(MAX(IDRACA), 0)+1 FROM RACA_ANIMAL;";
+    public String SELECT_MAX_ID_SQL = "SELECT COALESCE(MAX(IDRACA), 0)+1 FROM RACA;";
        
     public DAORaca(){
         conexao = new Conexao();
@@ -62,8 +60,8 @@ public class DAORaca {
         try {
             stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
-            stmt.setString(2, raca.getNomeRaca());
-            stmt.setString(3, raca.getTipoAnimal());
+            stmt.setString(2, raca.getTipoAnimal());
+            stmt.setString(3, raca.getNomeRaca());
             stmt.setString(4, raca.getPorte());
             stmt.setString(5, raca.getObservacao());
             
@@ -113,11 +111,11 @@ public class DAORaca {
         PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(UPDATE_SQL);
-            stmt.setString(1, raca.getNomeRaca());
-            stmt.setString(2, raca.getTipoAnimal());
+            stmt.setInt(1, raca.getTipoAnimal());
+            stmt.setString(2, raca.getNomeRaca());
             stmt.setString(3, raca.getPorte());
             stmt.setString(4, raca.getObservacao());
-            stmt.setInt(5, raca.getId());
+            stmt.setInt(5, raca.getIdRaca());
             
             stmt.execute();
             
@@ -130,13 +128,13 @@ public class DAORaca {
         return false;
     }
     
-    public boolean delete(int idraca){
+    public boolean delete(int idRaca){
         
         con = conexao.openConexao();
         PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(DELETE_SQL);
-            stmt.setInt(1, idraca);
+            stmt.setInt(1, idRaca);
             stmt.execute();
             
             return true;
@@ -151,11 +149,11 @@ public class DAORaca {
     private Raca getRaca(ResultSet rs){
         try {
             int id = rs.getInt(1);
-            String nomeRaca = rs.getString(2);
-            String tipoAnimalRaca = rs.getString(3);
-            String porteRaca = rs.getString(4);
+            int tipoAnimal = rs.getInt(2);
+            String nomeRaca = rs.getString(3);
+            String porte = rs.getString(4);
             String observacao = rs.getString(5);
-            return new Raca(id, tipoAnimalRaca, nomeRaca, porteRaca, observacao);
+            return new Raca(id, tipoAnimal, nomeRaca, porte, observacao);
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
         }

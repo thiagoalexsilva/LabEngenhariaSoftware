@@ -42,18 +42,28 @@
                             else{ %>
                             <h3 class="title">Atualizar Vacinas e Medicamentos</h3>
                         <% } %>
+                            <input type="radio" name="tipo-vacinaMedicamento" value="Vacina" class="cadastra-raca label-field-vacina"> Vacina
+                            <input type="radio" name="tipo-vacinaMedicamento" value="Medicamento" class="cadastra-raca label-field-vacina"> Medcicamento
+                            <br>
                             <input type="radio" name="tipo-pet" value="cachorro" class="cadastra-raca label-field-vacina"
                                    <% out.print(session.getAttribute("medicamento") != null && ((VacinaMedicamento) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
                             <input type="radio" name="tipo-pet" value="gato" class="label-field-vacina"
                                    <% out.print(session.getAttribute("medicamento") != null && ((VacinaMedicamento) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                             <br>
+                        
                             <p class="cadastra-vacina">Nome:
                                 <input type="text" class="label-field-vacina" name="nome-medicamento"
                                        value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getNome().toUpperCase() : ""); %>"></p>
                             
                             <p class="cadastra-vacina">Periodicidade:
                                 <input type="number" name="periodicidade" class="label-periodo label-field-vacina" min="0"
-                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getPeriodicidade() : 0); %>"></p>
+                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getPeriodicidade() : 0); %>">
+                                <select name="periodicidade" required class="label-periodo label-field-vacina">
+                                <option></option>
+                                <option value="Horas">Horas</option>
+                                <option value="Dias">Dias</option>
+                                <option value="Meses">Meses</option>
+                              </select></p>
                             
                             <p class="cadastra-vacina">Observação:</p><br>
                                 <textarea name="observacao" rows="4" cols="50" class="label-field-vacina">

@@ -8,46 +8,35 @@ import javax.persistence.Id;
  * @author Erica
  */
 
-@Entity(name = "raca_animal")
 public class Raca {
     
-    @Id
-    @Column(name="idraca", nullable=false, unique=true)
-    private int id;
-    
-    @Column(name="tipoanimalraca", nullable=false, unique=true)
-    private String tipoAnimal;
-    
-    @Column(name="nomeraca", nullable=false, unique=true)
+    private int idRaca;
+    private int tipoAnimal;
     private String nomeRaca;
-    
-    @Column(name="porteraca", nullable=false, unique=true)
     private String porte;
-    
-    @Column(name="observacaoraca", nullable=false, unique=true)
     private String observacao;
     
-    public Raca(int id, String tipoAnimal, String nomeRaca, String porte, String observacao){
-        this.id = id;
+    public Raca(int idRaca, int tipoAnimal, String nomeRaca, String porte, String observacao){
+        this.idRaca = idRaca;
         this.tipoAnimal = tipoAnimal;
         this.nomeRaca = nomeRaca;
         this.porte = porte;
         this.observacao = observacao;
     }
 
-    public int getId() {
-        return id;
+    public int getIdRaca() {
+        return idRaca;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdRaca(int idRaca) {
+        this.idRaca = idRaca;
     }
     
-    public String getTipoAnimal() {
+    public int getTipoAnimal() {
         return tipoAnimal;
     }
 
-    public void setTipoAnimal(String tipoAnimal) {
+    public void setTipoAnimal(int tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
     }
 

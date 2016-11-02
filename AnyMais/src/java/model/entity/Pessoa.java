@@ -8,52 +8,56 @@ import java.sql.Date;
 
 public class Pessoa{
     
-    private int id;
+    private int idPessoa;
     private int tipo;
     private String nome;
     private String sexo;
     private Date dataNascimento;
-    private String cpf_cnpj;
-    private String end;
+    private String cpfCnpj;
+    private String endereco;
     private String bairro;
     private String complemento;
-    private String cidade;
     private String cep;
+    private String cidade;
     private String uf;
     private String telefone;
     private String telefone2;
     private String email;
     private String senha;
     private String imagem;
+    private String descricao;
 
-    public Pessoa(int id, int tipo, String nome, String sexo, Date dataNascimento, String cpf_cnpj, String end, String bairro, String complemento, String cidade, String cep, String uf, String telefone, String telefone2, String email, String senha, String imagem) {
-        this.id = id;
+    public Pessoa(int idPessoa, int tipo, String nome, String sexo, Date dataNascimento, String cpfCnpj, String endereco, 
+            String bairro, String complemento, String cep, String cidade, String uf, String telefone, String telefone2, 
+            String email, String senha, String imagem, String descricao) {
+        this.idPessoa = idPessoa;
         this.tipo = tipo;
         this.nome = nome;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
-        this.cpf_cnpj = cpf_cnpj;
-        this.end = end;
+        this.cpfCnpj = cpfCnpj;
+        this.endereco = endereco;
         this.bairro = bairro;
         this.complemento = complemento;
-        this.cidade = cidade;
         this.cep = cep;
+        this.cidade = cidade;
         this.uf = uf;
         this.telefone = telefone;
         this.telefone2 = telefone2;
         this.email = email;
         this.senha = senha;
         this.imagem = imagem;
+        this.descricao = descricao;
     }
 
     public Pessoa() {}
 
-    public int getId() {
-        return id;
+    public int getIdPessoa() {
+        return idPessoa;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPessoa(int idPessoa) {
+        this.idPessoa = idPessoa;
     }
 
     public int getTipo() {
@@ -88,20 +92,20 @@ public class Pessoa{
         this.dataNascimento = dataNascimento;
     }
 
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
+    public String getCpfCnpj() {
+        return cpfCnpj;
     }
 
-    public void setCpf_cnpj(String cpf_cnpj) {
-        this.cpf_cnpj = cpf_cnpj;
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
     }
 
-    public String getEnd() {
-        return end;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getBairro() {
@@ -184,5 +188,11 @@ public class Pessoa{
         this.imagem = imagem;
     }
 
-    
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }

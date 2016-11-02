@@ -6,38 +6,38 @@
 package controller;
 
 import java.util.ArrayList;
-import model.dao.DAOMedicamentos;
-import model.entity.VacinaMedicamento;
+import model.dao.DAOVacinasMedicamentos;
+import model.entity.VacinasMedicamentos;
 
 /**
  *
  * @author ana
  */
-public class GerenciarMedicamentos {
+public class GerenciarVacinasMedicamentos {
     
-    private static GerenciarMedicamentos instance;
-    private DAOMedicamentos daoMedicamento;
+    private static GerenciarVacinasMedicamentos instance;
+    private DAOVacinasMedicamentos daoMedicamento;
 
-    private GerenciarMedicamentos(){
-        daoMedicamento = new DAOMedicamentos();
+    private GerenciarVacinasMedicamentos(){
+        daoMedicamento = new DAOVacinasMedicamentos();
     }
 
-    public static GerenciarMedicamentos getInstance(){
+    public static GerenciarVacinasMedicamentos getInstance(){
         if(instance == null)
-            instance = new GerenciarMedicamentos();
+            instance = new GerenciarVacinasMedicamentos();
         return instance;
     }
         
-    public VacinaMedicamento[] selecionaMedicamentos(){
+    public VacinasMedicamentos[] selecionaMedicamentos(){
         return daoMedicamento.selectAll();
     }
     
-    public VacinaMedicamento[] selecionaMedicamentosComFiltro(String nome, boolean cachorro, boolean gato){
-        VacinaMedicamento[] todosMedicamentos = daoMedicamento.selectAll();
+    public VacinasMedicamentos[] selecionaMedicamentosComFiltro(String nome, boolean cachorro, boolean gato){
+        VacinasMedicamentos[] todosMedicamentos = daoMedicamento.selectAll();
         
-        ArrayList<VacinaMedicamento> filtroMedicamentos = new ArrayList<>();
+        ArrayList<VacinasMedicamentos> filtroMedicamentos = new ArrayList<>();
         
-        for(VacinaMedicamento medicamentos : todosMedicamentos){
+        for(VacinasMedicamentos medicamentos : todosMedicamentos){
             /*if((medicamento && medicamentos.getTipo().toUpperCase().equals("MEDICAMENTO"))
                     ||
                (vacina && medicamentos.getTipoAnimal().toUpperCase().equals("VACINA"))){*/
@@ -75,14 +75,14 @@ public class GerenciarMedicamentos {
             
         //}
         
-        return filtroMedicamentos.toArray(new VacinaMedicamento[filtroMedicamentos.size()]);
+        return filtroMedicamentos.toArray(new VacinasMedicamentos[filtroMedicamentos.size()]);
     }
     
-    public boolean adicionarMedicamento(VacinaMedicamento medicamento){
+    public boolean adicionarMedicamento(VacinasMedicamentos medicamento){
         return daoMedicamento.insert(medicamento);
     }
     
-    public boolean atualizarMedicamento(VacinaMedicamento medicamento){
+    public boolean atualizarMedicamento(VacinasMedicamentos medicamento){
         return daoMedicamento.update(medicamento);
     }
     

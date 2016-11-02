@@ -7,44 +7,33 @@ import javax.persistence.Id;
  * @author Erica
  */
 
-public class VacinaMedicamento {
-    
-    @Id
-    @Column(name="idMED_VAC", nullable=false, unique=true)
-    private int id;
-    
-    @Column(name="tipoMED_VAC", nullable=false, unique=true)
+public class VacinasMedicamentos {
+
+    private int idVacinasMedicamentos;
     private int tipo;
-    
-    @Column(name="tipoAnimalMED_VAC", nullable=false, unique=true)
     private int tipoAnimal;
-    
-    @Column(name="nomeMED_VAC", nullable=false, unique=true)
     private String nome;
-    
-    @Column(name="descMED_VAC", nullable=false, unique=true)
-    private String observacao;
-    
-    //@Column(name="descMED_VAC", nullable=false, unique=true)
     private int periodicidade;
     private String tempo;
+    private String observacao;
 
-    public VacinaMedicamento(int id, int tipo, int tipoAnimal, String nome, String observacao, int periodicidade, String tempo) {
-        this.id = id;
+    public VacinasMedicamentos(int idVacinasMedicamentos, int tipo, int tipoAnimal, String nome, int periodicidade, 
+            String tempo, String observacao) {
+        this.idVacinasMedicamentos = idVacinasMedicamentos;
         this.tipo = tipo;
         this.tipoAnimal = tipoAnimal;
         this.nome = nome;
-        this.observacao = observacao;
         this.periodicidade = periodicidade;
         this.tempo = tempo;
+        this.observacao = observacao;
     }
 
-    public int getId() {
-        return id;
+    public int getIdVacinasMedicamentos() {
+        return idVacinasMedicamentos;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVacinasMedicamentos(int idVacinasMedicamentos) {
+        this.idVacinasMedicamentos = idVacinasMedicamentos;
     }
 
     public int getTipo() {

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.Pessoa;
-import model.entity.Usuario;
 
 /**
  *
@@ -34,7 +33,7 @@ public class ClienteServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private Usuario user_active = null;
+    private Pessoa user_active = null;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -80,7 +79,7 @@ public class ClienteServlet extends HttpServlet {
             
             // ------------ validacoes de verificacoes --------//
                 
-            Usuario user_active = new Usuario(1, cpf, sexo, dataNascimento, celular, 1, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
+            Pessoa user_active = new Pessoa(1, cpf, sexo, dataNascimento, celular, 1, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
             if(GerenciarClientes.getInstance().adicionarCliente(user_active))
                 request.getSession().setAttribute("status", "sucesso");
             else
@@ -142,7 +141,7 @@ public class ClienteServlet extends HttpServlet {
             
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int u_id = ((Usuario) request.getSession(true).getAttribute("usuario")).getId();
+                int u_id = ((Pessoa) request.getSession(true).getAttribute("usuario")).getId();
                 String email = request.getParameter("email");
                 String senha = request.getParameter("senha");
                 String email2 = request.getParameter("confirma-email");
@@ -162,7 +161,7 @@ public class ClienteServlet extends HttpServlet {
                 int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
                 String mensagem = request.getParameter("mensagem");            
 
-                Usuario usuarioAtualizado = new Usuario(0, cpf, sexo, dataNascimento, celular, u_id, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
+                Pessoa usuarioAtualizado = new Pessoa(0, cpf, sexo, dataNascimento, celular, u_id, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
                 if(GerenciarClientes.getInstance().atualizarCliente(usuarioAtualizado))
                     request.getSession().setAttribute("status", "sucesso");
                 else
