@@ -23,7 +23,7 @@ public class DAORaca {
     private Conexao conexao;
     private Connection con;
     public String INSERT_SQL = "INSERT INTO RACA VALUES (?, ?, ?, ?, ?);";
-    public String SELECT_SQL = "SELECT * FROM RACA";
+    public String SELECT_SQL = "SELECT * FROM RACA;";
     public String UPDATE_SQL = "UPDATE RACA SET TIPOANIMAL=?, NOMERACA=?, PORTE=?, OBSERVACAO=? WHERE IDRACA=?;";
     public String DELETE_SQL = "DELETE FROM RACA WHERE IDRACA=?;";
 
@@ -60,7 +60,7 @@ public class DAORaca {
         try {
             stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
-            stmt.setString(2, raca.getTipoAnimal());
+            stmt.setInt(2, raca.getTipoAnimal());
             stmt.setString(3, raca.getNomeRaca());
             stmt.setString(4, raca.getPorte());
             stmt.setString(5, raca.getObservacao());

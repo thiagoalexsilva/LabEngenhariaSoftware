@@ -4,7 +4,7 @@
     Author     : ana
 --%>
 
-<%@page import="model.entity.VacinaMedicamento"%>
+<%@page import="model.entity.VacinasMedicamentos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -35,30 +35,30 @@
                     <input type="image" src="images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
-                    <form id="formmedicamentos" action="/AnyMais/medicamentos/cadastrado" method="POST">
+                    <form id="formVacinasMedicamentos" action="/AnyMais/medicamentos/cadastrado" method="POST">
                         <% if(session.getAttribute("raca") == null){ %>
                             <h3 class="title">Cadastrar Vacinas e Medicamentos</h3>
                         <% } 
                             else{ %>
                             <h3 class="title">Atualizar Vacinas e Medicamentos</h3>
                         <% } %>
-                            <input type="radio" name="tipo-vacinaMedicamento" value="Vacina" class="cadastra-raca label-field-vacina"> Vacina
-                            <input type="radio" name="tipo-vacinaMedicamento" value="Medicamento" class="cadastra-raca label-field-vacina"> Medcicamento
+                            <input type="radio" name="tipo" value="Vacina" class="cadastra-raca label-field-vacina"> Vacina
+                            <input type="radio" name="tipo" value="Medicamento" class="cadastra-raca label-field-vacina"> Medcicamento
                             <br>
-                            <input type="radio" name="tipo-pet" value="cachorro" class="cadastra-raca label-field-vacina"
-                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinaMedicamento) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
-                            <input type="radio" name="tipo-pet" value="gato" class="label-field-vacina"
-                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinaMedicamento) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
+                            <input type="radio" name="tipoAnimal" value="cachorro" class="cadastra-raca label-field-vacina"
+                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinasMedicamentos) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
+                            <input type="radio" name="tipoAnimal" value="gato" class="label-field-vacina"
+                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinasMedicamentos) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                             <br>
                         
                             <p class="cadastra-vacina">Nome:
-                                <input type="text" class="label-field-vacina" name="nome-medicamento"
-                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getNome().toUpperCase() : ""); %>"></p>
+                                <input type="text" class="label-field-vacina" name="nome"
+                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinasMedicamentos) session.getAttribute("medicamento")).getNome().toUpperCase() : ""); %>"></p>
                             
                             <p class="cadastra-vacina">Periodicidade:
                                 <input type="number" name="periodicidade" class="label-periodo label-field-vacina" min="0"
-                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getPeriodicidade() : 0); %>">
-                                <select name="periodicidade" required class="label-periodo label-field-vacina">
+                                       value="<% out.print(session.getAttribute("medicamento") != null ? ((VacinasMedicamentos) session.getAttribute("medicamento")).getPeriodicidade() : 0); %>">
+                                <select name="tempo" required class="label-periodo label-field-vacina">
                                 <option></option>
                                 <option value="Horas">Horas</option>
                                 <option value="Dias">Dias</option>
@@ -90,12 +90,12 @@
                 
                 cadastrar.addEventListener("click", function(e){
                     if(e.target.value == "Cadastrar"){
-                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/cadastrado";
-                        document.getElementById("formmedicamentos").submit();
+                        document.getElementById("formVacinasMedicamentos").action = "/AnyMais/medicamentos/cadastrado";
+                        document.getElementById("formVacinasMedicamentos").submit();
                     }
                     else if(e.target.value == "Atualizar"){
-                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/atualizado";
-                        document.getElementById("formmedicamentos").submit();
+                        document.getElementById("formVacinasMedicamentos").action = "/AnyMais/medicamentos/atualizado";
+                        document.getElementById("formVacinasMedicamentos").submit();
                     }
                 });
             }

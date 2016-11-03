@@ -29,14 +29,14 @@
             <div class="col-md-2"></div>
             <div class="col-md-8 body-cadastro">
                 <h3>Cadastro</h3>
-                <form id="formusuario" action="/AnyMais/usuario/cadastrado" method="POST">
+                <form id="formCadastrarUsuario" action="/AnyMais/usuario/cadastrado" method="POST">
                     <table>
                         <tr>
                           <th colspan="2" class="tipo-usuario">
-                              <input type="radio" name="tipo-usuario" value="PF" required> Pessoa Física<br>
+                              <input type="radio" name="tipoPessoa" value="PF" required> Pessoa Física<br>
                           </th>
                           <th class="tipo-usuario">
-                              <input type="radio" name="tipo-usuario" value="PJ" required> Pessoa Jurídica<br>
+                              <input type="radio" name="tipoPessoa" value="PJ" required> Pessoa Jurídica<br>
                           </th>
                           <th colspan="3"></th>
                         </tr>
@@ -58,11 +58,11 @@
                           </td>
                           <td class="cadastrar-field">Data Nascimento </td>
                           <td class="cadastrar-field">
-                              <input type="date" name="nascimento" class="coluna2" required>
+                              <input type="date" name="dataNascimento" class="coluna2" required>
                           </td>
                           <td class="cadastrar-field">CPF/CNPJ </td>
                           <td class="cadastrar-field">
-                              <input type="text" class="label-field" name="cpf-cnpj" required>
+                              <input type="text" class="label-field" name="cpfCnpj" required>
                           </td>
                         </tr>
                         <tr>
@@ -141,7 +141,7 @@
                           </td>
                           <td class="cadastrar-field">Confirmar E-mail </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="text" class="label-field coluna2" name="confirma-email" required>
+                              <input type="text" class="label-field coluna2" name="confirmaEmail" required>
                           </td>
                         </tr>
                         <tr>
@@ -151,7 +151,7 @@
                           </td>
                           <td class="cadastrar-field">Confirmar Senha </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="password" class="label-field coluna2" name="confirma-senha" required>
+                              <input type="password" class="label-field coluna2" name="confirmaSenha" required>
                           </td>
                         </tr>
                         <tr>

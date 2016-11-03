@@ -11,7 +11,7 @@ public class Animal {
     private int idAnimal;
     private int tipoAnimal;
     private String nome;
-    private Raca idRaca;
+    private Raca raca;
     private Date dataNascimento;
     private float peso;
     private float tamanho;
@@ -20,12 +20,12 @@ public class Animal {
     private String descricao;
     private String imagem;
 
-    public Animal(int idAnimal, int tipoAnimal, String nome, Raca idRaca, Date dataNascimento, float peso, float tamanho,
+    public Animal(int idAnimal, int tipoAnimal, String nome, Raca raca, Date dataNascimento, float peso, float tamanho,
             String cor, String sexo, String descricao, String imagem) {
         this.idAnimal = idAnimal;
         this.tipoAnimal = tipoAnimal;
         this.nome = nome;
-        this.idRaca = idRaca;
+        this.raca = raca;
         this.dataNascimento = dataNascimento;
         this.peso = peso;
         this.tamanho = tamanho;
@@ -59,12 +59,12 @@ public class Animal {
         this.nome = nome;
     }
 
-    public Raca getIdRaca() {
-        return idRaca;
+    public Raca getRaca() {
+        return raca;
     }
 
-    public void setIdRaca(Raca idRaca) {
-        this.idRaca = idRaca;
+    public void setRaca(Raca raca) {
+        this.raca = raca;
     }
 
     public Date getDataNascimento() {

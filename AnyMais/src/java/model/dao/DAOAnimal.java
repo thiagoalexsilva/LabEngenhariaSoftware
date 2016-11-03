@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.entity.Animal;
+import java.sql.Date;
+import java.util.ArrayList;
+import model.entity.Raca;
 
 
 /**
@@ -23,7 +26,7 @@ public class DAOAnimal {
     private Connection con;
     
     private final String INSERT_SQL = "INSERT INTO ANIMAL VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private final String SELECT_SQL = "SELECT * FROM ANIMAL WHERE IDANIMAL=?;";
+    private final String SELECT_SQL = "SELECT * FROM ANIMAL;";
     
     private final String UPDATE_SQL = "UPDATE ANIMAL SET NOME=?, IDRACA=?, DATANASCIEMENTO=?, PESO=?, TAMANHO=?, COR=?, SEXO=?, DESCRICAO=?, IMAGEM=?"
                                     + "WHERE IDANIMAL=?;";
@@ -65,8 +68,8 @@ public class DAOAnimal {
             stmt.setInt(1, nextId());
             stmt.setInt(2, animal.getTipoAnimal());
             stmt.setString(3, animal.getNome());
-            stmt.setInt(4, animal.getIdRaca());
-            stmt.setDate(5, animal.getDataNascimento());
+            stmt.setInt(4, animal.getRaca().getIdRaca());
+            stmt.setDate(5, new java.sql.Date(animal.getDataNascimento().getTime()));
             stmt.setFloat(6, animal.getPeso());
             stmt.setFloat(7, animal.getTamanho());
             stmt.setString(8, animal.getCor());
@@ -93,8 +96,8 @@ public class DAOAnimal {
             stmt = con.prepareStatement(UPDATE_SQL);
             
             stmt.setString(1, animal.getNome());
-            stmt.setInt(2, animal.getIdRaca());
-            stmt.setDate(3, animal.getDataNascimento());
+            stmt.setInt(2, animal.getRaca().getIdRaca());
+            stmt.setDate(3, new java.sql.Date(animal.getDataNascimento().getTime()));
             stmt.setFloat(4, animal.getPeso());
             stmt.setFloat(5, animal.getTamanho());
             stmt.setString(6, animal.getCor());
@@ -132,33 +135,64 @@ public class DAOAnimal {
         return false;
     } 
 
-    public Animal select(String email, String nome) {
+    public Animal[] select() {
         con = conexao.openConexao();
-        Animal animal = null;
-        ResultSet rs;
-        try {   
-            PreparedStatement stmt;
+        ArrayList<Animal> animais = new ArrayList<Animal>();
+        Animal[] arrayAnimais;
+        PreparedStatement stmt;
+        try {
             stmt = con.prepareStatement(SELECT_SQL);
-            stmt.setInt(1, animal.getIdAnimal());
-            rs = stmt.executeQuery();
-            
-            animal.setIdAnimal(rs.getInt(1));
-            animal.setTipoAnimal(rs.getInt(2));
-            animal.setNome(rs.getString(3));
-            animal.setIdRaca(rs.getInt(4));
-            animal.setDataNascimento(rs.getDate(5));
-            animal.setPeso(rs.getFloat(7));
-            animal.setTamanho(rs.getFloat(8));
-            animal.setCor(rs.getString(9));
-            animal.setSexo(rs.getString(10));
-            animal.setDescricao(rs.getString(11));
-            animal.setImagem(rs.getString(12));
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+            animais.add(getAnimal(rs));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOAnimal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        arrayAnimais = new Animal[animais.size()];
+        
+        for(int i=0; i<arrayAnimais.length; i++){
+            arrayAnimais[i] = animais.get(i);
+        }
+        
         conexao.closeConexao();
-        return animal;
+        return arrayAnimais;
+    }
+    
+        private Animal getAnimal(ResultSet rs){
+        try {
+            DAORaca daoRaca = new DAORaca();
+            Raca [] racas = null;
+            Raca raca = null;
+            
+            int idAnimal = rs.getInt(1);
+            int tipoAnimal = rs.getInt(2);
+            String nome = rs.getString(3);
+            
+            int idRaca = rs.getInt(4);
+            racas = daoRaca.selectAll(); 
+            for(Raca r: racas){ //Tipo [variável] : vetor
+                if(r.getIdRaca() == idRaca){
+                    raca = r;
+                    break;
+                }
+            }
+                    
+            Date dataNascimento = rs.getDate(5);
+            float peso = rs.getFloat(6);
+            float tamanho = rs.getFloat(7);
+            String cor = rs.getString(8);
+            String sexo = rs.getString(9);
+            String descricao = rs.getString(10);
+            String imagem = rs.getString(11);
+            return new Animal(idAnimal, tipoAnimal, nome, raca, dataNascimento, peso, tamanho, cor, sexo, descricao, imagem);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOAnimal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
     
 }

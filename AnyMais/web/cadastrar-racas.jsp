@@ -33,27 +33,27 @@
                     <input type="image" src="images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
-                    <form id="formracas" action="/AnyMais/racas/cadastrado" method="POST">
+                    <form id="formRacas" action="/AnyMais/racas/cadastrado" method="POST">
                         <% if(session.getAttribute("raca") == null){ %>
                             <h3 class="title">Cadastrar Raça</h3>
                         <% } 
                             else{ %>
                             <h3 class="title">Atualizar Raça</h3>
                         <% } %>
-                        <input type="radio" name="tipo" value="cachorro" class="cadastra-raca"
+                        <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca"
                                <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
-                        <input type="radio" name="tipo" value="gato"
+                        <input type="radio" name="tipoAnimal" value="Gato"
                                <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                         <br>                    
                         <p class="cadastra-raca">Raça:
-                            <input type="text" class="label-field-raca" name="nome-raca"
+                            <input type="text" class="label-field-raca" name="nomeRaca"
                                    value="<% out.print(session.getAttribute("raca") != null ? ((Raca) session.getAttribute("raca")).getNomeRaca().toUpperCase() : ""); %>"> </p>
                         <p class="cadastra-raca">Porte:
                             <select name="porte" class="seleciona-porte">
                                 <option value="-" <% out.print(session.getAttribute("raca") == null ? "selected" : ""); %> >-</option>
-                                <option value="pequeno" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("PEQUENO") ? "selected" : ""); %> >Pequeno</option>
-                                <option value="medio" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("MEDIO") ? "selected" : ""); %> >Médio</option>
-                                <option value="grande" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("GRANDE") ? "selected" : ""); %> >Grande</option>
+                                <option value="Pequeno" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("PEQUENO") ? "selected" : ""); %> >Pequeno</option>
+                                <option value="Medio" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("MEDIO") ? "selected" : ""); %> >Médio</option>
+                                <option value="Grande" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("GRANDE") ? "selected" : ""); %> >Grande</option>
                             </select>
                         <p class="cadastra-raca">Observação:</p><br>
                         <textarea name="observacao" rows="4" cols="50"><% out.print(session.getAttribute("raca") != null ? ((Raca) session.getAttribute("raca")).getObservacao() : ""); %> </textarea> 
@@ -76,12 +76,12 @@
                 
                 cadastrar.addEventListener("click", function(e){
                     if(e.target.value == "Cadastrar"){
-                        document.getElementById("formracas").action = "/AnyMais/racas/cadastrado";
-                        document.getElementById("formracas").submit();
+                        document.getElementById("formRacas").action = "/AnyMais/racas/cadastrado";
+                        document.getElementById("formRacas").submit();
                     }
                     else if(e.target.value == "Atualizar"){
-                        document.getElementById("formracas").action = "/AnyMais/racas/atualizado";
-                        document.getElementById("formracas").submit();
+                        document.getElementById("formRacas").action = "/AnyMais/racas/atualizado";
+                        document.getElementById("formRacas").submit();
                     }
                 });
             }
