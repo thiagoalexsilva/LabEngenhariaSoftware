@@ -32,41 +32,22 @@ CREATE  TABLE `anymais`.`pessoa` (
 
   `email` VARCHAR(70) NOT NULL ,
 
-  `confirmaEmail` VARCHAR(70) NOT NULL ,
-
   `senha` VARCHAR(15) NOT NULL ,
-
-  `confirmaSenha` VARCHAR(15) NOT NULL ,
+  
+  `imagem` VARCHAR(256) ,
+  
+  `descricao` VARCHAR(256) ,
 
   PRIMARY KEY (`idPessoa`) );
 
 
-CREATE  TABLE `anymais`.`animal` (
+CREATE  TABLE `anymais`.`tipoAnimal` (
 
-  `idAnimal` INT NOT NULL ,
+  `idTipoAnimal` INT NOT NULL ,
 
-  `tipoAnimal` INT NOT NULL ,
+  `nomeTipoAnimal` INT NOT NULL ,
 
-  `nome` VARCHAR(45) NOT NULL ,
-
-  `raca` VARCHAR(50) NOT NULL ,
-
-  `dataNascimento` DATE NOT NULL ,
-
-  `peso` INT NOT NULL ,
-
-  `tamanho` INT NOT NULL ,
-
-  `cor` VARCHAR(45) NOT NULL ,
-
-  `sexo` VARCHAR(1) NOT NULL ,
-
-  `descricao` VARCHAR(256) NULL ,
-
-  `imagem` VARCHAR(256) NULL ,
-
-  PRIMARY KEY (`idAnimal`) );
-
+  PRIMARY KEY (`idTipoAnimal`) );
 
 CREATE  TABLE `anymais`.`raca` (
 
@@ -80,7 +61,46 @@ CREATE  TABLE `anymais`.`raca` (
 
   `observacao` VARCHAR(256) NULL ,
 
-  PRIMARY KEY (`idRaca`) );
+  PRIMARY KEY (`idRaca`) ,
+  
+  FOREIGN KEY (`tipoAnimal`) REFERENCES tipoAnimal(`idTipoAnimal`) 
+  
+  ON DELETE NO ACTION
+
+  ON UPDATE NO ACTION );
+
+
+CREATE  TABLE `anymais`.`animal` (
+
+  `idAnimal` INT NOT NULL ,
+
+  `tipoAnimal` INT NOT NULL ,
+
+  `nome` VARCHAR(45) NOT NULL ,
+
+  `idRaca` INT(11) NOT NULL ,
+
+  `dataNascimento` DATE NOT NULL ,
+
+  `peso` FLOAT NOT NULL ,
+
+  `tamanho` FLOAT NOT NULL ,
+
+  `cor` VARCHAR(45) NOT NULL ,
+
+  `sexo` VARCHAR(1) NOT NULL ,
+
+  `descricao` VARCHAR(256) NULL ,
+
+  `imagem` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idAnimal`) ,
+  
+  FOREIGN KEY (`idRaca`) REFERENCES `anymais`.`raca` (`idRaca`)
+
+  ON DELETE NO ACTION
+
+  ON UPDATE NO ACTION );
 
 
 CREATE  TABLE `anymais`.`vacinasMedicamentos` (
@@ -102,19 +122,5 @@ CREATE  TABLE `anymais`.`vacinasMedicamentos` (
   PRIMARY KEY (`idVacinasMedicamentos`) );
 
 
-ALTER TABLE `anymais`.`pessoa` DROP COLUMN `confirmaSenha` , DROP COLUMN `confirmaEmail` , ADD COLUMN `image` VARCHAR(256) NULL  AFTER `senha` , ADD COLUMN `descricao` VARCHAR(256) NULL  AFTER `image` ;
 
-ALTER TABLE `anymais`.`animal` DROP COLUMN `raca` , ADD COLUMN `idRaca` INT(11) NOT NULL  AFTER `nome` , CHANGE COLUMN `peso` `peso` FLOAT NOT NULL  , CHANGE COLUMN `tamanho` `tamanho` FLOAT NOT NULL  , 
-
-  ADD CONSTRAINT `idRaca`
-
-  FOREIGN KEY (`idRaca` )
-
-  REFERENCES `anymais`.`raca` (`idRaca` )
-
-  ON DELETE NO ACTION
-
-  ON UPDATE NO ACTION
-
-, ADD INDEX `idRaca` (`idRaca` ASC) ;
 
