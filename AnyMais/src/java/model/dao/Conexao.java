@@ -24,7 +24,7 @@ public class Conexao {
     public Connection openConexao(){
         try {
             if(conexao == null){
-                Class.forName("org.postgresql.Driver");
+                Class.forName("com.mysql.jdbc.Driver");
                 DriverManager.setLoginTimeout(20);
                 conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/anymais","root","root");
             }

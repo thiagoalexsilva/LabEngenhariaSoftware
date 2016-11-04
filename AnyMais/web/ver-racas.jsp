@@ -23,14 +23,20 @@
                 <img src="images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
-        <div>
-            <% if (session.getAttribute("status") != null)
-                    if (session.getAttribute("status").toString().equals("sucesso")) { %>
-            Sucesso!
-            <% } else if (session.getAttribute("status").equals("falha")) { %>
-            Falha!
-            <% }
-            %>
+        <%  
+            boolean sucesso = false;
+            boolean falha = false;
+            
+            if (session.getAttribute("status") != null){
+                if (session.getAttribute("status").toString().equals("sucesso")) { 
+                    sucesso = true;
+                } else if (session.getAttribute("status").equals("falha")) { 
+                    falha = false;
+                }
+            }
+        %>        
+        <div class="mensagem <%=sucesso ? "sucesso" : falha ? "falha" : ""%>">
+            <%=sucesso ? "Sucesso!" : falha ? "Falha!" : ""%>
         </div>
         <div class="container">
             <div class="col-md-2"></div>
@@ -75,17 +81,17 @@
                                 if (session.getAttribute("racas") instanceof Raca[]) {
                                     Raca[] racas = (Raca[]) session.getAttribute("racas");
                                     for (Raca raca : racas) {
-                                        int id = raca.getId();
+                                        int id = raca.getIdRaca();
                             %>
                                         <tr>
                                             <td><% out.print(raca.getTipoAnimal()); %></td>
                                             <td><% out.print(raca.getNomeRaca()); %><br></td>
                                             <td><% out.print(raca.getPorte()); %></td>
                                             <td>
-                                                <center><input name="excluir" id="<% out.print(raca.getId()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<% out.print(raca.getIdRaca()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
                                             </td>
                                             <td>
-                                                <center><input name="atualizar" id="<% out.print(raca.getId()); %>" type="image" src="images/edit.png" class="excluir-button"></center>
+                                                <center><input name="atualizar" id="<% out.print(raca.getIdRaca()); %>" type="image" src="images/edit.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>

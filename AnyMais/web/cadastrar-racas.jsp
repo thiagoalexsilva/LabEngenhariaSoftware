@@ -40,17 +40,17 @@
                             else{ %>
                             <h3 class="title">Atualizar Raça</h3>
                         <% } %>
-                        <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca"
+                        <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca" required
                                <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
-                        <input type="radio" name="tipoAnimal" value="Gato"
+                        <input type="radio" name="tipoAnimal" value="Gato" required
                                <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                         <br>                    
                         <p class="cadastra-raca">Raça:
-                            <input type="text" class="label-field-raca" name="nomeRaca"
+                            <input type="text" class="label-field-raca" name="nomeRaca" required
                                    value="<% out.print(session.getAttribute("raca") != null ? ((Raca) session.getAttribute("raca")).getNomeRaca().toUpperCase() : ""); %>"> </p>
                         <p class="cadastra-raca">Porte:
-                            <select name="porte" class="seleciona-porte">
-                                <option value="-" <% out.print(session.getAttribute("raca") == null ? "selected" : ""); %> >-</option>
+                            <select name="porte" class="seleciona-porte" required>
+                                <option value="-" disabled <% out.print(session.getAttribute("raca") == null ? "selected" : ""); %> >-</option>
                                 <option value="Pequeno" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("PEQUENO") ? "selected" : ""); %> >Pequeno</option>
                                 <option value="Medio" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("MEDIO") ? "selected" : ""); %> >Médio</option>
                                 <option value="Grande" <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getPorte().toUpperCase().equals("GRANDE") ? "selected" : ""); %> >Grande</option>
@@ -58,9 +58,9 @@
                         <p class="cadastra-raca">Observação:</p><br>
                         <textarea name="observacao" rows="4" cols="50"><% out.print(session.getAttribute("raca") != null ? ((Raca) session.getAttribute("raca")).getObservacao() : ""); %> </textarea> 
                         <br>
-                        <input type="submit" name="cancelar" class="button-cancelar" value="Cancelar">
+                        <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
                         <input type="submit" name="cadastrar" class="button-cadastrar" 
-                               value="<% out.print(session.getAttribute("raca") == null ? "Cadastrar" : "Atualizar"); %>">
+                               value="<%=session.getAttribute("raca") == null ? "Cadastrar" : "Atualizar"%>">
                         <br>
                     </form> 
                 </div>
@@ -73,8 +73,9 @@
         <script>
             function load(){
                 var cadastrar = document.getElementsByName("cadastrar")[0];
+                var cancelar = document.getElementsByName("cancelar")[0];
                 
-                cadastrar.addEventListener("click", function(e){
+                cadastrar.addEventListener("submit", function(e){
                     if(e.target.value == "Cadastrar"){
                         document.getElementById("formRacas").action = "/AnyMais/racas/cadastrado";
                         document.getElementById("formRacas").submit();
@@ -84,6 +85,12 @@
                         document.getElementById("formRacas").submit();
                     }
                 });
+                
+                cancelar.addEventListener("click", function(e){
+                    document.getElementById("formRacas").action = "/AnyMais/racas";
+                    document.getElementById("formRacas").submit();
+                });
+
             }
             
             load();

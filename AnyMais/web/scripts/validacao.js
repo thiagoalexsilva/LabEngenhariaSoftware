@@ -1,3 +1,55 @@
+function mascaraNumero(e, max){
+			
+	var cpf = e.target.value;
+	
+	if(cpf.length <= max-1){
+		if('0123456789'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+			e.preventDefault();
+		}
+	}
+	else{
+		e.preventDefault();
+	}
+}
+
+function mascaraAlfa(e, max){
+	
+	var cpf = e.target.value;
+	
+	if(cpf.length <= max-1){
+		if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+			e.preventDefault();
+		}
+	}
+	else{
+		e.preventDefault();
+	}
+}
+
+function mascaraAlfaNumero(e, max){
+	
+	var cpf = e.target.value;
+	
+	if(cpf.length <= max-1){
+		if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+			e.preventDefault();
+		}
+	}
+	else{
+		e.preventDefault();
+	}
+}
+
+function mascaraEmail(e){
+	
+	var cpf = e.target.value;
+	
+	if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+		e.preventDefault();
+	}
+
+}
+
 function cpfValido(cpf){
 	
 	var i=0;
@@ -171,3 +223,35 @@ var datas = document.getElementsByClassName("data");
 var ceps = document.getElementsByClassName("cep");
 var senhas = document.getElementsByClassName("senha");
 var emails = document.getElementsByClassName("email");
+
+var submit = document.getElementsByName("submit")[0];
+
+for(i=0; i<cpfs.length; i++){
+	cpfs[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 11);
+	});
+}
+
+for(i=0; i<cnpjs.length; i++){
+	cnpjs[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 14);
+	});
+}
+
+for(i=0; i<telefones.length; i++){
+	telefones[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 10);
+	});
+}
+
+for(i=0; i<celulares.length; i++){
+	celulares[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 11);
+	});
+}
+
+for(i=0; i<datas.length; i++){
+	datas[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 8);
+	});
+}
