@@ -5,6 +5,9 @@
  */
 package model.dao;
 
+import controller.GerenciarTiposAnimal;
+import controller.GerenciarTiposVacinasMedicamentos;
+import controller.GerenciarVacinasMedicamentos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.entity.TipoAnimal;
+import model.entity.TipoVacinaMedicamento;
 import model.entity.VacinasMedicamentos;
 
 /**
@@ -60,8 +65,8 @@ public class DAOVacinasMedicamentos {
         try {
             stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
-            stmt.setInt(2, vacinasMedicamentos.getTipo());
-            stmt.setInt(3, vacinasMedicamentos.getTipoAnimal());
+            stmt.setInt(2, vacinasMedicamentos.getTipoVacinaMedicamento().getIdTipoVacinaMedicamento());
+            stmt.setInt(3, vacinasMedicamentos.getTipoAnimal().getIdTipoAnimal());
             stmt.setString(4, vacinasMedicamentos.getNome());
             stmt.setInt(5, vacinasMedicamentos.getPeriodicidade());
             stmt.setString(6, vacinasMedicamentos.getTempo());
@@ -111,8 +116,8 @@ public class DAOVacinasMedicamentos {
         PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(UPDATE_SQL);
-            stmt.setInt(1, medicamento.getTipo());
-            stmt.setInt(2, medicamento.getTipoAnimal());
+            stmt.setInt(1, medicamento.getTipoVacinaMedicamento().getIdTipoVacinaMedicamento());
+            stmt.setInt(2, medicamento.getTipoAnimal().getIdTipoAnimal());
             stmt.setString(3, medicamento.getNome());
             stmt.setInt(4, medicamento.getPeriodicidade());
             stmt.setString(5, medicamento.getTempo());
@@ -151,12 +156,16 @@ public class DAOVacinasMedicamentos {
         try {
             int idVacinasMedicamentos = rs.getInt(1);
             int tipo = rs.getInt(2);
-            int tipoAnimal = rs.getInt(3);
+            TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorId(tipo);
+            
+            int idTipoAnimal = rs.getInt(3);
+            TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorId(idTipoAnimal);
+            
             String nome = rs.getString(4);
             int periodicidade = rs.getInt(5);
             String tempo = rs.getString(6);
             String observacao = rs.getString(7);
-            return new VacinasMedicamentos(idVacinasMedicamentos, tipo, tipoAnimal, nome, periodicidade, tempo, observacao); 
+            return new VacinasMedicamentos(idVacinasMedicamentos, tipoVacinaMedicamento, tipoAnimal, nome, periodicidade, tempo, observacao); 
         } catch (SQLException ex) {
             Logger.getLogger(DAOVacinasMedicamentos.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -11,12 +11,12 @@ import javax.persistence.Id;
 public class Raca {
     
     private int idRaca;
-    private int tipoAnimal;
+    private TipoAnimal tipoAnimal;
     private String nomeRaca;
     private String porte;
     private String observacao;
     
-    public Raca(int idRaca, int tipoAnimal, String nomeRaca, String porte, String observacao){
+    public Raca(int idRaca, TipoAnimal tipoAnimal, String nomeRaca, String porte, String observacao){
         this.idRaca = idRaca;
         this.tipoAnimal = tipoAnimal;
         this.nomeRaca = nomeRaca;
@@ -31,12 +31,12 @@ public class Raca {
     public void setIdRaca(int idRaca) {
         this.idRaca = idRaca;
     }
-    
-    public int getTipoAnimal() {
+
+    public TipoAnimal getTipoAnimal() {
         return tipoAnimal;
     }
 
-    public void setTipoAnimal(int tipoAnimal) {
+    public void setTipoAnimal(TipoAnimal tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
     }
 

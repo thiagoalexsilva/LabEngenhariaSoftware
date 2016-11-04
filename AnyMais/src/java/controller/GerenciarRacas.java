@@ -39,9 +39,9 @@ public class GerenciarRacas {
         ArrayList<Raca> filtroRacas = new ArrayList<Raca>();
         
         for(Raca raca : todasRacas){
-            if((cachorro && raca.getTipoAnimal().toUpperCase().equals("CACHORRO"))
+            if((cachorro && raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO"))
                     ||
-               (gato && raca.getTipoAnimal().toUpperCase().equals("GATO"))
+               (gato && raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO"))
                     ||
                (!cachorro && !gato)){
                 

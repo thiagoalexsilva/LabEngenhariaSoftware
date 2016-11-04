@@ -5,6 +5,8 @@
  */
 package controller.servlet;
 
+import controller.GerenciarTiposAnimal;
+import controller.GerenciarTiposVacinasMedicamentos;
 import controller.GerenciarVacinasMedicamentos;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.TipoAnimal;
+import model.entity.TipoVacinaMedicamento;
 import model.entity.VacinasMedicamentos;
 
 /**
@@ -117,13 +121,20 @@ public class VacinasMedicamentosServlet extends HttpServlet {
         else if(uri.equals("/AnyMais/medicamentos/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Cadastrar")){
-                //String tipo = request.getParameter("tipo-med");
-                String tipoAnimal = request.getParameter("tipo-pet");
+                String tipo = request.getParameter("tipo-med");
+                TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorNome(tipo);
+                
+                String nomeTipoAnimal = request.getParameter("tipo-pet");
+                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
+                
                 String nome = request.getParameter("nome-medicamento");
                 Integer periodicidade = Integer.parseInt(request.getParameter("periodicidade"));
+                
+                String tempo = request.getParameter("tempo");            
+                
                 String observacao = request.getParameter("observacao");            
 
-                VacinasMedicamentos novoMed = new VacinasMedicamentos(1, tipoAnimal, nome, periodicidade, observacao);
+                VacinasMedicamentos novoMed = new VacinasMedicamentos(1, tipoVacinaMedicamento, tipoAnimal, nome, periodicidade, tempo, observacao);
                 if(GerenciarVacinasMedicamentos.getInstance().adicionarMedicamento(novoMed))
                     request.getSession().setAttribute("status", "sucesso");
                 else
@@ -150,7 +161,7 @@ public class VacinasMedicamentosServlet extends HttpServlet {
                 VacinasMedicamentos[] medicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaMedicamentos();
                 VacinasMedicamentos medicamentoAtualizacao = null;
                 for(VacinasMedicamentos medicamento : medicamentos){
-                    if(medicamento.getId() == idmed_vac){
+                    if(medicamento.getIdVacinasMedicamentos() == idmed_vac){
                         medicamentoAtualizacao = medicamento;
                         break;
                     }
@@ -165,13 +176,19 @@ public class VacinasMedicamentosServlet extends HttpServlet {
         } else if(uri.equals("/AnyMais/medicamentos/atualizado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int idmed_vac = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getId();
-                String tipoAnimal = request.getParameter("tipo-pet");
+                int idmed_vac = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getIdVacinasMedicamentos();
+                String tipo = request.getParameter("tipo-med");
+                TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorNome(tipo);
+                
+                String nomeTipoAnimal = request.getParameter("tipo-pet");
+                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
+                                
                 String nome = request.getParameter("nome-medicamento");
                 int periodicidade = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getPeriodicidade();
+                String tempo = request.getParameter("tempo");            
                 String observacao = request.getParameter("observacao");            
 
-                VacinasMedicamentos medicamentoAtualizado = new VacinasMedicamentos(idmed_vac, tipoAnimal, nome, periodicidade, observacao);
+                VacinasMedicamentos medicamentoAtualizado = new VacinasMedicamentos(idmed_vac, tipoVacinaMedicamento, tipoAnimal, nome, periodicidade, tempo, observacao);
                 if(GerenciarVacinasMedicamentos.getInstance().atualizarMedicamento(medicamentoAtualizado))
                     request.getSession().setAttribute("status", "sucesso");
                 else

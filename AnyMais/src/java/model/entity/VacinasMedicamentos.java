@@ -10,17 +10,17 @@ import javax.persistence.Id;
 public class VacinasMedicamentos {
 
     private int idVacinasMedicamentos;
-    private int tipo;
-    private int tipoAnimal;
+    private TipoVacinaMedicamento tipoVacinaMedicamento;
+    private TipoAnimal tipoAnimal;
     private String nome;
     private int periodicidade;
     private String tempo;
     private String observacao;
 
-    public VacinasMedicamentos(int idVacinasMedicamentos, int tipo, int tipoAnimal, String nome, int periodicidade, 
+    public VacinasMedicamentos(int idVacinasMedicamentos, TipoVacinaMedicamento tipoVacinaMedicamento, TipoAnimal tipoAnimal, String nome, int periodicidade, 
             String tempo, String observacao) {
         this.idVacinasMedicamentos = idVacinasMedicamentos;
-        this.tipo = tipo;
+        this.tipoVacinaMedicamento = tipoVacinaMedicamento;
         this.tipoAnimal = tipoAnimal;
         this.nome = nome;
         this.periodicidade = periodicidade;
@@ -36,19 +36,19 @@ public class VacinasMedicamentos {
         this.idVacinasMedicamentos = idVacinasMedicamentos;
     }
 
-    public int getTipo() {
-        return tipo;
+    public TipoVacinaMedicamento getTipoVacinaMedicamento() {
+        return tipoVacinaMedicamento;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public void setTipoVacinaMedicamento(TipoVacinaMedicamento tipoVacinaMedicamento) {
+        this.tipoVacinaMedicamento = tipoVacinaMedicamento;
     }
 
-    public int getTipoAnimal() {
+    public TipoAnimal getTipoAnimal() {
         return tipoAnimal;
     }
 
-    public void setTipoAnimal(int tipoAnimal) {
+    public void setTipoAnimal(TipoAnimal tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
     }
 

@@ -6,6 +6,7 @@
 package controller.servlet;
 
 import controller.GerenciarRacas;
+import controller.GerenciarTiposAnimal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.Raca;
+import model.entity.TipoAnimal;
 
 /**
  *
@@ -94,7 +96,9 @@ public class RacasServlet extends HttpServlet {
         else if(uri.equals("/AnyMais/racas/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Cadastrar")){
-                String tipoAnimal = request.getParameter("tipo");
+                String nomeTipoAnimal = request.getParameter("tipo");
+                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
+                
                 String nomeRaca = request.getParameter("nome-raca");
                 String porte = request.getParameter("porte");
                 String observacao = request.getParameter("observacao");            
@@ -127,7 +131,7 @@ public class RacasServlet extends HttpServlet {
                 Raca[] racas = GerenciarRacas.getInstance().selecionaRacas();
                 Raca racaAtualizacao = null;
                 for(Raca raca : racas){
-                    if(raca.getId() == idraca){
+                    if(raca.getIdRaca() == idraca){
                         racaAtualizacao = raca;
                         break;
                     }
@@ -143,8 +147,10 @@ public class RacasServlet extends HttpServlet {
         else if(uri.equals("/AnyMais/racas/atualizado")){
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int idRaca = ((Raca) request.getSession(true).getAttribute("raca")).getId();
-                String tipoAnimal = request.getParameter("tipo");
+                int idRaca = ((Raca) request.getSession(true).getAttribute("raca")).getIdRaca();
+                String nomeTipoAnimal = request.getParameter("tipo");
+                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
+                                
                 String nomeRaca = request.getParameter("nome-raca");
                 String porte = request.getParameter("porte");
                 String observacao = request.getParameter("observacao");            

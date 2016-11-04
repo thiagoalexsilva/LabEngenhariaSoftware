@@ -43,12 +43,12 @@
                             <h3 class="title">Atualizar Vacinas e Medicamentos</h3>
                         <% } %>
                             <input type="radio" name="tipo" value="Vacina" class="cadastra-raca label-field-vacina"> Vacina
-                            <input type="radio" name="tipo" value="Medicamento" class="cadastra-raca label-field-vacina"> Medcicamento
+                            <input type="radio" name="tipo" value="Medicamento" class="cadastra-raca label-field-vacina"> Medicamento
                             <br>
                             <input type="radio" name="tipoAnimal" value="cachorro" class="cadastra-raca label-field-vacina"
-                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinasMedicamentos) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
+                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinasMedicamentos) session.getAttribute("medicamento")).getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
                             <input type="radio" name="tipoAnimal" value="gato" class="label-field-vacina"
-                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinasMedicamentos) session.getAttribute("medicamento")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
+                                   <% out.print(session.getAttribute("medicamento") != null && ((VacinasMedicamentos) session.getAttribute("medicamento")).getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                             <br>
                         
                             <p class="cadastra-vacina">Nome:
@@ -67,7 +67,7 @@
                             
                             <p class="cadastra-vacina">Observação:</p><br>
                                 <textarea name="observacao" rows="4" cols="50" class="label-field-vacina">
-                                    <% out.print(session.getAttribute("medicamento") != null ? ((VacinaMedicamento) session.getAttribute("medicamento")).getObservacao() : ""); %>
+                                    <% out.print(session.getAttribute("medicamento") != null ? ((VacinasMedicamentos) session.getAttribute("medicamento")).getObservacao() : ""); %>
                                 </textarea>
                                 <br>
                                 

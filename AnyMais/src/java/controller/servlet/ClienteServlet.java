@@ -141,7 +141,7 @@ public class ClienteServlet extends HttpServlet {
             
             String cadastrar = request.getParameter("cadastrar");
             if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int u_id = ((Pessoa) request.getSession(true).getAttribute("usuario")).getId();
+                int u_id = ((Pessoa) request.getSession(true).getAttribute("usuario")).getIdPessoa();
                 String email = request.getParameter("email");
                 String senha = request.getParameter("senha");
                 String email2 = request.getParameter("confirma-email");

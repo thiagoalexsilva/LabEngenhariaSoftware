@@ -48,6 +48,7 @@ CREATE  TABLE `anymais`.`tipoAnimal` (
   `nomeTipoAnimal` INT NOT NULL ,
 
   PRIMARY KEY (`idTipoAnimal`) );
+  
 
 CREATE  TABLE `anymais`.`raca` (
 
@@ -102,6 +103,15 @@ CREATE  TABLE `anymais`.`animal` (
 
   ON UPDATE NO ACTION );
 
+  
+CREATE  TABLE `anymais`.`tipoVacinaMedicamento` (
+
+  `idTipoVacinaMedicamento` INT NOT NULL ,
+
+  `nomeTipoVacinaMedicamento` INT NOT NULL ,
+
+  PRIMARY KEY (`idTipoVacinaMedicamento`) );
+  
 
 CREATE  TABLE `anymais`.`vacinasMedicamentos` (
 
@@ -119,7 +129,13 @@ CREATE  TABLE `anymais`.`vacinasMedicamentos` (
 
   `observacao` VARCHAR(256) NULL ,
 
-  PRIMARY KEY (`idVacinasMedicamentos`) );
+  PRIMARY KEY (`idVacinasMedicamentos`) ,
+
+  FOREIGN KEY (`tipo`) REFERENCES `anymais`.`tipoVacinaMedicamento` (`idTipoVacinaMedicamento`)
+
+  ON DELETE NO ACTION
+
+  ON UPDATE NO ACTION );
 
 
 

@@ -42,9 +42,9 @@ public class GerenciarVacinasMedicamentos {
                     ||
                (vacina && medicamentos.getTipoAnimal().toUpperCase().equals("VACINA"))){*/
                 
-                if((cachorro && medicamentos.getTipoAnimal() == 1) //cachorro
+                if((cachorro && medicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO")) //cachorro == 1
                         ||
-                   (gato && medicamentos.getTipoAnimal() == 2)){ //gato
+                   (gato && medicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO"))){ //gato == 2
                     /*if((hora && medicamentos.getPeriodicidade() >= 0)
                             ||
                        (dia && medicamentos.getPeriodicidade() >= 0)

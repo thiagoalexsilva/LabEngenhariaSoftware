@@ -41,9 +41,9 @@
                             <h3 class="title">Atualizar Raça</h3>
                         <% } %>
                         <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca"
-                               <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
+                               <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : ""); %> > Cachorro
                         <input type="radio" name="tipoAnimal" value="Gato"
-                               <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
+                               <% out.print(session.getAttribute("raca") != null && ((Raca) session.getAttribute("raca")).getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO") ? "checked" : ""); %> > Gato<br>
                         <br>                    
                         <p class="cadastra-raca">Raça:
                             <input type="text" class="label-field-raca" name="nomeRaca"

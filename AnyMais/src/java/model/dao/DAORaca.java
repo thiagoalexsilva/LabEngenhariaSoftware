@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import controller.GerenciarTiposAnimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.entity.Raca;
+import model.entity.TipoAnimal;
 
 /**
  *
@@ -60,7 +62,7 @@ public class DAORaca {
         try {
             stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
-            stmt.setInt(2, raca.getTipoAnimal());
+            stmt.setInt(2, raca.getTipoAnimal().getIdTipoAnimal());
             stmt.setString(3, raca.getNomeRaca());
             stmt.setString(4, raca.getPorte());
             stmt.setString(5, raca.getObservacao());
@@ -111,7 +113,7 @@ public class DAORaca {
         PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(UPDATE_SQL);
-            stmt.setInt(1, raca.getTipoAnimal());
+            stmt.setInt(1, raca.getTipoAnimal().getIdTipoAnimal());
             stmt.setString(2, raca.getNomeRaca());
             stmt.setString(3, raca.getPorte());
             stmt.setString(4, raca.getObservacao());
@@ -149,7 +151,9 @@ public class DAORaca {
     private Raca getRaca(ResultSet rs){
         try {
             int id = rs.getInt(1);
-            int tipoAnimal = rs.getInt(2);
+            int idTipoAnimal = rs.getInt(2);
+            TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorId(idTipoAnimal);
+            
             String nomeRaca = rs.getString(3);
             String porte = rs.getString(4);
             String observacao = rs.getString(5);
