@@ -42,16 +42,16 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="menu">
-                    <a href="ver-racas.html"><input type="image" src="images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="ver-vacinas-medicamentos.html"><input type="image" src="images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="images/logout-button.png" class="logout-button" />
+                    <a href="/AnyMais/ver-racas.html"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
+                    <a href="/AnyMais/ver-vacinas-medicamentos.html"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
+                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
                     <form id="formracas" action="/AnyMais/racas" method="post">
                         <h3 class="title">Raças</h3>
                         <input type="text" name="nome-raca" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">
-                        <input type="image" name="procuraRacas" src="images/search.png" class="search-button" />
-                        <input type="image" name="adicionar-raca" src="images/adicionar-pet.png" class="adicionar-pet-button" />
+                        <input type="image" name="procuraRacas" src="/AnyMais/images/search.png" class="search-button" />
+                        <input type="image" name="adicionar-raca" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
                         <br>
                         <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" 
                                <%= session.getAttribute("tipo-pet-c") != null ? "checked" : "" %> > Cachorro
@@ -88,10 +88,10 @@
                                             <td><%= raca.getNomeRaca() %><br></td>
                                             <td><%= raca.getPorte() %></td>
                                             <td>
-                                                <center><input name="excluir" id="<%= raca.getIdRaca() %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<%= raca.getIdRaca() %>" type="image" src="/AnyMais/images/excluir.png" class="excluir-button"></center>
                                             </td>
                                             <td>
-                                                <center><input name="atualizar" id="<%= raca.getIdRaca() %>" type="image" src="images/edit.png" class="excluir-button"></center>
+                                                <center><input name="atualizar" id="<%= raca.getIdRaca() %>" type="image" src="/AnyMais/images/edit.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>

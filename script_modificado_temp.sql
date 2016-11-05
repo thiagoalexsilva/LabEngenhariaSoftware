@@ -147,3 +147,20 @@ insert into tipoanimal values(2, 'Gato');
 
 alter table raca add unique key(tipoAnimal, nomeRaca);
 
+CREATE  TABLE `anymais`.`tipoServico` (
+
+  `idtipoServico` INT NOT NULL ,
+
+  `nomeTipoServico` VARCHAR(60) NOT NULL ,
+
+  `duracao` INT NOT NULL ,
+  
+  `valor` DOUBLE NOT NULL ,
+
+  `observacao` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idTipoServico`) ,
+  
+  UNIQUE KEY (`nomeTipoServico`)
+  
+  );

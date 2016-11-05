@@ -143,6 +143,23 @@ CREATE  TABLE `anymais`.`vacinasMedicamentos` (
 
   ON UPDATE NO ACTION );
 
+  
+CREATE  TABLE `anymais`.`tipoServico` (
 
+  `idtipoServico` INT NOT NULL ,
+
+  `nomeTipoServico` VARCHAR(60) NOT NULL ,
+
+  `duracao` INT NOT NULL ,
+  
+  `valor` DOUBLE NOT NULL ,
+
+  `observacao` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idTipoServico`) ,
+  
+  UNIQUE KEY (`nomeTipoServico`)
+  
+  );
 
 

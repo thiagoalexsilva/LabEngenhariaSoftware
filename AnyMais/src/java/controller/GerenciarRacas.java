@@ -52,7 +52,7 @@ public class GerenciarRacas {
                    (grande && raca.getPorte().toUpperCase().equals("GRANDE"))
                         ||
                    (!grande && !medio && !pequeno)){
-                    if(nome.isEmpty() || nome.toUpperCase().equals(raca.getNomeRaca().toUpperCase())){
+                    if(nome.isEmpty() || raca.getNomeRaca().toUpperCase().contains(nome.toUpperCase())){
                         filtroRacas.add(raca);
                     }
                 }

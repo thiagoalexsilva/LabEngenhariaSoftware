@@ -24,7 +24,7 @@ import model.entity.Usuario;
  * @author Erica
  */
 
-@WebServlet(name = "PetShopServlet", urlPatterns = {"/petshop/*"}) 
+@WebServlet(name = "PetShopServlet", urlPatterns = {"/apetshop/*"}) 
 public class PetShopServlet extends HttpServlet {
     
     private PetShop petshop_active = null;

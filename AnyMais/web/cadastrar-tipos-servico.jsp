@@ -1,10 +1,10 @@
 <%-- 
-    Document   : cadastrar-racas
+    Document   : cadastrar-tipos-servico
     Created on : Oct 3, 2016, 9:09:14 PM
     Author     : Gustavo
 --%>
 
-<%@page import="model.entity.Raca"%>
+<%@page import="model.entity.TipoServico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +23,9 @@
                 <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
-        <%  Raca raca = null;
-            if(session.getAttribute("raca") != null){
-                raca = ((Raca) session.getAttribute("raca"));
+        <%  TipoServico tipoServico = null;
+            if(session.getAttribute("servico") != null){
+                tipoServico = ((TipoServico) session.getAttribute("servico"));
             } 
         %>
         
@@ -33,39 +33,34 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="menu">
-                    <a href="/AnyMais/ver-racas.html"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
+                    <a href="/AnyMais/petshop/servicos"><input type="image" src="/AnyMais/images/raca-button.png" class="menu-tiposServico-button" /></a><br>
                     <a href="/AnyMais/ver-vacinas-medicamentos.html"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
-                    <form id="formRacas" action="/AnyMais/racas/<%=raca == null ? "cadastrado" : "atualizado"%>" method="POST">
-                        <% if(raca == null){ %>
-                            <h3 class="title">Cadastrar Raça</h3>
+                    <form id="formservico" action="/AnyMais/petshop/servicos/<%=tipoServico == null ? "cadastrado" : "atualizado"%>" method="POST">
+                        <% if(tipoServico == null){ %>
+                            <h3 class="title">Cadastrar Serviço</h3>
                         <% } 
                             else{ %>
-                            <h3 class="title">Atualizar Raça</h3>
+                            <h3 class="title">Atualizar Serviço</h3>
                         <% } %>
-                        <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca" required 
-                               <%= raca != null && raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : "" %> > Cachorro
-                        <input type="radio" name="tipoAnimal" value="Gato" required
-                               <%= raca != null && raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO") ? "checked" : "" %> > Gato<br>
                         <br>                    
-                        <p class="cadastra-raca">Raça:
-                            <input type="text" class="label-field-raca" name="nomeRaca" required 
-                                   value="<%= raca != null ? raca.getNomeRaca() : "" %>"> </p>
-                        <p class="cadastra-raca">Porte:
-                            <select name="porte" class="seleciona-porte" required>
-                                <option value="-" disabled <%= raca == null ? "selected" : ""%> >-</option>
-                                <option value="Pequeno" <%= raca != null && raca.getPorte().toUpperCase().equals("PEQUENO") ? "selected" : "" %> >Pequeno</option>
-                                <option value="Medio" <%= raca != null && raca.getPorte().toUpperCase().equals("MEDIO") ? "selected" : "" %> >Médio</option>
-                                <option value="Grande" <%= raca != null && raca.getPorte().toUpperCase().equals("GRANDE") ? "selected" : "" %> >Grande</option>
-                            </select>
+                        <p class="cadastra-raca">Serviço:
+                            <input type="text" class="label-field-raca" name="nomeServico" required 
+                                   value="<%= tipoServico != null ? tipoServico.getNome() : "" %>"> </p>
+                        <p class="cadastra-raca">Duração:
+                            <input type="text" class="label-field-raca" name="duracao" required 
+                                   value="<%= tipoServico != null ? Integer.toString(tipoServico.getDuracao()) : "" %>"> </p>
+                        <p class="cadastra-raca">Valor:
+                            <input type="text" class="label-field-raca" name="valor" required 
+                                   value="<%= tipoServico != null ? Double.toString(tipoServico.getValor()) : "" %>"> </p>
                         <p class="cadastra-raca">Observação:</p><br>
-                        <textarea name="observacao" rows="4" cols="50"><%=raca != null ? raca.getObservacao() : "" %></textarea> 
+                        <textarea name="observacao" rows="4" cols="50"><%=tipoServico != null ? tipoServico.getObservacao() : "" %></textarea> 
                         <br>
                         <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
                         <input type="submit" name="cadastrar" class="button-cadastrar" 
-                               value="<%=raca == null ? "Cadastrar" : "Atualizar"%>">
+                               value="<%=tipoServico == null ? "Cadastrar" : "Atualizar"%>">
                         <br>
                     </form> 
                 </div>
@@ -82,12 +77,12 @@
                 
                 cadastrar.addEventListener("submit", function(e){
                     if(e.target.value === "Cadastrar"){
-                        document.getElementById("formRacas").submit();
+                        document.getElementById("formservico").submit();
                     }
                     else if(e.target.value === "Atualizar"){
                         var confirma = window.confirm("Deseja confirmar atualização de dados?");
                         if(confirma){
-                            document.getElementById("formRacas").submit();
+                            document.getElementById("formservico").submit();
                         }
                     }
                 });
@@ -95,8 +90,8 @@
                 cancelar.addEventListener("click", function(e){
                     var confirma = window.confirm("Deseja confirmar cancelamento? Os dados preenchidos serão perdidos.");
                     if(confirma){
-                        document.getElementById("formRacas").action = "/AnyMais/racas";
-                        document.getElementById("formRacas").submit();
+                        document.getElementById("formservico").action = "/AnyMais/petshop/servicos";
+                        document.getElementById("formservico").submit();
                     }
                 });
 
