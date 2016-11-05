@@ -57,9 +57,9 @@ public class DAORaca {
     
     public boolean insert(Raca raca){
         
-        con = conexao.openConexao();
         PreparedStatement stmt;
         try {
+            con = conexao.openConexao();
             stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
             stmt.setInt(2, raca.getTipoAnimal().getIdTipoAnimal());
@@ -68,23 +68,22 @@ public class DAORaca {
             stmt.setString(5, raca.getObservacao());
             
             stmt.execute();
-            
-            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         conexao.closeConexao();
-        return false;
+        return true;
     }
     
     public Raca[] selectAll(){
         
-        con = conexao.openConexao();
         ArrayList<Raca> racas = new ArrayList<Raca>();
         Raca[] arrayRacas;
         PreparedStatement stmt;
         try {
+            con = conexao.openConexao();
             stmt = con.prepareStatement(SELECT_SQL);
             
             ResultSet rs = stmt.executeQuery();
@@ -109,9 +108,9 @@ public class DAORaca {
     
     public boolean update(Raca raca){
         
-        con = conexao.openConexao();
         PreparedStatement stmt;
         try {
+            con = conexao.openConexao();
             stmt = con.prepareStatement(UPDATE_SQL);
             stmt.setInt(1, raca.getTipoAnimal().getIdTipoAnimal());
             stmt.setString(2, raca.getNomeRaca());
@@ -121,13 +120,13 @@ public class DAORaca {
             
             stmt.execute();
             
-            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         conexao.closeConexao();
-        return false;
+        return true;
     }
     
     public boolean delete(int idRaca){
@@ -139,13 +138,13 @@ public class DAORaca {
             stmt.setInt(1, idRaca);
             stmt.execute();
             
-            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         conexao.closeConexao();
-        return false;
+        return true;
     }
     
     private Raca getRaca(ResultSet rs){
@@ -160,8 +159,8 @@ public class DAORaca {
             return new Raca(id, tipoAnimal, nomeRaca, porte, observacao);
         } catch (SQLException ex) {
             Logger.getLogger(DAORaca.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         
-        return null;
     }
 }

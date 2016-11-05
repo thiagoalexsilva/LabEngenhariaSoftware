@@ -3,7 +3,7 @@
     Created on : 26/10/2016, 03:56:56
     Author     : ana
 --%>
-<%@page import="model.entity.VacinaMedicamento"%>
+<%@page import="model.entity.VacinasMedicamentos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -68,20 +68,20 @@
                           
                         
                         <%
-                                if (session.getAttribute("medicamentos") instanceof VacinaMedicamento[]) {
-                                    VacinaMedicamento[] medicamentos = (VacinaMedicamento[]) session.getAttribute("medicamentos");
-                                    for (VacinaMedicamento medicamento : medicamentos) {
-                                        int id = medicamento.getId();
+                                if (session.getAttribute("medicamentos") instanceof VacinasMedicamentos[]) {
+                                    VacinasMedicamentos[] medicamentos = (VacinasMedicamentos[]) session.getAttribute("medicamentos");
+                                    for (VacinasMedicamentos medicamento : medicamentos) {
+                                        int id = medicamento.getIdVacinasMedicamentos();
                             %>
                         <tr>
                           <td><% out.print(medicamento.getTipoAnimal()); %></td>
                           <td><% out.print(medicamento.getNome()); %></td>
                           <td><% out.print(medicamento.getPeriodicidade()); %></td>
                           <td>
-                            <center><input name="excluir" id="<% out.print(medicamento.getId()); %>" type="image" src="images/excluir.png" class="excluir-button" /></center>
+                            <center><input name="excluir" id="<% out.print(medicamento.getIdVacinasMedicamentos()); %>" type="image" src="images/excluir.png" class="excluir-button" /></center>
                           </td>
                           <td>
-                            <center><input name="atualizar" id="<% out.print(medicamento.getId()); %>" type="image" src="images/edit.png" class="excluir-button" /></center>
+                            <center><input name="atualizar" id="<% out.print(medicamento.getIdVacinasMedicamentos()); %>" type="image" src="images/edit.png" class="excluir-button" /></center>
                           </td>
                         </tr>
                         

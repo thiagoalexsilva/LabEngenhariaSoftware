@@ -31,7 +31,7 @@
                 if (session.getAttribute("status").toString().equals("sucesso")) { 
                     sucesso = true;
                 } else if (session.getAttribute("status").equals("falha")) { 
-                    falha = false;
+                    falha = true;
                 }
             }
         %>        
@@ -49,21 +49,21 @@
                 <div class="principal">
                     <form id="formracas" action="/AnyMais/racas" method="post">
                         <h3 class="title">Raças</h3>
-                        <input type="text" name="nome-raca" class="label-field-racas" value="<% out.print(session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : ""); %>">
+                        <input type="text" name="nome-raca" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">
                         <input type="image" name="procuraRacas" src="images/search.png" class="search-button" />
                         <input type="image" name="adicionar-raca" src="images/adicionar-pet.png" class="adicionar-pet-button" />
                         <br>
                         <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" 
-                               <% out.print(session.getAttribute("tipo-pet-c") != null ? "checked" : ""); %> > Cachorro
+                               <%= session.getAttribute("tipo-pet-c") != null ? "checked" : "" %> > Cachorro
                         <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato"
-                               <% out.print(session.getAttribute("tipo-pet-g") != null ? "checked" : ""); %> > Gato
+                               <%= session.getAttribute("tipo-pet-g") != null ? "checked" : "" %> > Gato
 
                         <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" 
-                               <% out.print(session.getAttribute("porte-pet-p") != null ? "checked" : ""); %> > Pequeno
+                               <%= session.getAttribute("porte-pet-p") != null ? "checked" : "" %> > Pequeno
                         <input type="checkbox" name="porte-pet-m" class="porte-pet" value="medio" 
-                               <% out.print(session.getAttribute("porte-pet-m") != null ? "checked" : ""); %> > Médio
+                               <%= session.getAttribute("porte-pet-m") != null ? "checked" : "" %> > Médio
                         <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" 
-                               <% out.print(session.getAttribute("porte-pet-g") != null ? "checked" : ""); %> > Grande<br>
+                               <%= session.getAttribute("porte-pet-g") != null ? "checked" : "" %> > Grande<br>
 
                         <br><br>
 
@@ -84,14 +84,14 @@
                                         int id = raca.getIdRaca();
                             %>
                                         <tr>
-                                            <td><% out.print(raca.getTipoAnimal()); %></td>
-                                            <td><% out.print(raca.getNomeRaca()); %><br></td>
-                                            <td><% out.print(raca.getPorte()); %></td>
+                                            <td><%= raca.getTipoAnimal().getNomeTipoAnimal() %></td>
+                                            <td><%= raca.getNomeRaca() %><br></td>
+                                            <td><%= raca.getPorte() %></td>
                                             <td>
-                                                <center><input name="excluir" id="<% out.print(raca.getIdRaca()); %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<%= raca.getIdRaca() %>" type="image" src="images/excluir.png" class="excluir-button"></center>
                                             </td>
                                             <td>
-                                                <center><input name="atualizar" id="<% out.print(raca.getIdRaca()); %>" type="image" src="images/edit.png" class="excluir-button"></center>
+                                                <center><input name="atualizar" id="<%= raca.getIdRaca() %>" type="image" src="images/edit.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>
@@ -122,9 +122,12 @@
                 var i = 0;
                 for (i = 0; i < excluir.length; i++) {
                     excluir[i].addEventListener('click', function (e) {
-                        document.getElementsByName("excluido")[0].value = e.target.id;
-                        document.getElementById("formracas").action = "/AnyMais/racas/excluido";
-                        document.getElementById("formracas").submit();
+                        var confirma = window.confirm("Deseja confirmar exclusão?");
+                        if(confirma){
+                            document.getElementsByName("excluido")[0].value = e.target.id;
+                            document.getElementById("formracas").action = "/AnyMais/racas/excluido";
+                            document.getElementById("formracas").submit();
+                        }
                     });
                 }
                 

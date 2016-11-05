@@ -45,9 +45,12 @@ CREATE  TABLE `anymais`.`tipoAnimal` (
 
   `idTipoAnimal` INT NOT NULL ,
 
-  `nomeTipoAnimal` INT NOT NULL ,
+  `nomeTipoAnimal` VARCHAR(20) NOT NULL ,
 
   PRIMARY KEY (`idTipoAnimal`) );
+
+INSERT INTO `anymais`.`tipoanimal` VALUES (1, 'Cachorro');
+INSERT INTO `anymais`.`tipoanimal` VALUES (2, 'Gato');
   
 
 CREATE  TABLE `anymais`.`raca` (
@@ -68,7 +71,10 @@ CREATE  TABLE `anymais`.`raca` (
   
   ON DELETE NO ACTION
 
-  ON UPDATE NO ACTION );
+  ON UPDATE NO ACTION ,
+  
+  UNIQUE KEY(tipoAnimal, nomeRaca)
+  );
 
 
 CREATE  TABLE `anymais`.`animal` (

@@ -40,8 +40,10 @@ public class Conexao {
     public void closeConexao(){
         try {
             conexao.close();
+            conexao = null;
         } catch (SQLException ex) {
             Logger.getLogger(Conexao.class.getName()).log(Level.SEVERE, null, ex);
+            conexao = null;
         }
     }
 }

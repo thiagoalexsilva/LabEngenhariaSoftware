@@ -68,7 +68,7 @@ public class RacasServlet extends HttpServlet {
             request.getSession(true).removeAttribute("porte-pet-g");
             
             if(nomeRaca != null)
-                request.getSession(true).setAttribute("nome-raca", nomeRaca);
+                request.getSession(true).setAttribute("nomeRaca", nomeRaca);
             if(tipoPetC)
                 request.getSession(true).setAttribute("tipo-pet-c", tipoPetC);
             if(tipoPetG)
@@ -95,20 +95,18 @@ public class RacasServlet extends HttpServlet {
         }
         else if(uri.equals("/AnyMais/racas/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
-            if(cadastrar != null && cadastrar.equals("Cadastrar")){
-                String nomeTipoAnimal = request.getParameter("tipo");
-                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
-                
-                String nomeRaca = request.getParameter("nome-raca");
-                String porte = request.getParameter("porte");
-                String observacao = request.getParameter("observacao");            
+            String nomeTipoAnimal = request.getParameter("tipoAnimal");
+            TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
 
-                Raca novaRaca = new Raca(1, tipoAnimal, nomeRaca, porte, observacao); //id mock
-                if(GerenciarRacas.getInstance().adicionarRaca(novaRaca))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-            }
+            String nomeRaca = request.getParameter("nomeRaca");
+            String porte = request.getParameter("porte");
+            String observacao = request.getParameter("observacao");            
+
+            Raca novaRaca = new Raca(1, tipoAnimal, nomeRaca, porte, observacao); //id mock
+            if(GerenciarRacas.getInstance().adicionarRaca(novaRaca))
+                request.getSession().setAttribute("status", "sucesso");
+            else
+                request.getSession().setAttribute("status", "falha");
             
             response.sendRedirect("/AnyMais/racas");
         }
@@ -145,25 +143,20 @@ public class RacasServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
         else if(uri.equals("/AnyMais/racas/atualizado")){
-            String cadastrar = request.getParameter("cadastrar");
-            if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int idRaca = ((Raca) request.getSession(true).getAttribute("raca")).getIdRaca();
-                String nomeTipoAnimal = request.getParameter("tipo");
-                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
-                                
-                String nomeRaca = request.getParameter("nome-raca");
-                String porte = request.getParameter("porte");
-                String observacao = request.getParameter("observacao");            
+            int idRaca = ((Raca) request.getSession(true).getAttribute("raca")).getIdRaca();
+            String nomeTipoAnimal = request.getParameter("tipoAnimal");
+            TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
 
-                Raca racaAtualizada = new Raca(idRaca, tipoAnimal, nomeRaca, porte, observacao);
-                if(GerenciarRacas.getInstance().atualizarRaca(racaAtualizada))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-                
-                
-            }
-            
+            String nomeRaca = request.getParameter("nomeRaca");
+            String porte = request.getParameter("porte");
+            String observacao = request.getParameter("observacao");            
+
+            Raca racaAtualizada = new Raca(idRaca, tipoAnimal, nomeRaca, porte, observacao);
+            if(GerenciarRacas.getInstance().atualizarRaca(racaAtualizada))
+                request.getSession().setAttribute("status", "sucesso");
+            else
+                request.getSession().setAttribute("status", "falha");
+
             response.sendRedirect("/AnyMais/racas");
         }
     }
