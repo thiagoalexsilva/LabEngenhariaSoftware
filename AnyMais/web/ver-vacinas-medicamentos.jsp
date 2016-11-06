@@ -24,43 +24,58 @@
             </header>
         </div>
         
-        <div>
-            <% if (session.getAttribute("status") != null)
-                    if (session.getAttribute("status").toString().equals("sucesso")) { %>
-            Sucesso!
-            <% } else if (session.getAttribute("status").equals("falha")) { %>
-            Falha!
-            <% }
-            %>
+        <%  
+            boolean sucesso = false;
+            boolean falha = false;
+            
+            if (session.getAttribute("status") != null){
+                if (session.getAttribute("status").toString().equals("sucesso")) { 
+                    sucesso = true;
+                } else if (session.getAttribute("status").equals("falha")) { 
+                    falha = true;
+                }
+            }
+        %> 
+        
+        <div class="mensagem <%=sucesso ? "sucesso" : falha ? "falha" : ""%>">
+            <%=sucesso ? "Sucesso!" : falha ? "Falha!" : ""%>
         </div>
         
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="menu">
-                    <a href="ver-racas.html"><input type="image" src="images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="ver-vacinas-medicamentos.html"><input type="image" src="images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="images/logout-button.png" class="logout-button" />
+                    <a href="/AnyMais/ver-racas.jsp"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
+                    <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
+                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
-                    <form id="formmedicamentos" action="/AnyMais/medicamentos" method="post">
+                    <form id="formVacinasMedicamentos" action="/AnyMais/vacinasMedicamentos" method="post">
                     <h3 class="title">Vacinas e Medicamentos</h3>
-                    <input type="text" name="nome-medicamento" class="label-field-racas" name="procuraMedicamentos" value="<% out.print(session.getAttribute("nome-medicamento") != null ? session.getAttribute("nome-medicamento") : ""); %>">
-                    <input type="image" name="procurar-medicamento" src="images/search.png" class="search-button" />
-                    <input type="image" name="adicionar-medicamento" src="images/adicionar-vacina.png" class="adicionar-medicamento-button" />
+                    <input type="text" name="nome" class="label-field-racas" value="<% out.print(session.getAttribute("nome") != null ? session.getAttribute("nome") : ""); %>">
+                    <input type="image" name="procurar-vacinas-medicamentos" src="/AnyMais/images/search.png" class="search-button" />
+                    <input type="image" name="adicionar-vacinas-medicamentos" src="/AnyMais/images/adicionar-vacina.png" class="adicionar-medicamento-button" />
                     <br>
                     <input type="checkbox" name="tipo-pet" class="raca-tipo-pet primeiro-pet" value="cachorro"
                            <% out.print(session.getAttribute("tipo-pet-c") != null ? "checked" : ""); %> > Cachorro
                     <input type="checkbox" name="tipo-pet" class="raca-tipo-pet" value="gato"
                            <% out.print(session.getAttribute("tipo-pet-g") != null ? "checked" : ""); %> > Gato
                     
+                    
+                    <input type="checkbox" name="tipo-vacina-medicamento" class="raca-tipo-pet primeiro-pet" value="vacina"
+                           <% out.print(session.getAttribute("tipo-vacina") != null ? "checked" : ""); %> > Vacina
+                    <input type="checkbox" name="tipo-vacina-medicamento" class="raca-tipo-pet" value="medicamento"
+                           <% out.print(session.getAttribute("tipo-medicamento") != null ? "checked" : ""); %> > Medicamento
+                    
                     <br><br>
                     
                     <table border="1" class="table-racas">
                         <tr>
+                          <th class="table-raca-title">Tipo</th>
                           <th class="table-raca-title">Espécie</th>
                           <th class="table-raca-title">Nome</th>
                           <th class="table-raca-title">Periodicidade</th>
+                          <th class="table-raca-title"></th>
                           <th class="table-raca-title"></th>
                         </tr>
                         <input type="hidden" name="excluido" value=""/>
@@ -68,13 +83,14 @@
                           
                         
                         <%
-                                if (session.getAttribute("medicamentos") instanceof VacinasMedicamentos[]) {
-                                    VacinasMedicamentos[] medicamentos = (VacinasMedicamentos[]) session.getAttribute("medicamentos");
+                                if (session.getAttribute("medicamento") instanceof VacinasMedicamentos[]) {
+                                    VacinasMedicamentos[] medicamentos = (VacinasMedicamentos[]) session.getAttribute("medicamento");
                                     for (VacinasMedicamentos medicamento : medicamentos) {
                                         int id = medicamento.getIdVacinasMedicamentos();
                             %>
                         <tr>
-                          <td><% out.print(medicamento.getTipoAnimal()); %></td>
+                          <td><% out.print(medicamento.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento()); %></td>
+                          <td><% out.print(medicamento.getTipoAnimal().getNomeTipoAnimal()); %></td>
                           <td><% out.print(medicamento.getNome()); %></td>
                           <td><% out.print(medicamento.getPeriodicidade()); %></td>
                           <td>
@@ -112,9 +128,13 @@
                 var i = 0;
                 for (i = 0; i < excluir.length; i++) {
                     excluir[i].addEventListener('click', function (e) {
-                        document.getElementsByName("excluido")[0].value = e.target.id;
-                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/excluido";
-                        document.getElementById("formmedicamentos").submit();
+                        var confirma = window.confirm("Deseja confirmar exclusão?");
+                        
+                        if(confirma){
+                            document.getElementsByName("excluido")[0].value = e.target.id;
+                            document.getElementById("formVacinasMedicamentos").action = "/AnyMais/vacinasMedicamentos/excluido";
+                            document.getElementById("formVacinasMedicamentos").submit();
+                        }
                     });
                 }
                 
@@ -123,28 +143,30 @@
                 for (i = 0; i < atualizar.length; i++) {
                     atualizar[i].addEventListener('click', function (e) {
                         document.getElementsByName("atualizado")[0].value = e.target.id;
-                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/atualizar";
-                        document.getElementById("formmedicamentos").submit();
+                        document.getElementById("formVacinasMedicamentos").action = "/AnyMais/vacinasMedicamentos/atualizar";
+                        document.getElementById("formVacinasMedicamentos").submit();
                     });
                 }
                 
-                var adicionarRaca = document.getElementsByName("adicionar-medicamento")[0];
-                adicionarRaca.addEventListener("click", function(){
-                    document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos/cadastrar";
-                    document.getElementById("formmedicamentos").submit();
+                var adicionarVacinaMedicamento = document.getElementsByName("adicionar-vacinas-medicamentos")[0];
+                adicionarVacinaMedicamento.addEventListener("click", function(){
+                    document.getElementById("formVacinasMedicamentos").action = "/AnyMais/vacinasMedicamentos/cadastrar";
+                    document.getElementById("formVacinasMedicamentos").submit();
                 });
                 
-                // Links de filtro de raças
+                // Links de filtro
                 
                 var filtros = [];
-                filtros.push(document.getElementsByName("procurar-medicamento)[0]);
+                filtros.push(document.getElementsByName("procurar-vacinas-medicamentos")[0]);
                 filtros.push(document.getElementsByName("tipo-pet-c")[0]);
                 filtros.push(document.getElementsByName("tipo-pet-g")[0]);
+                filtros.push(document.getElementsByName("tipo-vacina")[0]);
+                filtros.push(document.getElementsByName("tipo-medicamento")[0]);
                 
                 for (i = 0; i < filtros.length; i++) {
                     filtros[i].addEventListener("click", function () {
-                        document.getElementById("formmedicamentos").action = "/AnyMais/medicamentos";
-                        document.getElementById("formmedicamentos").submit();
+                        document.getElementById("formVacinasMedicamentos").action = "/AnyMais/vacinasMedicamentos";
+                        document.getElementById("formVacinasMedicamentos").submit();
                     });
                 }
 

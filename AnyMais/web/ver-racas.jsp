@@ -42,8 +42,8 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="menu">
-                    <a href="/AnyMais/ver-racas.html"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="/AnyMais/ver-vacinas-medicamentos.html"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
+                    <a href="/AnyMais/ver-racas.jsp"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
+                    <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">

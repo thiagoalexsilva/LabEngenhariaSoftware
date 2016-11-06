@@ -24,7 +24,7 @@ import model.entity.VacinasMedicamentos;
  *
  * @author ana
  */
-@WebServlet(name = "MedicamentoServlet", urlPatterns = {"/medicamentos/*"})
+@WebServlet(name = "VacinasMedicamentosServlet", urlPatterns = {"/vacinasMedicamentos/*"})
 public class VacinasMedicamentosServlet extends HttpServlet {
     
     private boolean primeiraExecucao = true;
@@ -42,30 +42,20 @@ public class VacinasMedicamentosServlet extends HttpServlet {
             throws ServletException, IOException {
        
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/medicamentos")){
+        if(uri.equals("/AnyMais/vacinasMedicamentos")){
             
+            String nomeVacinaMedicamento = request.getParameter("nome") != null ? request.getParameter("nome") : "";
             boolean tipoPetC = request.getParameter("tipo-pet-c") != null;
             boolean tipoPetG = request.getParameter("tipo-pet-g") != null;
-            String nome = request.getParameter("nome-medicamento") != null ? request.getParameter("nome-medicamento") : "";
-            //boolean tipoMedM = request.getParameter("tipo-med-m") != null;
-            //boolean tipoMedV= request.getParameter("tipo-med-v") != null;
-            //boolean periodMedH = request.getParameter("period-med-h") != null;
-            //boolean periodMedD = request.getParameter("period-med-d") != null;
-            //boolean periodMedS = request.getParameter("period-med-s") != null;
-            //boolean periodMedM = request.getParameter("period-med-m") != null;
-            //boolean periodMedA = request.getParameter("period-med-a") != null;
+            boolean tipoVacina = request.getParameter("tipo-vacina") != null;
+            boolean tipoMedicamento = request.getParameter("tipo-medicamento") != null;
            
             
             if(primeiraExecucao){
                 tipoPetC = true;
                 tipoPetG = true;
-                //tipoMedM = true;
-                //tipoMedV = true;
-                //periodMedH = true;
-                //periodMedD = true;
-                //periodMedS = true;
-                //periodMedM = true;
-                //periodMedA= true;
+                tipoVacina = true;
+                tipoMedicamento = true;
                 primeiraExecucao = false;
                 
             }
@@ -73,40 +63,25 @@ public class VacinasMedicamentosServlet extends HttpServlet {
             request.getSession(true).removeAttribute("nome-medicamento");
             request.getSession(true).removeAttribute("tipo-pet-c");
             request.getSession(true).removeAttribute("tipo-pet-g");
-            //request.getSession(true).removeAttribute("tipo-med-m");
-            //request.getSession(true).removeAttribute("tipo-med-v");
-            //request.getSession(true).removeAttribute("period-med-h");
-            //request.getSession(true).removeAttribute("period-med-d");
-            //request.getSession(true).removeAttribute("period-med-s");
-            //request.getSession(true).removeAttribute("period-med-m");
-            //request.getSession(true).removeAttribute("period-med-a");
+            request.getSession(true).removeAttribute("tipo-vacina");
+            request.getSession(true).removeAttribute("tipo-medicamento");
             
-          
             
-            if(nome != null)
-                request.getSession(true).setAttribute("nome-medicamento", nome);
+            if(nomeVacinaMedicamento != null)
+                request.getSession(true).setAttribute("nome", nomeVacinaMedicamento);
             if(tipoPetC)
                 request.getSession(true).setAttribute("tipo-pet-c", tipoPetC);
             if(tipoPetG)
                 request.getSession(true).setAttribute("tipo-pet-g", tipoPetG);
-            /*if(tipoMedM)
-                request.getSession(true).setAttribute("tipo-med-m", tipoMedM);
-            if(tipoMedV)
-                request.getSession(true).setAttribute("porte-pet-m", tipoMedV);
-            if(periodMedH)
-                request.getSession(true).setAttribute("period-med-h", periodMedH);
-            if(periodMedD)
-                request.getSession(true).setAttribute("period-med-d", periodMedD);
-            if(periodMedS)
-                request.getSession(true).setAttribute("period-med-s", periodMedS);
-            if(periodMedM)
-                request.getSession(true).setAttribute("period-med-m", periodMedM);
-            if(periodMedA)
-                request.getSession(true).setAttribute("period-med-a", periodMedA);*/
+            if(tipoVacina)
+                request.getSession(true).setAttribute("tipo-vacina", tipoVacina);
+            if(tipoMedicamento)
+                request.getSession(true).setAttribute("tipo-medicamento", tipoMedicamento);
+            
           
             
-            VacinasMedicamentos[] medicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaMedicamentosComFiltro(nome, tipoPetC, tipoPetG);
-            request.getSession(true).setAttribute("medicamento", medicamentos); 
+            VacinasMedicamentos[] vacinasMedicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaVacinasMedicamentosComFiltro(nomeVacinaMedicamento, tipoPetC, tipoPetG, tipoVacina, tipoMedicamento);
+            request.getSession(true).setAttribute("medicamento", vacinasMedicamentos); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-vacinas-medicamentos.jsp");
             dispatcher.forward(request, response);
@@ -114,90 +89,87 @@ public class VacinasMedicamentosServlet extends HttpServlet {
             request.getSession().removeAttribute("medicamento");
             request.getSession().removeAttribute("status");
         }
-        else if(uri.equals("/AnyMais/medicamentos/cadastrar")){
+        else if(uri.equals("/AnyMais/vacinasMedicamentos/cadastrar")){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-vacinas-medicamentos.jsp");
             dispatcher.forward(request, response);
         }
-        else if(uri.equals("/AnyMais/medicamentos/cadastrado")){
+        else if(uri.equals("/AnyMais/vacinasMedicamentos/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
-            if(cadastrar != null && cadastrar.equals("Cadastrar")){
-                String tipo = request.getParameter("tipo-med");
-                TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorNome(tipo);
-                
-                String nomeTipoAnimal = request.getParameter("tipo-pet");
-                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
-                
-                String nome = request.getParameter("nome-medicamento");
-                Integer periodicidade = Integer.parseInt(request.getParameter("periodicidade"));
-                
-                String tempo = request.getParameter("tempo");            
-                
-                String observacao = request.getParameter("observacao");            
-
-                VacinasMedicamentos novoMed = new VacinasMedicamentos(1, tipoVacinaMedicamento, tipoAnimal, nome, periodicidade, tempo, observacao);
-                if(GerenciarVacinasMedicamentos.getInstance().adicionarMedicamento(novoMed))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-            }
             
-            response.sendRedirect("/AnyMais/medicamentos");
+            String nomeTipoVacinaMedicamento = request.getParameter("tipoVacinaMedicamento");
+            TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorNome(nomeTipoVacinaMedicamento);
+            
+            String nomeTipoAnimal = request.getParameter("tipoAnimal");
+            TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
+            
+            String nomeVacinaMedicamento = request.getParameter("nome");
+            int periodicidade = Integer.parseInt(request.getParameter("periodicidade"));  
+            String tempo = request.getParameter("tempo");
+            String observacao = request.getParameter("observacao");
+            
+            
+            VacinasMedicamentos novaVacinaMedicamento = new VacinasMedicamentos(1, tipoVacinaMedicamento, tipoAnimal, nomeVacinaMedicamento, periodicidade, tempo, observacao); //id mock
+            if(GerenciarVacinasMedicamentos.getInstance().adicionarVacinaMedicamento(novaVacinaMedicamento))
+                request.getSession().setAttribute("status", "sucesso");
+            else
+                request.getSession().setAttribute("status", "falha");
+            
+            response.sendRedirect("/AnyMais/vacinasMedicamentos");
+            
         }
-        else if(uri.equals("/AnyMais/medicamentos/excluido")){
+        else if(uri.equals("/AnyMais/vacinasMedicamentos/excluido")){
             String excluido = request.getParameter("excluido");
             if(excluido != null){
-                int idmed_vac = Integer.parseInt(excluido);
-                if(GerenciarVacinasMedicamentos.getInstance().excluirMedicamento(idmed_vac))
+                int idVacinaMedicamento = Integer.parseInt(excluido);
+                if(GerenciarVacinasMedicamentos.getInstance().excluirVacinaMedicamento(idVacinaMedicamento))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
             }
             
-            response.sendRedirect("/AnyMais/medicamentos");
-        } else if(uri.equals("/AnyMais/medicamentos/atualizar")){
+            response.sendRedirect("/AnyMais/vacinasMedicamentos");
+            
+        } else if(uri.equals("/AnyMais/vacinasMedicamentos/atualizar")){
             String atualizado = request.getParameter("atualizado");
             if(atualizado != null){
-                int idmed_vac = Integer.parseInt(atualizado);
-                VacinasMedicamentos[] medicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaMedicamentos();
-                VacinasMedicamentos medicamentoAtualizacao = null;
-                for(VacinasMedicamentos medicamento : medicamentos){
-                    if(medicamento.getIdVacinasMedicamentos() == idmed_vac){
-                        medicamentoAtualizacao = medicamento;
+                int idVacinaMedicamento = Integer.parseInt(atualizado);
+                VacinasMedicamentos[] vacinasMedicamentos = GerenciarVacinasMedicamentos.getInstance().selecionaVacinasMedicamentos();
+                VacinasMedicamentos vacinaMedicamentoAtualizacao = null;
+                for(VacinasMedicamentos vacinaMedicamento : vacinasMedicamentos){
+                    if(vacinaMedicamento.getIdVacinasMedicamentos() == idVacinaMedicamento){
+                        vacinaMedicamentoAtualizacao = vacinaMedicamento;
                         break;
                     }
                 }
-                request.getSession(true).setAttribute("medicamento", medicamentoAtualizacao);
+                request.getSession(true).setAttribute("medicamento", vacinaMedicamentoAtualizacao);
             }
             else{
                 request.getSession(true).removeAttribute("medicamento");
             }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-vacinas-medicamentos.jsp");
             dispatcher.forward(request, response);
-        } else if(uri.equals("/AnyMais/medicamentos/atualizado")){
-            String cadastrar = request.getParameter("cadastrar");
-            if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int idmed_vac = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getIdVacinasMedicamentos();
-                String tipo = request.getParameter("tipo-med");
-                TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorNome(tipo);
-                
-                String nomeTipoAnimal = request.getParameter("tipo-pet");
-                TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
-                                
-                String nome = request.getParameter("nome-medicamento");
-                int periodicidade = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getPeriodicidade();
-                String tempo = request.getParameter("tempo");            
-                String observacao = request.getParameter("observacao");            
-
-                VacinasMedicamentos medicamentoAtualizado = new VacinasMedicamentos(idmed_vac, tipoVacinaMedicamento, tipoAnimal, nome, periodicidade, tempo, observacao);
-                if(GerenciarVacinasMedicamentos.getInstance().atualizarMedicamento(medicamentoAtualizado))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-                
-                
-            }
             
-            response.sendRedirect("/AnyMais/medicamentos");
+        } else if(uri.equals("/AnyMais/vacinasMedicamentos/atualizado")){
+            
+            int idVacinaMedicamento = ((VacinasMedicamentos) request.getSession(true).getAttribute("medicamento")).getIdVacinasMedicamentos();
+            String nomeTipoVacinaMedicamento = request.getParameter("tipoVacinaMedicamento");
+            TipoVacinaMedicamento tipoVacinaMedicamento = GerenciarTiposVacinasMedicamentos.getInstance().selecionaTiposAnimalPorNome(nomeTipoVacinaMedicamento);
+            
+            String nomeTipoAnimal = request.getParameter("tipoAnimal");
+            TipoAnimal tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorNome(nomeTipoAnimal);
+            
+            String nomeVacinaMedicamento = request.getParameter("nome");
+            int periodicidade = Integer.parseInt(request.getParameter("periodicidade"));
+            String tempo = request.getParameter("tempo");
+            String observacao = request.getParameter("obeservacao");
+            
+            VacinasMedicamentos vacinaMedicamentoAtualizada = new VacinasMedicamentos(idVacinaMedicamento, tipoVacinaMedicamento, tipoAnimal, nomeVacinaMedicamento, periodicidade, tempo, observacao);
+            if(GerenciarVacinasMedicamentos.getInstance().atualizarVacinaMedicamento(vacinaMedicamentoAtualizada))
+                request.getSession().setAttribute("status", "sucesso");
+            else
+                request.getSession().setAttribute("status", "falha");
+
+            response.sendRedirect("/AnyMais/vacinasMedicamentos");
         }
     }
 

@@ -8,6 +8,7 @@ package controller;
 import java.util.ArrayList;
 import model.dao.DAOVacinasMedicamentos;
 import model.entity.VacinasMedicamentos;
+import model.entity.TipoVacinaMedicamento;
 
 /**
  *
@@ -16,10 +17,10 @@ import model.entity.VacinasMedicamentos;
 public class GerenciarVacinasMedicamentos {
     
     private static GerenciarVacinasMedicamentos instance;
-    private DAOVacinasMedicamentos daoMedicamento;
+    private DAOVacinasMedicamentos daoVacinasMedicamentos;
 
     private GerenciarVacinasMedicamentos(){
-        daoMedicamento = new DAOVacinasMedicamentos();
+        daoVacinasMedicamentos = new DAOVacinasMedicamentos();
     }
 
     public static GerenciarVacinasMedicamentos getInstance(){
@@ -28,66 +29,44 @@ public class GerenciarVacinasMedicamentos {
         return instance;
     }
         
-    public VacinasMedicamentos[] selecionaMedicamentos(){
-        return daoMedicamento.selectAll();
+    public VacinasMedicamentos[] selecionaVacinasMedicamentos(){
+        return daoVacinasMedicamentos.selectAll();
     }
     
-    public VacinasMedicamentos[] selecionaMedicamentosComFiltro(String nome, boolean cachorro, boolean gato){
-        VacinasMedicamentos[] todosMedicamentos = daoMedicamento.selectAll();
+    public VacinasMedicamentos[] selecionaVacinasMedicamentosComFiltro(String nome, boolean cachorro, boolean gato, boolean vacina, boolean medicamento){
+        VacinasMedicamentos[] todasVacinasMedicamentos = daoVacinasMedicamentos.selectAll();
         
-        ArrayList<VacinasMedicamentos> filtroMedicamentos = new ArrayList<>();
+        ArrayList<VacinasMedicamentos> filtroVacinasMedicamentos = new ArrayList<VacinasMedicamentos>();
         
-        for(VacinasMedicamentos medicamentos : todosMedicamentos){
-            /*if((medicamento && medicamentos.getTipo().toUpperCase().equals("MEDICAMENTO"))
+        for(VacinasMedicamentos vacinasMedicamentos : todasVacinasMedicamentos){
+            if((vacina && vacinasMedicamentos.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento().toUpperCase().equals("VACINA")) //vacina == 1
                     ||
-               (vacina && medicamentos.getTipoAnimal().toUpperCase().equals("VACINA"))){*/
+               (medicamento && vacinasMedicamentos.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento().toUpperCase().equals("MEDICAMENTO"))){ //medicamento == 2
                 
-                if((cachorro && medicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO")) //cachorro == 1
+                if((cachorro && vacinasMedicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO")) //cachorro == 1
                         ||
-                   (gato && medicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO"))){ //gato == 2
-                    /*if((hora && medicamentos.getPeriodicidade() >= 0)
-                            ||
-                       (dia && medicamentos.getPeriodicidade() >= 0)
-                            ||
-                       (semana && medicamentos.getPeriodicidade() >= 0)
-                             ||
-                       (mes && medicamentos.getPeriodicidade() >= 0)
-                             ||
-                       (ano && medicamentos.getPeriodicidade() >= 0)){      */
-                   
-                        if(nome.isEmpty() || nome.toUpperCase().equals(medicamentos.getNome().toUpperCase())){
-                            filtroMedicamentos.add(medicamentos);
+                   (gato && vacinasMedicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO"))){ //gato == 2
+                    
+                        if(nome.isEmpty() || nome.toUpperCase().equals(vacinasMedicamentos.getNome().toUpperCase())){
+                            filtroVacinasMedicamentos.add(vacinasMedicamentos);
                         }
-                    
-                    
+
                     }
                 }
-          //  }
-            //Descomentar linhas acima
-            //Eliminar linhas abaixo
-            //trocar ordens acima rs
-            /*
-            if(cachorro && raca.getId()%2 == 0 || gato && raca.getId()%2 == 1){
-                if(nome.isEmpty() || nome.toUpperCase().equals(raca.getNomeRaca().toUpperCase())){
-                    filtroRacas.add(raca);
-                }
-            }*/
-            
-        //}
-        
-        return filtroMedicamentos.toArray(new VacinasMedicamentos[filtroMedicamentos.size()]);
+        }
+        return filtroVacinasMedicamentos.toArray(new VacinasMedicamentos[filtroVacinasMedicamentos.size()]);
     }
     
-    public boolean adicionarMedicamento(VacinasMedicamentos medicamento){
-        return daoMedicamento.insert(medicamento);
+    public boolean adicionarVacinaMedicamento(VacinasMedicamentos vacinaMedicamento){
+        return daoVacinasMedicamentos.insert(vacinaMedicamento);
     }
     
-    public boolean atualizarMedicamento(VacinasMedicamentos medicamento){
-        return daoMedicamento.update(medicamento);
+    public boolean atualizarVacinaMedicamento(VacinasMedicamentos vacinaMedicamento){
+        return daoVacinasMedicamentos.update(vacinaMedicamento);
     }
     
-    public boolean excluirMedicamento(int idmed_vac){
-        return daoMedicamento.delete(idmed_vac);
+    public boolean excluirVacinaMedicamento(int idVacinaMedicamento){
+        return daoVacinasMedicamentos.delete(idVacinaMedicamento);
     }
     
 }

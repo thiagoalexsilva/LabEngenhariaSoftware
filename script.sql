@@ -108,16 +108,19 @@ CREATE  TABLE `anymais`.`animal` (
   ON DELETE NO ACTION
 
   ON UPDATE NO ACTION );
-
   
 CREATE  TABLE `anymais`.`tipoVacinaMedicamento` (
 
   `idTipoVacinaMedicamento` INT NOT NULL ,
 
-  `nomeTipoVacinaMedicamento` INT NOT NULL ,
+  `nomeTipoVacinaMedicamento` VARCHAR(20) NOT NULL ,
 
   PRIMARY KEY (`idTipoVacinaMedicamento`) );
   
+INSERT INTO `anymais`.`tipoVacinaMedicamento` VALUES (1, 'Vacina');
+INSERT INTO `anymais`.`tipoVacinaMedicamento` VALUES (2, 'Medicamento');
+
+
 
 CREATE  TABLE `anymais`.`vacinasMedicamentos` (
 
