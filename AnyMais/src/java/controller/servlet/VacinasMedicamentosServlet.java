@@ -60,7 +60,7 @@ public class VacinasMedicamentosServlet extends HttpServlet {
                 
             }
             
-            request.getSession(true).removeAttribute("nome-medicamento");
+            request.getSession(true).removeAttribute("nome");
             request.getSession(true).removeAttribute("tipo-pet-c");
             request.getSession(true).removeAttribute("tipo-pet-g");
             request.getSession(true).removeAttribute("tipo-vacina");

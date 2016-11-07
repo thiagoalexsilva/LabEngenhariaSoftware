@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/AnyMais/styles/style.css">
 </head>
     <body>
         <div class="container c-header">
             <header>
-                <img src="images/logo.png" class="img-responsive logo-header"/>
+                <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
         
@@ -56,15 +56,15 @@
                     <input type="image" name="procurar-vacinas-medicamentos" src="/AnyMais/images/search.png" class="search-button" />
                     <input type="image" name="adicionar-vacinas-medicamentos" src="/AnyMais/images/adicionar-vacina.png" class="adicionar-medicamento-button" />
                     <br>
-                    <input type="checkbox" name="tipo-pet" class="raca-tipo-pet primeiro-pet" value="cachorro"
+                    <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro"
                            <% out.print(session.getAttribute("tipo-pet-c") != null ? "checked" : ""); %> > Cachorro
-                    <input type="checkbox" name="tipo-pet" class="raca-tipo-pet" value="gato"
+                    <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato"
                            <% out.print(session.getAttribute("tipo-pet-g") != null ? "checked" : ""); %> > Gato
                     
                     
-                    <input type="checkbox" name="tipo-vacina-medicamento" class="raca-tipo-pet primeiro-pet" value="vacina"
+                    <input type="checkbox" name="tipo-vacina" class="raca-tipo-pet primeiro-pet" value="vacina"
                            <% out.print(session.getAttribute("tipo-vacina") != null ? "checked" : ""); %> > Vacina
-                    <input type="checkbox" name="tipo-vacina-medicamento" class="raca-tipo-pet" value="medicamento"
+                    <input type="checkbox" name="tipo-medicamento" class="raca-tipo-pet" value="medicamento"
                            <% out.print(session.getAttribute("tipo-medicamento") != null ? "checked" : ""); %> > Medicamento
                     
                     <br><br>
@@ -92,7 +92,7 @@
                           <td><% out.print(medicamento.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento()); %></td>
                           <td><% out.print(medicamento.getTipoAnimal().getNomeTipoAnimal()); %></td>
                           <td><% out.print(medicamento.getNome()); %></td>
-                          <td><% out.print(medicamento.getPeriodicidade()); %></td>
+                          <td><% out.print(medicamento.getPeriodicidade() + " " + medicamento.getTempo()); %></td>
                           <td>
                             <center><input name="excluir" id="<% out.print(medicamento.getIdVacinasMedicamentos()); %>" type="image" src="images/excluir.png" class="excluir-button" /></center>
                           </td>

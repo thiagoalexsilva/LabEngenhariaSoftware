@@ -38,7 +38,7 @@ public class GerenciarTiposAnimal {
     public TipoAnimal selecionaTiposAnimalPorNome(String nomeTipoAnimal){
         TipoAnimal[] tipos = selecionaTiposAnimal();
         for(TipoAnimal t : tipos){
-            if(t.getNomeTipoAnimal().equals(nomeTipoAnimal)){
+            if(t.getNomeTipoAnimal().toUpperCase().equals(nomeTipoAnimal.toUpperCase())){
                 return t;
             }
         }

@@ -41,11 +41,15 @@ public class GerenciarVacinasMedicamentos {
         for(VacinasMedicamentos vacinasMedicamentos : todasVacinasMedicamentos){
             if((vacina && vacinasMedicamentos.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento().toUpperCase().equals("VACINA")) //vacina == 1
                     ||
-               (medicamento && vacinasMedicamentos.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento().toUpperCase().equals("MEDICAMENTO"))){ //medicamento == 2
+               (medicamento && vacinasMedicamentos.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento().toUpperCase().equals("MEDICAMENTO")) //medicamento == 2
+                    ||
+               (!vacina && !medicamento)){ 
                 
                 if((cachorro && vacinasMedicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO")) //cachorro == 1
                         ||
-                   (gato && vacinasMedicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO"))){ //gato == 2
+                   (gato && vacinasMedicamentos.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO") //gato == 2
+                        ||
+                   (!cachorro && !gato))){ 
                     
                         if(nome.isEmpty() || nome.toUpperCase().equals(vacinasMedicamentos.getNome().toUpperCase())){
                             filtroVacinasMedicamentos.add(vacinasMedicamentos);

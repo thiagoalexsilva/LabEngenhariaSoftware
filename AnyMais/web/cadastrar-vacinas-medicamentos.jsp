@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/AnyMais/styles/style.css">
 </head>
     <body>
         <div class="container c-header">
             <header>
-                <img src="images/logo.png" class="img-responsive logo-header"/>
+                <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
         
@@ -53,9 +53,9 @@
                             <input type="radio" name="tipoVacinaMedicamento" value="Medicamento" class="cadastra-raca label-field-vacina" required
                                    <%= vacinaMedicamento != null && vacinaMedicamento.getTipoVacinaMedicamento().getNomeTipoVacinaMedicamento().toUpperCase().equals("MEDICAMENTO") ? "checked" : "" %> > Medicamento
                             <br>
-                            <input type="radio" name="tipoAnimal" value="cachorro" class="cadastra-raca label-field-vacina" required
+                            <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca label-field-vacina" required
                                    <%= vacinaMedicamento != null && vacinaMedicamento.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : "" %> > Cachorro
-                            <input type="radio" name="tipoAnimal" value="gato" class="label-field-vacina" required
+                            <input type="radio" name="tipoAnimal" value="Gato" class="label-field-vacina" required
                                    <%= vacinaMedicamento != null && vacinaMedicamento.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("GATO") ? "checked" : "" %> > Gato<br>
                             <br>
                         
@@ -75,9 +75,7 @@
                               </select></p>
                             
                             <p class="cadastra-vacina">Observação:</p><br>
-                                <textarea name="observacao" rows="4" cols="50" class="label-field-vacina">
-                                    <%=vacinaMedicamento != null ? vacinaMedicamento.getObservacao() : "" %>
-                                </textarea>
+                                <textarea name="observacao" rows="4" cols="50" class="label-field-vacina"><%=vacinaMedicamento != null ? vacinaMedicamento.getObservacao() : "" %></textarea>
                                 <br>
                                 
                             <input type="submit" name="cancelar" class="button-cancelar" value="Cancelar">
