@@ -27,8 +27,12 @@ public class GerenciarClientes {
         return instance;
     }
         
-    public Pessoa selecionarCliente(String email, String nome){
-        return daoUsuario.select(email, nome);
+    /*public Pessoa selecionarCliente(String email){
+        return daoUsuario.select(email);
+    }*/
+    
+    public Pessoa[] selecionaClientes(){
+        return daoUsuario.selectAll();
     }
     
     public boolean adicionarCliente(Pessoa cliente){

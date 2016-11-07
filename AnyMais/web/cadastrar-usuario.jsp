@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/AnyMais/styles/style.css">
 </head>
     <body>
         <div class="container c-header">
             <header>
-                <img src="images/logo.png" class="img-responsive logo-header"/>
+                <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
         <div>

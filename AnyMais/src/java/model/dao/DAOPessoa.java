@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.entity.Pessoa;
@@ -22,8 +24,8 @@ public class DAOPessoa {
     private Connection con;
     
     private final String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private final String SELECT_SQL_NOME = "SELECT * FROM PESSOA WHERE IDPESSOA=?;";
-    private final String SELECT_SQL_EMAIL = "SELECT * FROM PESSOA WHERE EMAIL=?;";
+    private final String SELECT_SQL = "SELECT * FROM PESSOA WHERE IDPESSOA=?;";
+    //private final String SELECT_SQL_EMAIL = "SELECT * FROM PESSOA WHERE EMAIL=?;";
     
     private final String UPDATE_SQL = "UPDATE PESSOA SET NOME=?, SEXO=?, DATANASCIEMENTO=?, ENDERECO=?,"
                                     + "BAIRRO=?, COMPLEMENTO=?, CEP=?, CIDADE=?, UF=?, TELEFONE=?, TELEFONE2=?, EMAIL=?, SENHA=?, IMAGE=?, DESCRICAO=?"
@@ -155,12 +157,12 @@ public class DAOPessoa {
         return false;
     } 
 
-    public Pessoa select(String email, String nome) {
+    /*public Pessoa select(String email) {
         con = conexao.openConexao();
         Pessoa pessoa = null;
         ResultSet rs;
         try {   
-            if(email.isEmpty()){
+            /*if(email.isEmpty()){
                 PreparedStatement stmt;
                 stmt = con.prepareStatement(SELECT_SQL_NOME);
                 
@@ -174,7 +176,7 @@ public class DAOPessoa {
                 stmt.setString(1, pessoa.getEmail());
                 
                 rs = stmt.executeQuery();
-            }
+            //}
             
             pessoa = new Pessoa();
             pessoa.setIdPessoa(rs.getInt(1));
@@ -201,6 +203,34 @@ public class DAOPessoa {
         
         conexao.closeConexao();
         return pessoa;
+    }*/
+    
+    public Pessoa[] selectAll(){
+        ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+        Pessoa[] arrayPessoas;
+        PreparedStatement stmt;
+        try {
+            con = conexao.openConexao();
+            stmt = con.prepareStatement(SELECT_SQL);
+            
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                pessoas.add(getPessoa(rs));
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        arrayPessoas = new Pessoa[pessoas.size()];
+        
+        for(int i=0; i<arrayPessoas.length; i++){
+            arrayPessoas[i] = pessoas.get(i);
+        }
+        
+        conexao.closeConexao();
+        return arrayPessoas;
     }
     
     public boolean checkCNPJ_Email(String cnpj, String email) {
@@ -243,5 +273,33 @@ public class DAOPessoa {
         }
         conexao.closeConexao();
         return false;
+    }
+    
+    private Pessoa getPessoa(ResultSet rs){
+        try {
+            int idPessoa = rs.getInt(1);
+            int tipoPessoa = rs.getInt(2);
+            String nome = rs.getString(3);
+            String sexo = rs.getString(4);
+            java.sql.Date dataNascimento = new java.sql.Date(rs.getDate(5).getTime());
+            String cpfCnpj = rs.getString(6);
+            String endereco = rs.getString(7);
+            String bairro = rs.getString(8);
+            String complemento = rs.getString(9);
+            String cep = rs.getString(10);
+            String cidade = rs.getString(11);
+            String uf = rs.getString(12);
+            String telefone = rs.getString(13);
+            String telefone2 = rs.getString(14);
+            String email = rs.getString(15);
+            String senha = rs.getString(16);
+            String imagem = rs.getString(17);
+            String descricao = rs.getString(18);
+            return new Pessoa(idPessoa, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao); 
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 }

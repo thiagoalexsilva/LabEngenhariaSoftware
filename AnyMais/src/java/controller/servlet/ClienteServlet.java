@@ -9,6 +9,7 @@ package controller.servlet;
 import controller.GerenciarClientes;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.Pessoa;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -24,6 +27,8 @@ import model.entity.Pessoa;
 @WebServlet(name = "ClienteServlet", urlPatterns = {"/usuario/*"})
 public class ClienteServlet extends HttpServlet {
 
+    private boolean primeiraExecucao = true;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,155 +41,85 @@ public class ClienteServlet extends HttpServlet {
     private Pessoa user_active = null;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/usuario/cadastrar")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
-            dispatcher.forward(request, response);
-        }
-        else if(uri.equals("/AnyMais/usuario/cadastrado")){
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String email2 = request.getParameter("confirma-email");
-            String senha2 = request.getParameter("confirma-senha");
-            String nome = request.getParameter("nome");
-            String endereco = request.getParameter("endereco");
-            String bairro = request.getParameter("bairro");
-            String complemento = request.getParameter("complemento");
-            String cidade = request.getParameter("cidade");
-            String cep = request.getParameter("cep");
-            String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");
-            String celular = request.getParameter("telefone2");
-            String sexo = request.getParameter("sexo");  
-            String cpf = request.getParameter("cpf-cnpj");  
-            String dataNascimento = request.getParameter("nascimento");
-            int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
-            String mensagem = request.getParameter("mensagem");
-            
-            // ------------ validacoes de verificacoes --------//
-            if(sexo.equals("Masculino")) sexo = "M";
-            else if(sexo.equals("Feminino")) sexo = "F";
-            else sexo = "O";
-            
-            if(email.isEmpty() || senha.isEmpty() || senha2.isEmpty() || nome.isEmpty() || email2.isEmpty() || endereco.isEmpty()
-                    || bairro.isEmpty() || cidade.isEmpty() || cep.isEmpty() || uf.isEmpty() || sexo.isEmpty() || cpf.isEmpty()
-                    || dataNascimento.isEmpty() || !senha.equals(senha2) || !email.equals(email2) || cpf.length() < 11 || senha.length() < 8
-                    || senha2.length() < 8 || (!telefone.isEmpty() && telefone.length() < 9) || (!celular.isEmpty() && celular.length() < 9))
-                request.getSession().setAttribute("status", "falha");
-            
-            if(GerenciarClientes.getInstance().verificarCPF_Email(cpf, email))
-                request.getSession().setAttribute("status", "Ja existe usuario com email ou cpf informados.");
-            
-            // ------------ validacoes de verificacoes --------//
-                
-            Pessoa user_active = new Pessoa(1, cpf, sexo, dataNascimento, celular, 1, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
-            if(GerenciarClientes.getInstance().adicionarCliente(user_active))
-                request.getSession().setAttribute("status", "sucesso");
-            else
-                request.getSession().setAttribute("status", "falha");
-            
-            response.sendRedirect("/AnyMais/usuario");
-        }
-        else if(uri.equals("/AnyMais/usuario/atualizar")){
-            request.getSession(true).setAttribute("usuario", user_active);
-            
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editar-cadastro_cliente.jsp");
-            dispatcher.forward(request, response);
-            
-            request.getSession().removeAttribute("status");
-        }
-        else if(uri.equals("/AnyMais/usuario/atualizado")){
-            
-            /*String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String email2 = request.getParameter("confirma-email");
-            String senha2 = request.getParameter("confirma-senha");
-            String nome = request.getParameter("nome");
-            String endereco = request.getParameter("endereco");
-            String bairro = request.getParameter("bairro");
-            String complemento = request.getParameter("complemento");
-            String cidade = request.getParameter("cidade");
-            String cep = request.getParameter("cep");
-            String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");
-            String celular = request.getParameter("telefone2");
-            String sexo = request.getParameter("sexo");  
-            String cpf = request.getParameter("cpf-cnpj");  
-            String dataNascimento = request.getParameter("nascimento");
-            int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
-            String mensagem = request.getParameter("mensagem");
-            
-            // ------------ validacoes de verificacoes --------//
-                        
-            if(sexo.equals("Masculino")) sexo = "M";
-            else if(sexo.equals("Feminino")) sexo = "F";
-            else sexo = "O";
-            
-            if(telefone.isEmpty()) telefone = celular;
-                
-            if(email.isEmpty() || senha.isEmpty() || senha2.isEmpty() || nome.isEmpty() || email2.isEmpty() || endereco.isEmpty()
-                    || bairro.isEmpty() || cidade.isEmpty() || cep.isEmpty() || uf.isEmpty() || sexo.isEmpty() || cpf.isEmpty()
-                    || dataNascimento.isEmpty() || !senha.equals(senha2) || !email.equals(email2) || cpf.length() < 11 || senha.length() < 8
-                    || senha2.length() < 8 || (!telefone.isEmpty() && telefone.length() < 9) || (!celular.isEmpty() && celular.length() < 9))
-                request.getSession().setAttribute("status", "falha");
-            
-            
-            // ------------ validacoes de verificacoes --------//
-                
-            user_active = new Usuario( cpf, sexo, dataNascimento, celular, 0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, 1);
-            if(GerenciarClientes.getInstance().atualizarCliente(user_active))
-                request.getSession().setAttribute("status", "sucesso");
-            else
-                request.getSession().setAttribute("status", "falha");*/
-            
-            String cadastrar = request.getParameter("cadastrar");
-            if(cadastrar != null && cadastrar.equals("Atualizar")){
-                int u_id = ((Pessoa) request.getSession(true).getAttribute("usuario")).getIdPessoa();
-                String email = request.getParameter("email");
-                String senha = request.getParameter("senha");
-                String email2 = request.getParameter("confirma-email");
-                String senha2 = request.getParameter("confirma-senha");
-                String nome = request.getParameter("nome");
-                String endereco = request.getParameter("endereco");
-                String bairro = request.getParameter("bairro");
-                String complemento = request.getParameter("complemento");
-                String cidade = request.getParameter("cidade");
-                String cep = request.getParameter("cep");
-                String uf = request.getParameter("uf");
-                String telefone = request.getParameter("telefone");
-                String celular = request.getParameter("telefone2");
-                String sexo = request.getParameter("sexo");  
-                String cpf = request.getParameter("cpf-cnpj");  
-                String dataNascimento = request.getParameter("nascimento");
-                int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
-                String mensagem = request.getParameter("mensagem");            
-
-                Pessoa usuarioAtualizado = new Pessoa(0, cpf, sexo, dataNascimento, celular, u_id, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, tipo, mensagem);
-                if(GerenciarClientes.getInstance().atualizarCliente(usuarioAtualizado))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-                
-                
-            }
-            
-            response.sendRedirect("/AnyMais/usuario");
-        }
-        else if(uri.equals("/AnyMais/usuario/excluido")){
-            String excluido = request.getParameter("excluido");
-            if(excluido != null){
-                if(GerenciarClientes.getInstance().excluirCliente(user_active.getEmail(), user_active.getSenha()))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-            }
-            
-            response.sendRedirect("/AnyMais/usuario");
-        }else if(uri.equals("/AnyMais/usuario/)")){
+        if(uri.equals("/AnyMais/usuario")){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
             dispatcher.forward(request, response);
+        } else if(uri.equals("/AnyMais/usuario/cadastrar")){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+            dispatcher.forward(request, response);
+        } else if(uri.equals("/AnyMais/usuario/cadastrado")){
+            String cadastrar = request.getParameter("cadastrar");
+            SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+            
+            int tipoPessoa = Integer.parseInt(request.getParameter("tipoPessoa"));
+            String nome = request.getParameter("nome");
+            String sexo = request.getParameter("sexo");
+            
+            String data = request.getParameter("dataNascimento");
+            java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
+            
+            String cpfCnpj = request.getParameter("cpfCnpj");
+            String endereco = request.getParameter("endereco");
+            String bairro = request.getParameter("bairro");
+            String complemento = request.getParameter("complemento");
+            String cep = request.getParameter("cep");
+            String cidade = request.getParameter("cidade");
+            String uf = request.getParameter("uf");
+            String telefone = request.getParameter("telefone");
+            String telefone2 = request.getParameter("telefone2");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String imagem = request.getParameter("imagem");
+            String descricao = request.getParameter("descricao");
+            
+            Pessoa newPessoa = new Pessoa(1, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+            
+            if(GerenciarClientes.getInstance().adicionarCliente(newPessoa))
+                request.getSession().setAttribute("status", "sucesso");
+            else
+                request.getSession().setAttribute("status", "falha");
+            
+            response.sendRedirect("/AnyMais/usuario");
+        } else if(uri.equals("/AnyMais/usuario/excluido")){
+            String excluido = request.getParameter("excluido");
+            
+            if(excluido != null){
+                int idPessoa = Integer.parseInt(excluido);
+                if(GerenciarClientes.getInstance().excluirCliente(idPessoa))
+                    request.getSession().setAttribute("status", "sucesso");
+                else
+                    request.getSession().setAttribute("status", "falha");
+            }
+            
+            response.sendRedirect("/AnyMais/usuario");
+        } else if(uri.equals("/AnyMais/usuario/atualizar")){
+            String atualizado = request.getParameter("atualizado");
+            String email = request.getParameter("email");
+            String nome = request.getParameter("nome");
+            
+            if(atualizado != null){
+                int idPessoa = Integer.parseInt(atualizado);
+                Pessoa[] clientes = GerenciarClientes.getInstance().selecionaClientes();
+                Pessoa clienteAtualizacao = null;
+                for(Pessoa p : clientes){
+                    if(p.getIdPessoa()== idPessoa){
+                        clienteAtualizacao = p;
+                        break;
+                    }
+                }
+                request.getSession(true).setAttribute("cliente", clienteAtualizacao);
+            }
+            else{
+                request.getSession(true).removeAttribute("cliente");
+            }
+            
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+            dispatcher.forward(request, response);
+        }else if(uri.equals("/AnyMais/usuario/atualizado")){
+            
         }
     }
 
