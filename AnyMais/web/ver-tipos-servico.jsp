@@ -23,7 +23,21 @@
                 <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
-        
+        <%  
+            boolean sucesso = false;
+            boolean falha = false;
+            
+            if (session.getAttribute("status") != null){
+                if (session.getAttribute("status").toString().equals("sucesso")) { 
+                    sucesso = true;
+                } else if (session.getAttribute("status").equals("falha")) { 
+                    falha = true;
+                }
+            }
+        %>        
+        <div class="mensagem <%=sucesso ? "sucesso" : falha ? "falha" : ""%>">
+            <%=sucesso ? "Sucesso!" : falha ? "Falha!" : ""%>
+        </div>
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -41,7 +55,6 @@
                     <form id="formservicos" action="/AnyMais/petshop/servicos" method="post">
                         <h3 class="title">Serviços</h3>
                         <input type="text" name="nomeServico" class="label-field-raca" value="<%= session.getAttribute("nomeServico") != null ? session.getAttribute("nomeServico") : "" %>">
-                        <input type="text" name="veterinarioServico" class="label-field-raca" value="<%= session.getAttribute("veterinarioServico") != null ? session.getAttribute("veterinarioServico") : "" %>">
                         <input type="image" name="procuraServicos" src="/AnyMais/images/search.png" class="search-button" />
                         <input type="image" name="adicionarServico" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
                         <br>
@@ -69,10 +82,10 @@
                                             <td><%= tipoServico.getDuracao() %><br></td>
                                             <td><%= tipoServico.getValor() %></td>
                                             <td>
-                                                <center><input name="excluir" id="<%= tipoServico.getIdTipoServico() %>" type="image" src="images/excluir.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<%= tipoServico.getIdTipoServico() %>" type="image" src="/AnyMais/images/excluir.png" class="excluir-button"></center>
                                             </td>
                                             <td>
-                                                <center><input name="atualizar" id="<%= tipoServico.getIdTipoServico() %>" type="image" src="images/edit.png" class="excluir-button"></center>
+                                                <center><input name="atualizar" id="<%= tipoServico.getIdTipoServico() %>" type="image" src="/AnyMais/images/edit.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>
