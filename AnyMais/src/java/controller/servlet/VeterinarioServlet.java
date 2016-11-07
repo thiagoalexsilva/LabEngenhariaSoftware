@@ -39,7 +39,7 @@ public class VeterinarioServlet extends HttpServlet{
             if(nome != null)
                 request.getSession(true).setAttribute("nome", nome);
             
-            Veterinario[] veterinarios = GerenciarVeterinario.getInstance().selecionaVeterinario();
+            Veterinario[] veterinarios = GerenciarVeterinario.getInstance().selecionaVeterinariosComFiltro(nome);
             request.getSession(true).setAttribute("veterinario", veterinarios); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-veterinarios.jsp");

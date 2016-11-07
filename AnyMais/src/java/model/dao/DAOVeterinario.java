@@ -25,7 +25,7 @@ public class DAOVeterinario {
     private Connection con;
     public String INSERT_SQL = "INSERT INTO VETERINARIO VALUES (?, ?, ?, ?);";
     public String SELECT_SQL = "SELECT * FROM VETERINARIO;";
-    public String UPDATE_SQL = "UPDATE VETERINARIO SET NOME=?, OBSERVACAO=? WHERE IDVETERINARIO=?;";
+    public String UPDATE_SQL = "UPDATE VETERINARIO SET NOME=?, CRMV=?, OBSERVACAO=? WHERE IDVETERINARIO=?;";
     public String DELETE_SQL = "DELETE FROM VETERINARIO WHERE IDVETERINARIO=?;";
 
     public String SELECT_MAX_ID_SQL = "SELECT COALESCE(MAX(IDVETERINARIO), 0)+1 FROM VETERINARIO;";
@@ -111,8 +111,9 @@ public class DAOVeterinario {
             con = conexao.openConexao();
             stmt = con.prepareStatement(UPDATE_SQL);
             stmt.setString(1, veterinario.getNome());
-            stmt.setString(2, veterinario.getObservacao());
-            stmt.setInt(3, veterinario.getIdVeterinario());
+            stmt.setString(2, veterinario.getCrmv());
+            stmt.setString(3, veterinario.getObservacao());
+            stmt.setInt(4, veterinario.getIdVeterinario());
             
             stmt.execute();
             
@@ -146,9 +147,9 @@ public class DAOVeterinario {
     private Veterinario getVeterinario(ResultSet rs){
         try {
             int idVeterinario = rs.getInt(1);           
-            String nome = rs.getString(3);
-            String crmv = rs.getString(4);
-            String observacao = rs.getString(5);
+            String nome = rs.getString(2);
+            String crmv = rs.getString(3);
+            String observacao = rs.getString(4);
             return new Veterinario(idVeterinario, nome, crmv, observacao);
         } catch (SQLException ex) {
             Logger.getLogger(DAOVeterinario.class.getName()).log(Level.SEVERE, null, ex);

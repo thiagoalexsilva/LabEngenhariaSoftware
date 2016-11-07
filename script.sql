@@ -1,3 +1,5 @@
+USE `anymais` ;
+
 CREATE SCHEMA `anymais` ;
 
 CREATE  TABLE `anymais`.`pessoa` (
@@ -166,3 +168,16 @@ CREATE  TABLE `anymais`.`tipoServico` (
   );
 
 
+CREATE TABLE `anymais`.`veterinario`(
+  `idVeterinario` INT NOT NULL ,
+
+  `nome` VARCHAR(80) NOT NULL ,
+  
+  `crmv` VARCHAR(5) NOT NULL,
+
+  `observacao` VARCHAR(256) NULL ,
+
+  PRIMARY KEY (`idVeterinario`) ,
+  
+  UNIQUE KEY (`crmv`)
+);

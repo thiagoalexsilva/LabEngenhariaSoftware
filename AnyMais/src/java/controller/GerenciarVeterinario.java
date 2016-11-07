@@ -44,4 +44,18 @@ public class GerenciarVeterinario {
     public boolean excluirVeterinario(int idVeterinario){
         return daoVeterinario.delete(idVeterinario);
     }
+    
+    public Veterinario[] selecionaVeterinariosComFiltro(String nome){
+        Veterinario[] allVeterinario = daoVeterinario.selectAll();
+        
+        ArrayList<Veterinario> filtroVeterinario = new ArrayList<Veterinario>();
+        
+        for(Veterinario v : allVeterinario){
+            if(nome.isEmpty() || v.getNome().toUpperCase().contains(nome.toUpperCase())){
+                filtroVeterinario.add(v);
+            }
+        }
+        
+        return filtroVeterinario.toArray(new Veterinario[filtroVeterinario.size()]);
+    }
 }
