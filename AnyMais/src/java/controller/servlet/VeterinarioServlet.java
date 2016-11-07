@@ -102,7 +102,7 @@ public class VeterinarioServlet extends HttpServlet{
                 dispatcher.forward(request, response);
                 
     } else if(uri.equals("/AnyMais/veterinario/atualizado")){
-            int idVeterinario = Integer.parseInt(request.getParameter("idVeterinario"));
+            int idVeterinario = ((Veterinario) request.getSession(true).getAttribute("veterinario")).getIdVeterinario();
             String nome = request.getParameter("nome");
             String crmv = request.getParameter("crmv");
             String observacao = request.getParameter("observacao");            
