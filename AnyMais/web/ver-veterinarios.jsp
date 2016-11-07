@@ -1,13 +1,13 @@
 <%-- 
-    Document   : ver-racas
-    Created on : Oct 3, 2016, 7:14:51 PM
-    Author     : Gustavo
+    Document   : ver-veterinario
+    Created on : 07/11/2016, 11:21:00
+    Author     : Erica
 --%>
 
-<%@page import="model.entity.Raca"%>
+<%@page import="model.entity.Veterinario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <title>Any+</title>
         <meta charset="utf-8">
@@ -23,6 +23,7 @@
                 <img src="/AnyMais/images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
+        
         <%  
             boolean sucesso = false;
             boolean falha = false;
@@ -34,10 +35,12 @@
                     falha = true;
                 }
             }
-        %>        
+        %>  
+        
         <div class="mensagem <%=sucesso ? "sucesso" : falha ? "falha" : ""%>">
             <%=sucesso ? "Sucesso!" : falha ? "Falha!" : ""%>
         </div>
+        
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -47,51 +50,36 @@
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
                 <div class="principal">
-                    <form id="formracas" action="/AnyMais/racas" method="post">
-                        <h3 class="title">Raças</h3>
+                    <form id="formVeterinario" action="/AnyMais/veterinario" method="post">
+                        <h3 class="title">Veterinários</h3>
                         <input type="text" name="nome-raca" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">
-                        <input type="image" name="procuraRacas" src="/AnyMais/images/search.png" class="search-button" />
-                        <input type="image" name="adicionar-raca" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
+                        <input type="image" name="procura-veterinario" src="/AnyMais/images/search.png" class="search-button" />
+                        <input type="image" name="adicionar-veterinario" src="/AnyMais/images/stethoscope.png" class="adicionar-pet-button" />
                         <br>
-                        <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" 
-                               <%= session.getAttribute("tipo-pet-c") != null ? "checked" : "" %> > Cachorro
-                        <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato"
-                               <%= session.getAttribute("tipo-pet-g") != null ? "checked" : "" %> > Gato
-
-                        <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" 
-                               <%= session.getAttribute("porte-pet-p") != null ? "checked" : "" %> > Pequeno
-                        <input type="checkbox" name="porte-pet-m" class="porte-pet" value="medio" 
-                               <%= session.getAttribute("porte-pet-m") != null ? "checked" : "" %> > Médio
-                        <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" 
-                               <%= session.getAttribute("porte-pet-g") != null ? "checked" : "" %> > Grande<br>
-
-                        <br><br>
-
+                        
                         <table border="1" class="table-racas">
                             <tr>
-                                <th class="table-raca-title">Espécie</th>
-                                <th class="table-raca-title">Raça</th>
-                                <th class="table-raca-title">Porte</th>
+                                <th class="table-raca-title">Nome</th>
+                                <th class="table-raca-title">CRMV</th>
                                 <th class="table-raca-title"></th>
                                 <th class="table-raca-title"></th>
                             </tr>
                             <input type="hidden" name="excluido" value=""/>
                             <input type="hidden" name="atualizado" value=""/>
                             <%
-                                if (session.getAttribute("racas") instanceof Raca[]) {
-                                    Raca[] racas = (Raca[]) session.getAttribute("racas");
-                                    for (Raca raca : racas) {
-                                        int id = raca.getIdRaca();
+                                if (session.getAttribute("veterinario") instanceof Veterinario[]) {
+                                    Veterinario[] veterinarios = (Veterinario[]) session.getAttribute("veterinario");
+                                    for (Veterinario v : veterinarios) {
+                                        int id = v.getIdVeterinario();
                             %>
                                         <tr>
-                                            <td><%= raca.getTipoAnimal().getNomeTipoAnimal() %></td>
-                                            <td><%= raca.getNomeRaca() %><br></td>
-                                            <td><%= raca.getPorte() %></td>
+                                            <td><%= v.getNome() %></td>
+                                            <td><%= v.getCrmv() %><br></td>
                                             <td>
-                                                <center><input name="excluir" id="<%= raca.getIdRaca() %>" type="image" src="/AnyMais/images/excluir.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<%= v.getIdVeterinario() %>" type="image" src="/AnyMais/images/excluir.png" class="excluir-button"></center>
                                             </td>
                                             <td>
-                                                <center><input name="atualizar" id="<%= raca.getIdRaca() %>" type="image" src="/AnyMais/images/edit.png" class="excluir-button"></center>
+                                                <center><input name="atualizar" id="<%= v.getIdVeterinario() %>" type="image" src="/AnyMais/images/edit.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>
@@ -113,6 +101,7 @@
         <div class="container c-footer">
             <footer></footer>
         </div>
+                        
         <script>
             function load() {
 
@@ -125,8 +114,8 @@
                         var confirma = window.confirm("Deseja confirmar exclusão?");
                         if(confirma){
                             document.getElementsByName("excluido")[0].value = e.target.id;
-                            document.getElementById("formracas").action = "/AnyMais/racas/excluido";
-                            document.getElementById("formracas").submit();
+                            document.getElementById("formVeterinario").action = "/AnyMais/veterinario/excluido";
+                            document.getElementById("formVeterinario").submit();
                         }
                     });
                 }
@@ -136,31 +125,26 @@
                 for (i = 0; i < atualizar.length; i++) {
                     atualizar[i].addEventListener('click', function (e) {
                         document.getElementsByName("atualizado")[0].value = e.target.id;
-                        document.getElementById("formracas").action = "/AnyMais/racas/atualizar";
-                        document.getElementById("formracas").submit();
+                        document.getElementById("formVeterinario").action = "/AnyMais/veterinario/atualizar";
+                        document.getElementById("formVeterinario").submit();
                     });
                 }
                 
-                var adicionarRaca = document.getElementsByName("adicionar-raca")[0];
+                var adicionarRaca = document.getElementsByName("adicionar-veterinario")[0];
                 adicionarRaca.addEventListener("click", function(){
-                    document.getElementById("formracas").action = "/AnyMais/racas/cadastrar";
-                    document.getElementById("formracas").submit();
+                    document.getElementById("formVeterinario").action = "/AnyMais/veterinario/cadastrar";
+                    document.getElementById("formVeterinario").submit();
                 });
                 
                 // Links de filtro de raças
                 
                 var filtros = [];
-                filtros.push(document.getElementsByName("procuraRacas")[0]);
-                filtros.push(document.getElementsByName("tipo-pet-c")[0]);
-                filtros.push(document.getElementsByName("tipo-pet-g")[0]);
-                filtros.push(document.getElementsByName("porte-pet-p")[0]);
-                filtros.push(document.getElementsByName("porte-pet-m")[0]);
-                filtros.push(document.getElementsByName("porte-pet-g")[0]);
+                filtros.push(document.getElementsByName("procura-veterinario")[0]);
                 
                 for (i = 0; i < filtros.length; i++) {
                     filtros[i].addEventListener("click", function () {
-                        document.getElementById("formracas").action = "/AnyMais/racas";
-                        document.getElementById("formracas").submit();
+                        document.getElementById("formVeterinario").action = "/AnyMais/veterinario";
+                        document.getElementById("formVeterinario").submit();
                     });
                 }
 
@@ -169,6 +153,5 @@
             load();
 
         </script>
-
     </body>
 </html>
