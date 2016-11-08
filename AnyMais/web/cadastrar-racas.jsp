@@ -4,6 +4,7 @@
     Author     : Gustavo
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="model.entity.Raca"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -105,6 +106,6 @@
             
             load();
         </script>
-        <script src="/AnyMais/scripts/validacao.js"></script>
+        <script src="/AnyMais/scripts/validacao.js?<%=Calendar.getInstance().getTime()%>"></script>
     </body>
 </html>

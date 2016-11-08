@@ -4,6 +4,7 @@
     Author     : Gustavo
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="model.entity.TipoServico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,7 +57,7 @@
                             <input type="text" class="label-field-nome-servico" name="nomeServico" required 
                                    value="<%= tipoServico != null ? tipoServico.getNome() : "" %>"> </p>
                         <p class="cadastra-raca">Duração:
-                            <input type="text" class="label-field-duracao" name="duracao" required 
+                            <input type="text" class="label-field-duracao numero" name="duracao" required 
                                    value="<%= tipoServico != null ? Integer.toString(tipoServico.getDuracao()) : "" %>"> minutos</p>
                         <p class="cadastra-raca">Valor:
                             <input type="text" class="label-field-valor" name="valor" required 
@@ -105,5 +106,6 @@
             
             load();
         </script>
+        <script src="/AnyMais/scripts/validacao.js?<%=Calendar.getInstance().getTime()%>"></script>
     </body>
 </html>

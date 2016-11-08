@@ -4,6 +4,7 @@
     Author     : Erica
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="model.entity.PetShop"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -189,6 +190,7 @@
             }
             
             load();
-            </script>
+        </script>
+        <script src="/AnyMais/scripts/validacao.js?<%=Calendar.getInstance().getTime()%>"></script>
     </body>
 </html>

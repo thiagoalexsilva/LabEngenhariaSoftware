@@ -471,3 +471,7 @@ body{
 .falha{
         background-color: #FF6022;
 }
+
+.hide{
+        display: none;
+}

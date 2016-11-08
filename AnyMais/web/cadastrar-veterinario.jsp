@@ -4,6 +4,7 @@
     Author     : Erica
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="model.entity.Veterinario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -57,7 +58,7 @@
                             <input type="text" class="label-field-nome-veterinario" name="nome" required 
                                    value="<%= veterinario != null ? veterinario.getNome() : "" %>"> </p>
                         <p class="cadastra-raca">CRMV: 
-                            <input type="text" class="label-field-crmv" name="crmv" required 
+                            <input type="text" class="label-field-crmv crmv" name="crmv" required 
                                    value="<%= veterinario != null ? veterinario.getCrmv(): "" %>"> </p>
                         <p class="cadastra-raca">Observação:</p>
                         <textarea name="observacao" rows="4" cols="50" class="text-observacao-veterinario"><%=veterinario != null ? veterinario.getObservacao() : "" %></textarea> 
@@ -104,6 +105,6 @@
             
             load();
         </script>
-        <script src="/AnyMais/scripts/validacao.js"></script>
+        <script src="/AnyMais/scripts/validacao.js?<%=Calendar.getInstance().getTime()%>"></script>
     </body>
 </html>

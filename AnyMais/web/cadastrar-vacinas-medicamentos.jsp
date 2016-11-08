@@ -4,6 +4,7 @@
     Author     : ana
 --%>
 
+<%@page import="java.util.Calendar"%>
 <%@page import="model.entity.VacinasMedicamentos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -64,7 +65,7 @@
                                        value="<%= vacinaMedicamento != null ? vacinaMedicamento.getNome() : "" %>"></p>
                             
                             <p class="cadastra-vacina">Periodicidade:
-                                <input type="number" name="periodicidade" class="label-periodo" min="0" required
+                                <input type="number" name="periodicidade" class="label-periodo numero" min="0" required
                                        value="<%= vacinaMedicamento != null ? vacinaMedicamento.getPeriodicidade(): "" %>">
                                 <select name="tempo" required class="label-tempo" required>
                                 <option></option>
@@ -119,6 +120,6 @@
             
             load();
         </script>
-        <script src="/AnyMais/scripts/validacao.js"></script>
+        <script src="/AnyMais/scripts/validacao.js?<%=Calendar.getInstance().getTime()%>"></script>
     </body>
 </html>
