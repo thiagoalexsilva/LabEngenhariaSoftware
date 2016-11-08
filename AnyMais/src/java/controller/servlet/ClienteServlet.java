@@ -47,16 +47,19 @@ public class ClienteServlet extends HttpServlet {
         
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/usuario")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
+            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
+            
         } else if(uri.equals("/AnyMais/usuario/cadastrar")){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
+            
         } else if(uri.equals("/AnyMais/usuario/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
             SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
             
-            int tipoPessoa = Integer.parseInt(request.getParameter("tipoPessoa"));
+            int tipo = Integer.parseInt(request.getParameter("tipo"));
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
             
@@ -77,14 +80,15 @@ public class ClienteServlet extends HttpServlet {
             String imagem = request.getParameter("imagem");
             String descricao = request.getParameter("descricao");
             
-            Pessoa newPessoa = new Pessoa(1, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+            Pessoa newPessoa = new Pessoa(1, tipo, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
             
             if(GerenciarClientes.getInstance().adicionarCliente(newPessoa))
                 request.getSession().setAttribute("status", "sucesso");
             else
                 request.getSession().setAttribute("status", "falha");
             
-            response.sendRedirect("/AnyMais/cadastrar-usuario.jsp");
+            response.sendRedirect("/AnyMais/usuario/cadastrar");
+            
         } else if(uri.equals("/AnyMais/usuario/excluido")){
             String excluido = request.getParameter("excluido");
             
@@ -154,9 +158,8 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("/AnyMais/usuario");
         }
     }
-
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

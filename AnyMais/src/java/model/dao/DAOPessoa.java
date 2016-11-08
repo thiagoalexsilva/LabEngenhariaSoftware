@@ -27,8 +27,8 @@ public class DAOPessoa {
     private final String SELECT_SQL = "SELECT * FROM PESSOA WHERE IDPESSOA=?;";
     //private final String SELECT_SQL_EMAIL = "SELECT * FROM PESSOA WHERE EMAIL=?;";
     
-    private final String UPDATE_SQL = "UPDATE PESSOA SET NOME=?, SEXO=?, DATANASCIEMENTO=?, ENDERECO=?,"
-                                    + "BAIRRO=?, COMPLEMENTO=?, CEP=?, CIDADE=?, UF=?, TELEFONE=?, TELEFONE2=?, EMAIL=?, SENHA=?, IMAGE=?, DESCRICAO=?"
+    private final String UPDATE_SQL = "UPDATE PESSOA SET NOME=?, SEXO=?, DATANASCIMENTO=?, ENDERECO=?,"
+                                    + "BAIRRO=?, COMPLEMENTO=?, CEP=?, CIDADE=?, UF=?, TELEFONE=?, TELEFONE2=?, EMAIL=?, SENHA=?, IMAGEM=?, DESCRICAO=?"
                                     + "WHERE IDPESSOA=?;";
     
     private final String DELETE_SQL = "DELETE FROM PESSOA WHERE IDPESSOA=?;";

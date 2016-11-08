@@ -53,9 +53,9 @@
                           <td class="cadastrar-field coluna1">
                               <select name="sexo" required class="cadastro-seleciona-sexo">
                                 <option></option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Outro">Outro</option>
+                                <option value="F">Feminino</option>
+                                <option value="M">Masculino</option>
+                                <option value="O">Outro</option>
                               </select>
                           </td>
                           <td class="cadastrar-field">Data Nascimento </td>
