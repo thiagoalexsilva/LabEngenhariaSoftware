@@ -46,7 +46,7 @@
                     <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
-                <div class="principal">
+                <div class="principal-racas">
                     <form id="formracas" action="/AnyMais/racas" method="post">
                         <h3 class="title">Raças</h3>
                         <input type="text" name="nome-raca" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">
@@ -54,16 +54,16 @@
                         <input type="image" name="adicionar-raca" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
                         <br>
                         <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro" 
-                               <%= session.getAttribute("tipo-pet-c") != null ? "checked" : "" %> > Cachorro
+                               <%= session.getAttribute("tipo-pet-c") != null ? "checked" : "" %> > <filtro class="raca-filtro">Cachorro</filtro>
                         <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato"
-                               <%= session.getAttribute("tipo-pet-g") != null ? "checked" : "" %> > Gato
+                               <%= session.getAttribute("tipo-pet-g") != null ? "checked" : "" %> > <filtro class="raca-filtro">Gato</filtro>
 
                         <input type="checkbox" name="porte-pet-p" class="porte-pet primeiro-porte" value="pequeno" 
-                               <%= session.getAttribute("porte-pet-p") != null ? "checked" : "" %> > Pequeno
+                               <%= session.getAttribute("porte-pet-p") != null ? "checked" : "" %> > <filtro class="raca-filtro">Pequeno</filtro>
                         <input type="checkbox" name="porte-pet-m" class="porte-pet" value="medio" 
-                               <%= session.getAttribute("porte-pet-m") != null ? "checked" : "" %> > Médio
+                               <%= session.getAttribute("porte-pet-m") != null ? "checked" : "" %> > <filtro class="raca-filtro">Médio</filtro>
                         <input type="checkbox" name="porte-pet-g" class="porte-pet" value="grande" 
-                               <%= session.getAttribute("porte-pet-g") != null ? "checked" : "" %> > Grande<br>
+                               <%= session.getAttribute("porte-pet-g") != null ? "checked" : "" %> > <filtro class="raca-filtro">Grande</filtro><br>
 
                         <br><br>
 

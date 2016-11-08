@@ -35,6 +35,10 @@ public class GerenciarClientes {
         return daoUsuario.selectAll();
     }
     
+    public Pessoa selecionaCliente(int idPessoa){
+        return daoUsuario.select(idPessoa);
+    }
+    
     public boolean adicionarCliente(Pessoa cliente){
         return daoUsuario.insert(cliente);
     }

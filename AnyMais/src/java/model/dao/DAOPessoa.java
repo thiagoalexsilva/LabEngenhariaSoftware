@@ -166,33 +166,31 @@ public class DAOPessoa {
         return false;
     } 
 
-    /*public Pessoa select(String email) {
+    public Pessoa select(int idPessoa) {
         con = conexao.openConexao();
         Pessoa pessoa = null;
+        PreparedStatement stmt;
         ResultSet rs;
-        try {   
-            /*if(email.isEmpty()){
-                PreparedStatement stmt;
-                stmt = con.prepareStatement(SELECT_SQL_NOME);
+        
+        try{   
+            stmt = con.prepareStatement(SELECT_SQL);
                 
-                stmt.setInt(1, pessoa.getIdPessoa());
-                rs = stmt.executeQuery();
-            }
-            else{
-                PreparedStatement stmt;
-                stmt = con.prepareStatement(SELECT_SQL_EMAIL);
-                
-                stmt.setString(1, pessoa.getEmail());
-                
-                rs = stmt.executeQuery();
-            //}
+            stmt.setInt(1, pessoa.getIdPessoa());
+            rs = stmt.executeQuery();
+            
             
             pessoa = new Pessoa();
             pessoa.setIdPessoa(rs.getInt(1));
             pessoa.setTipo(rs.getInt(2));
             pessoa.setNome(rs.getString(3));
             pessoa.setSexo(rs.getString(4));
-            pessoa.setDataNascimento(new java.sql.Date(rs.getDate(5).getTime()));
+            
+            if(pessoa.getDataNascimento() != null){
+                pessoa.setDataNascimento(new java.sql.Date(rs.getDate(5).getTime()));
+            } else{
+                pessoa.setDataNascimento(null);
+            }
+            
             pessoa.setCpfCnpj(rs.getString(6));
             pessoa.setEndereco(rs.getString(7));
             pessoa.setBairro(rs.getString(8));
@@ -212,7 +210,7 @@ public class DAOPessoa {
         
         conexao.closeConexao();
         return pessoa;
-    }*/
+    }
     
     public Pessoa[] selectAll(){
         ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();

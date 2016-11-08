@@ -109,8 +109,13 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("/AnyMais/usuario");
         } else if(uri.equals("/AnyMais/usuario/atualizar")){
             String atualizado = request.getParameter("atualizado");
-            //String email = request.getParameter("email");
-            //String nome = request.getParameter("nome");
+            int id = Integer.parseInt(request.getParameter("idPessoa"));
+            
+            if(id != 0)
+                request.getSession(true).setAttribute("idPessoa", id);
+            
+            Pessoa cliente = GerenciarClientes.getInstance().selecionaCliente(id);
+            request.getSession(true).setAttribute("usuario", cliente); 
             
             if(atualizado != null){
                 int idPessoa = Integer.parseInt(atualizado);
@@ -131,7 +136,7 @@ public class ClienteServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
         }else if(uri.equals("/AnyMais/usuario/atualizado")){
-            SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
             
             int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
             int tipo = Integer.parseInt(request.getParameter("tipo"));

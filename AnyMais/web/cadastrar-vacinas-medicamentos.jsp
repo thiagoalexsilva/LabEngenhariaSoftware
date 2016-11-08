@@ -40,7 +40,7 @@
                     <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
-                <div class="principal">
+                <div class="principal-cadastrar-vacina-medicamento">
                     <form id="formVacinasMedicamentos" action="/AnyMais/vacinasMedicamentos/<%=vacinaMedicamento == null ? "cadastrado" : "atualizado"%>" method="POST">
                         <% if(vacinaMedicamento == null){ %>
                             <h3 class="title">Cadastrar Vacinas e Medicamentos</h3>
@@ -60,13 +60,13 @@
                             <br>
                         
                             <p class="cadastra-vacina">Nome:
-                                <input type="text" class="label-field-vacina" name="nome" required
+                                <input type="text" class="label-nome-vacina" name="nome" required
                                        value="<%= vacinaMedicamento != null ? vacinaMedicamento.getNome() : "" %>"></p>
                             
                             <p class="cadastra-vacina">Periodicidade:
-                                <input type="number" name="periodicidade" class="label-periodo label-field-vacina" min="0" required
+                                <input type="number" name="periodicidade" class="label-periodo" min="0" required
                                        value="<%= vacinaMedicamento != null ? vacinaMedicamento.getPeriodicidade(): "" %>">
-                                <select name="tempo" required class="label-periodo label-field-vacina" required>
+                                <select name="tempo" required class="label-tempo" required>
                                 <option></option>
                                 <option value="-" disabled <%= vacinaMedicamento == null ? "selected" : ""%>></option>
                                 <option value="Horas" <%= vacinaMedicamento != null && vacinaMedicamento.getTempo().toUpperCase().equals("HORAS") ? "selected" : "" %> >Horas</option>
@@ -74,7 +74,7 @@
                                 <option value="Meses" <%= vacinaMedicamento != null && vacinaMedicamento.getTempo().toUpperCase().equals("MESES") ? "selected" : "" %> >Meses</option>
                               </select></p>
                             
-                            <p class="cadastra-vacina">Observação:</p><br>
+                            <p class="cadastra-vacina">Observação:</p>
                                 <textarea name="observacao" rows="4" cols="50" class="label-field-vacina"><%=vacinaMedicamento != null ? vacinaMedicamento.getObservacao() : "" %></textarea>
                                 <br>
                                 

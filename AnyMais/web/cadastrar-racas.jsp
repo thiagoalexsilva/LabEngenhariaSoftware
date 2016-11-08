@@ -37,7 +37,7 @@
                     <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
-                <div class="principal">
+                <div class="principal-cadastrar-racas">
                     <form id="formRacas" action="/AnyMais/racas/<%=raca == null ? "cadastrado" : "atualizado"%>" method="POST">
                         <% if(raca == null){ %>
                             <h3 class="title">Cadastrar Raça</h3>
@@ -45,6 +45,7 @@
                             else{ %>
                             <h3 class="title">Atualizar Raça</h3>
                         <% } %>
+                        <br>
                         <input type="radio" name="tipoAnimal" value="Cachorro" class="cadastra-raca" required 
                                <%= raca != null && raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : "" %> > Cachorro
                         <input type="radio" name="tipoAnimal" value="Gato" required
@@ -60,9 +61,9 @@
                                 <option value="Medio" <%= raca != null && raca.getPorte().toUpperCase().equals("MEDIO") ? "selected" : "" %> >Médio</option>
                                 <option value="Grande" <%= raca != null && raca.getPorte().toUpperCase().equals("GRANDE") ? "selected" : "" %> >Grande</option>
                             </select>
-                        <p class="cadastra-raca">Observação:</p><br>
-                        <textarea name="observacao" rows="4" cols="50"><%=raca != null ? raca.getObservacao() : "" %></textarea> 
-                        <br>
+                        <p class="cadastra-raca">Observação:</p>
+                        <textarea name="observacao" rows="4" cols="50" class="raca-observacao"><%=raca != null ? raca.getObservacao() : "" %></textarea> 
+                        <br><br>
                         <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
                         <input type="submit" name="cadastrar" class="button-cadastrar" 
                                value="<%=raca == null ? "Cadastrar" : "Atualizar"%>">

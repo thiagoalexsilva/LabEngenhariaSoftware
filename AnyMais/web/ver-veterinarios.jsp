@@ -44,12 +44,18 @@
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="menu">
-                    <a href="/AnyMais/ver-racas.jsp"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
+                <div class="menu menu-cliente">
+                    <img src="/AnyMais/images/profile-image.png" class="menu-profile-image"/><br>
+                    <a href="/AnyMais/editar-cadastro-petshop.jsp"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="/AnyMais/servicos.jsp"><input type="image" src="/AnyMais/images/servicos-button.png" class="menu-servicos" /></a><br>
+                    <a href="/AnyMais/mensagens-petshop.jsp"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="/AnyMais/agendamentos-petshop.jsp"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="/AnyMais/"><input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a>
                 </div>
-                <div class="principal">
+                <a href="/AnyMais/home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
+                <!--<a href="/AnyMais/avaliacoes-petshop.jsp"><input type="image" src="/AnyMais/images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>-->
+
+                <div class="principal-veterinario">
                     <form id="formVeterinario" action="/AnyMais/veterinario" method="post">
                         <h3 class="title">Veterinários</h3>
                         <input type="text" name="nome" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">

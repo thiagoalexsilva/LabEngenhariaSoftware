@@ -33,12 +33,18 @@
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="menu">
-                    <a href="/AnyMais/ver-racas.jsp"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
+                <div class="menu menu-cliente">
+                    <img src="/AnyMais/images/profile-image.png" class="menu-profile-image"/><br>
+                    <a href="/AnyMais/editar-cadastro-petshop.jsp"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="/AnyMais/servicos.jsp"><input type="image" src="/AnyMais/images/servicos-button.png" class="menu-servicos" /></a><br>
+                    <a href="/AnyMais/mensagens-petshop.jsp"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="/AnyMais/agendamentos-petshop.jsp"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="/AnyMais/"><input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a>
                 </div>
-                <div class="principal">
+                <a href="/AnyMais/home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
+                <!--<a href="/AnyMais/avaliacoes-petshop.jsp"><input type="image" src="/AnyMais/images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>-->
+
+                <div class="principal-cadastra-veterinario">
                     <form id="formVeterinario" action="/AnyMais/veterinario/<%=veterinario == null ? "cadastrado" : "atualizado"%>" method="POST">
                         <% if(veterinario == null){ %>
                             <h3 class="title">Cadastrar Veterinário</h3>
@@ -46,16 +52,16 @@
                             else{ %>
                             <h3 class="title">Atualizar Veterinário</h3>
                         <% } %>
-                                        
+                        <br>                
                         <p class="cadastra-raca">Nome: 
-                            <input type="text" class="label-field-raca" name="nome" required 
+                            <input type="text" class="label-field-nome-veterinario" name="nome" required 
                                    value="<%= veterinario != null ? veterinario.getNome() : "" %>"> </p>
                         <p class="cadastra-raca">CRMV: 
-                            <input type="text" class="label-field-raca crmv" name="crmv" required 
+                            <input type="text" class="label-field-crmv" name="crmv" required 
                                    value="<%= veterinario != null ? veterinario.getCrmv(): "" %>"> </p>
-                        <p class="cadastra-raca">Observação:</p><br>
-                        <textarea name="observacao" rows="4" cols="50"><%=veterinario != null ? veterinario.getObservacao() : "" %></textarea> 
-                        <br>
+                        <p class="cadastra-raca">Observação:</p>
+                        <textarea name="observacao" rows="4" cols="50" class="text-observacao-veterinario"><%=veterinario != null ? veterinario.getObservacao() : "" %></textarea> 
+                        <br><br>
                         <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
                         <input type="submit" name="cadastrar" class="button-cadastrar" 
                                value="<%=veterinario == null ? "Cadastrar" : "Atualizar"%>">

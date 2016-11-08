@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/AnyMais/styles/style.css">
 </head>
 <body class="body-home">
     <div class="container">
         <div class="col-md-4"></div>
         <div class="col-md-4 area-login">
-            <img src="images/logo.png" class="img-responsive center-block"/>
+            <img src="/AnyMais/images/logo.png" class="img-responsive center-block"/>
             <br><br>
             <form action="racas">
                 <input type="text" class="label-field" name="email" placeholder="E-mail" required>
@@ -30,7 +30,7 @@
                 <input type="submit" class="label-field" value="Login">
                 <br>
                 <center>
-                    <a href="" class="cadastrar-link">Cadastre-se</a> |
+                    <a href="/AnyMais/cadastrar-usuario.jsp" class="cadastrar-link">Cadastre-se</a> |
                     <a href="" class="senha-link">Esqueci a senha</a>
                 </center>
             </form> 

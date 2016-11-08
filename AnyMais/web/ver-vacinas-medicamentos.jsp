@@ -49,7 +49,7 @@
                     <a href="/AnyMais/ver-vacinas-medicamentos.jsp"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
                     <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
-                <div class="principal">
+                <div class="principal-vacinasMedicamentos">
                     <form id="formVacinasMedicamentos" action="/AnyMais/vacinasMedicamentos" method="post">
                     <h3 class="title">Vacinas e Medicamentos</h3>
                     <input type="text" name="nome" class="label-field-racas" value="<% out.print(session.getAttribute("nome") != null ? session.getAttribute("nome") : ""); %>">
@@ -57,15 +57,15 @@
                     <input type="image" name="adicionar-vacinas-medicamentos" src="/AnyMais/images/adicionar-vacina.png" class="adicionar-medicamento-button" />
                     <br>
                     <input type="checkbox" name="tipo-pet-c" class="raca-tipo-pet primeiro-pet" value="cachorro"
-                           <% out.print(session.getAttribute("tipo-pet-c") != null ? "checked" : ""); %> > Cachorro
+                           <% out.print(session.getAttribute("tipo-pet-c") != null ? "checked" : ""); %> > <filtro class="vacina-medicamento-filtro">Cachorro</filtro>
                     <input type="checkbox" name="tipo-pet-g" class="raca-tipo-pet" value="gato"
-                           <% out.print(session.getAttribute("tipo-pet-g") != null ? "checked" : ""); %> > Gato
+                           <% out.print(session.getAttribute("tipo-pet-g") != null ? "checked" : ""); %> > <filtro class="vacina-medicamento-filtro">Gato</filtro>
                     
                     
                     <input type="checkbox" name="tipo-vacina" class="raca-tipo-pet primeiro-pet" value="vacina"
-                           <% out.print(session.getAttribute("tipo-vacina") != null ? "checked" : ""); %> > Vacina
+                           <% out.print(session.getAttribute("tipo-vacina") != null ? "checked" : ""); %> > <filtro class="vacina-medicamento-filtro">Vacina</filtro>
                     <input type="checkbox" name="tipo-medicamento" class="raca-tipo-pet" value="medicamento"
-                           <% out.print(session.getAttribute("tipo-medicamento") != null ? "checked" : ""); %> > Medicamento
+                           <% out.print(session.getAttribute("tipo-medicamento") != null ? "checked" : ""); %> > <filtro class="vacina-medicamento-filtro">Medicamento</filtro>
                     
                     <br><br>
                     

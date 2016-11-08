@@ -43,20 +43,22 @@
             <div class="col-md-8">
                 <div class="menu menu-cliente">
                     <img src="/AnyMais/images/profile-image.png" class="menu-profile-image"/><br>
-                    <a href="/AnyMais/editar-cadastro-petshop.html"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
-                    <a href="/AnyMais/servicos.html"><input type="image" src="/AnyMais/images/servicos-button.png" class="menu-servicos" /></a><br>
-                    <a href="/AnyMais/mensagens-cliente.html"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
-                    <a href="/AnyMais/agendamentos-cliente.html"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
-                    <input type="image" src="/AnyMaisimages/logout-button.png" class="logout-button" />
+                    <a href="/AnyMais/editar-cadastro-petshop.jsp"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="/AnyMais/servicos.jsp"><input type="image" src="/AnyMais/images/servicos-button.png" class="menu-servicos" /></a><br>
+                    <a href="/AnyMais/mensagens-petshop.jsp"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="/AnyMais/agendamentos-petshop.jsp"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="/AnyMais/"><input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a>
                 </div>
-                <a href="/AnyMais/home-petshop.html"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
-                <a href="/AnyMais/avaliacoes.html"><input type="image" src="/AnyMais/images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>
-                <div class="principal principal-petshop">
+                <a href="/AnyMais/home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
+                <!--<a href="/AnyMais/avaliacoes-petshop.jsp"><input type="image" src="/AnyMais/images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>-->
+
+                
+                <div class="principal-servicos">
                     <form id="formservicos" action="/AnyMais/petshop/servicos" method="post">
-                        <h3 class="title">Serviços</h3>
-                        <input type="text" name="nomeServico" class="label-field-raca" value="<%= session.getAttribute("nomeServico") != null ? session.getAttribute("nomeServico") : "" %>">
+                        <h3 class="title">Meus Serviços</h3>
+                        <input type="text" name="nomeServico" class="label-field-servico" value="<%= session.getAttribute("nomeServico") != null ? session.getAttribute("nomeServico") : "" %>">
                         <input type="image" name="procuraServicos" src="/AnyMais/images/search.png" class="search-button" />
-                        <input type="image" name="adicionarServico" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
+                        <input type="image" name="adicionarServico" src="/AnyMais/images/adicionar-servicos.png" class="adicionar-pet-button" />
                         <br>
 
                         <br><br>

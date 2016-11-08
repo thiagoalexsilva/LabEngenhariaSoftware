@@ -131,6 +131,78 @@ body{
 	margin-top: 30px;
 }
 
+.principal-racas{
+	border: 1px solid;
+	width: 550px;
+	height: 350px;
+	float: right;
+	margin-top: 30px;
+	padding: 5px;
+}
+
+.principal-cadastrar-racas{
+	border: 1px solid;
+	width: 550px;
+	height: 395px;
+	float: right;
+	margin-top: 30px;
+	padding: 5px;
+}
+
+.principal-cadastrar-vacina-medicamento{
+	border: 1px solid;
+	width: 550px;
+	height: 395px;
+	float: right;
+	margin-top: 30px;
+	padding: 5px;
+}
+
+.principal-vacinasMedicamentos{
+	border: 1px solid;
+	width: 550px;
+	height: 370px;
+	float: right;
+	margin-top: 30px;
+	padding: 5px;
+}
+
+.principal-veterinario{
+	border: 1px solid;
+	width: 550px;
+	height: 370px;
+	float: right;
+	margin-top: 37px;
+	padding: 5px;
+}
+
+.principal-cadastra-veterinario{
+	border: 1px solid;
+	width: 550px;
+	height: 370px;
+	float: right;
+	margin-top: 37px;
+	padding: 5px;
+}
+
+.principal-servicos{
+	border: 1px solid;
+	width: 550px;
+	height: 370px;
+	float: right;
+	margin-top: 37px;
+	padding: 5px;
+}
+
+.principal-cadastrar-servico{
+	border: 1px solid;
+	width: 550px;
+	height: 370px;
+	float: right;
+	margin-top: 37px;
+	padding: 5px;
+}
+
 .menu{
 	float: left;
 	margin-top: 30px;
@@ -145,6 +217,20 @@ body{
 	margin-left: 15px;
 }
 
+.label-field-nome-veterinario{
+	width: 200px;
+	margin-left: 20px;
+}
+
+.label-field-crmv{
+	width: 200px;
+	margin-left: 17px;
+}
+
+.text-observacao-veterinario{
+	margin-left: 15px !important;
+}
+
 .search-button{
 	width: 25px;
 	margin-left: 5px;
@@ -155,13 +241,23 @@ body{
 	margin-left: 6px;
 }
 
-.primeiro-pet, .primeiro-porte{
-	font-size: 10px;
-	margin-left: 15px;
+.primeiro-porte{
+	font-size: 10px !important;
+	margin-left: 35px !important;
+	padding-left: 15px !important;
+}
+
+.primeiro-pet{
+	margin-left: 18px !important;
+	padding-left: 15px !important;
 }
 
 .raca-tipo-pet, .porte-pet{
-	font-size: 10px;
+	font-size: 5px !important;
+}
+
+.raca-filtro, .vacina-medicamento-filtro{
+	font-size: 12px !important;
 }
 
 .table-racas{
@@ -174,11 +270,14 @@ body{
 	padding-top: 2px;
 }
 
-.menu-racas-button, .menu-vacinas-button, .logout-button, .menu-editar-perfil, .menu-meus-pets,
-.menu-mensagens, .menu-agendamento, .menu-minhas-avaliacoes, .menu-servicos{
+.logout-button, .menu-editar-perfil, .menu-meus-pets,
+.menu-mensagens, .menu-agendamento, .menu-minhas-avaliacoes, .menu-servicos, .menu-vacinas-button, 
+.menu-racas-button{
 	width: 150px;
-	padding-bottom: 5px;
+	padding-bottom: 0px;
+	height: 35px;
 }
+
 
 .table-raca-title{
 	background-color: #60BB22;
@@ -187,7 +286,11 @@ body{
 }
 
 .cadastra-raca-tipo-pet, .cadastra-raca{
-	margin-left: 15px;
+	margin-left: 15px !important;
+}
+
+.raca-observacao{
+	margin-left: 15px !important;
 }
 
 .seleciona-porte{
@@ -196,8 +299,55 @@ body{
 }
 
 .label-field-vacina{
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 	margin-left: 10px;
+}
+
+.label-periodo{
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 100px;
+}
+
+.label-tempo{
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 100px;
+	height: 26px;
+}
+
+.label-nome-vacina{
+	margin-left: 60px;
+	width: 215px !important;
+}
+
+.label-field-servico{
+	width: 300px;
+	margin-left: 20px !important;
+}
+
+.label-field-nome-servico{
+	width: 150px;
+	margin-left: 15px;
+}
+
+.label-field-duracao{
+	width: 150px;
+	margin-left: 8px;
+}
+
+.label-field-valor{
+	width: 150px;
+	margin-left: 30px;
+}
+
+.text-observacao-servico{
+	margin-left: 15px;
+}
+
+.table-tipoServicos{
+	width: 450px;
+	margin-left: 20px !important;
 }
 
 .cadastra-vacina{
@@ -228,12 +378,21 @@ body{
 	width: 150px;
 	opacity: 0.8;
 	padding-bottom: 8px;
+	margin-top: -30px;
 }
 
 .menu2-home{
 	position: absolute;
 	width: 125px;	
-	margin-top: 23px;
+	margin-top: 10px;
+	margin-left: 35px;
+	z-index: 1;
+}
+
+.menu2-avaliacoes{
+	position: relative;
+	width: 125px;	
+	margin-top: 60px;
 	margin-left: 35px;
 	z-index: 1;
 }
@@ -246,7 +405,7 @@ body{
 	z-index: -1;
 }
 
-.menu2-amigos, .menu2-avaliacoes{
+.menu2-amigos{
 	position: absolute;
 	width: 125px;	
 	margin-top: 24px;

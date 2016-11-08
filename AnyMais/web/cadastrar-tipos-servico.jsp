@@ -32,12 +32,18 @@
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="menu">
-                    <a href="/AnyMais/petshop/servicos"><input type="image" src="/AnyMais/images/raca-button.png" class="menu-tiposServico-button" /></a><br>
-                    <a href="/AnyMais/ver-vacinas-medicamentos.html"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
+                <div class="menu menu-cliente">
+                    <img src="/AnyMais/images/profile-image.png" class="menu-profile-image"/><br>
+                    <a href="/AnyMais/editar-cadastro-petshop.jsp"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="/AnyMais/servicos.jsp"><input type="image" src="/AnyMais/images/servicos-button.png" class="menu-servicos" /></a><br>
+                    <a href="/AnyMais/mensagens-petshop.jsp"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="/AnyMais/agendamentos-petshop.jsp"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="/AnyMais/"><input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a>
                 </div>
-                <div class="principal">
+                <a href="/AnyMais/home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
+                <!--<a href="/AnyMais/avaliacoes-petshop.jsp"><input type="image" src="/AnyMais/images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>-->
+
+                <div class="principal-cadastrar-servico">
                     <form id="formservico" action="/AnyMais/petshop/servicos/<%=tipoServico == null ? "cadastrado" : "atualizado"%>" method="POST">
                         <% if(tipoServico == null){ %>
                             <h3 class="title">Cadastrar Serviço</h3>
@@ -47,16 +53,16 @@
                         <% } %>
                         <br>                    
                         <p class="cadastra-raca">Serviço:
-                            <input type="text" class="label-field-raca" name="nomeServico" required 
+                            <input type="text" class="label-field-nome-servico" name="nomeServico" required 
                                    value="<%= tipoServico != null ? tipoServico.getNome() : "" %>"> </p>
                         <p class="cadastra-raca">Duração:
-                            <input type="text" class="label-field-raca" name="duracao" required 
-                                   value="<%= tipoServico != null ? Integer.toString(tipoServico.getDuracao()) : "" %>"> </p>
+                            <input type="text" class="label-field-duracao" name="duracao" required 
+                                   value="<%= tipoServico != null ? Integer.toString(tipoServico.getDuracao()) : "" %>"> minutos</p>
                         <p class="cadastra-raca">Valor:
-                            <input type="text" class="label-field-raca" name="valor" required 
+                            <input type="text" class="label-field-valor" name="valor" required 
                                    value="<%= tipoServico != null ? Double.toString(tipoServico.getValor()) : "" %>"> </p>
-                        <p class="cadastra-raca">Observação:</p><br>
-                        <textarea name="observacao" rows="4" cols="50"><%=tipoServico != null ? tipoServico.getObservacao() : "" %></textarea> 
+                        <p class="cadastra-raca">Observação:</p>
+                        <textarea name="observacao" rows="4" cols="50" class="text-observacao-servico"><%=tipoServico != null ? tipoServico.getObservacao() : "" %></textarea> 
                         <br>
                         <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
                         <input type="submit" name="cadastrar" class="button-cadastrar" 
