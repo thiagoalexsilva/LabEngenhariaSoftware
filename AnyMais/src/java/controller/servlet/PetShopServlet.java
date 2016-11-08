@@ -24,8 +24,6 @@ import model.entity.Pessoa;
 @WebServlet(name = "PetShopServlet", urlPatterns = {"/apetshop/*"}) 
 public class PetShopServlet extends HttpServlet {
     
-    private Pessoa petshop_active = null;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,14 +54,9 @@ public class PetShopServlet extends HttpServlet {
             case "/AnyMais/petshop/cadastrado":
                 {
                     String cadastrar = request.getParameter("cadastrar");
-                    SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
             
                     int tipoPessoa = Integer.parseInt(request.getParameter("tipoPessoa"));
                     String nome = request.getParameter("nome");
-                    String sexo = request.getParameter("sexo");
-            
-                    String data = request.getParameter("dataNascimento");
-                    java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
             
                     String cpfCnpj = request.getParameter("cpfCnpj");
                     String endereco = request.getParameter("endereco");
@@ -79,7 +72,7 @@ public class PetShopServlet extends HttpServlet {
                     String imagem = request.getParameter("imagem");
                     String descricao = request.getParameter("descricao");
             
-                    Pessoa newPetShop = new Pessoa(1, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+                    Pessoa newPetShop = new Pessoa(1, tipoPessoa, nome, null, null, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
             
                     if(GerenciarPetShop.getInstance().adicionarPetShop(newPetShop))
                         request.getSession().setAttribute("status", "sucesso");
@@ -112,14 +105,9 @@ public class PetShopServlet extends HttpServlet {
                 }
             case "/AnyMais/petshop/atualizado":
                 {
-                    int idPetshop = ((Pessoa) request.getSession(true).getAttribute("petshop")).getIdPessoa();
-                    SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
-                    int tipoPessoa = Integer.parseInt(request.getParameter("tipoPessoa"));
+                    int idPetshop = Integer.parseInt(request.getParameter("idPessoa"));
+                    int tipoPessoa = Integer.parseInt(request.getParameter("tipo"));
                     String nome = request.getParameter("nome");
-                    String sexo = request.getParameter("sexo");
-            
-                    String data = request.getParameter("dataNascimento");
-                    java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
             
                     String cpfCnpj = request.getParameter("cpfCnpj");
                     String endereco = request.getParameter("endereco");
@@ -135,7 +123,7 @@ public class PetShopServlet extends HttpServlet {
                     String imagem = request.getParameter("imagem");
                     String descricao = request.getParameter("descricao");
             
-                    Pessoa petshopAtualizada = new Pessoa(idPetshop, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+                    Pessoa petshopAtualizada = new Pessoa(idPetshop, tipoPessoa, nome, null, null, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
                     
                     if(GerenciarPetShop.getInstance().atualizarPetShop(petshopAtualizada))
                         request.getSession().setAttribute("status", "sucesso");
@@ -148,11 +136,13 @@ public class PetShopServlet extends HttpServlet {
             case "/AnyMais/petshop/excluido":
                 String excluido = request.getParameter("excluido");
                 if(excluido != null){
-                    if(GerenciarPetShop.getInstance().excluirPetShop(petshop_active.getIdPessoa()))
+                    int idPessoa = Integer.parseInt(excluido);
+                    if(GerenciarPetShop.getInstance().excluirPetShop(idPessoa))
                         request.getSession().setAttribute("status", "sucesso");
                     else
                         request.getSession().setAttribute("status", "falha");
-                }   response.sendRedirect("/AnyMais/petshop");
+                    }   
+                response.sendRedirect("/AnyMais/petshop");
                 break;
             case "/AnyMais/petshop/)":
                 {
