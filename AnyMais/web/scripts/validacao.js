@@ -1,9 +1,9 @@
 function mascaraNumero(e, max){
 			
-	var cpf = e.target.value;
+	var num = e.target.value;
 	
-	if(cpf.length <= max-1){
-		if('0123456789'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+	if(num.length <= max-1){
+		if('0123456789'.indexOf(e.keyCode.toString()) == -1){
 			e.preventDefault();
 		}
 	}
@@ -17,7 +17,7 @@ function mascaraAlfa(e, max){
 	var cpf = e.target.value;
 	
 	if(cpf.length <= max-1){
-		if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+		if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.indexOf(e.keyCode.toString()) == -1){
 			e.preventDefault();
 		}
 	}
@@ -31,7 +31,7 @@ function mascaraAlfaNumero(e, max){
 	var cpf = e.target.value;
 	
 	if(cpf.length <= max-1){
-		if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+		if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.indexOf(e.keyCode.toString()) == -1){
 			e.preventDefault();
 		}
 	}
@@ -44,7 +44,7 @@ function mascaraEmail(e){
 	
 	var cpf = e.target.value;
 	
-	if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._'.indexOf(String.fromCharCode(e.keyCode)) == -1){
+	if('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@._'.indexOf(e.keyCode.toString()) == -1){
 		e.preventDefault();
 	}
 
@@ -212,6 +212,21 @@ function emailValido(email){
 	return true;
 }
 
+function crmvValido(crmv){
+	
+	var i=0;
+	
+	if(crmv.length != 5)
+		return false;
+	
+	for(i=0; i<crmv.length; i++){
+		if("0123456789".indexOf(cnpj[i]) == -1)
+			return false;
+	}
+	
+	return true;
+}
+
 var i=0;
 
 // Arrays com todos os campos dos tipos especificados
@@ -223,6 +238,7 @@ var datas = document.getElementsByClassName("data");
 var ceps = document.getElementsByClassName("cep");
 var senhas = document.getElementsByClassName("senha");
 var emails = document.getElementsByClassName("email");
+var crmvs = document.getElementsByClassName("crmv");
 
 var submit = document.getElementsByName("submit")[0];
 
@@ -253,5 +269,11 @@ for(i=0; i<celulares.length; i++){
 for(i=0; i<datas.length; i++){
 	datas[i].addEventListener('keypress', function(e){
 		mascaraNumero(e, 8);
+	});
+}
+
+for(i=0; i<crmvs.length; i++){
+	crmvs[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 5);
 	});
 }

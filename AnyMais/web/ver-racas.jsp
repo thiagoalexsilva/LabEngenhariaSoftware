@@ -169,6 +169,6 @@
             load();
 
         </script>
-
+        <script src="/AnyMais/scripts/validacao.js"></script>
     </body>
 </html>

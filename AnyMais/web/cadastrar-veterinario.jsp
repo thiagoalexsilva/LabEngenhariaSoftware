@@ -51,7 +51,7 @@
                             <input type="text" class="label-field-raca" name="nome" required 
                                    value="<%= veterinario != null ? veterinario.getNome() : "" %>"> </p>
                         <p class="cadastra-raca">CRMV: 
-                            <input type="text" class="label-field-raca" name="crmv" required 
+                            <input type="text" class="label-field-raca crmv" name="crmv" required 
                                    value="<%= veterinario != null ? veterinario.getCrmv(): "" %>"> </p>
                         <p class="cadastra-raca">Observação:</p><br>
                         <textarea name="observacao" rows="4" cols="50"><%=veterinario != null ? veterinario.getObservacao() : "" %></textarea> 
@@ -98,5 +98,6 @@
             
             load();
         </script>
+        <script src="/AnyMais/scripts/validacao.js"></script>
     </body>
 </html>
