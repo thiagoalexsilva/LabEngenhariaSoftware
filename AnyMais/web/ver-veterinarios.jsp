@@ -52,7 +52,7 @@
                 <div class="principal">
                     <form id="formVeterinario" action="/AnyMais/veterinario" method="post">
                         <h3 class="title">Veterinários</h3>
-                        <input type="text" name="nome-raca" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">
+                        <input type="text" name="nome" class="label-field-racas" value="<%= session.getAttribute("nome-raca") != null ? session.getAttribute("nome-raca") : "" %>">
                         <input type="image" name="procura-veterinario" src="/AnyMais/images/search.png" class="search-button" />
                         <input type="image" name="adicionar-veterinario" src="/AnyMais/images/stethoscope.png" class="adicionar-pet-button" />
                         <br>
