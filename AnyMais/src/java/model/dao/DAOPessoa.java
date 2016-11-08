@@ -78,7 +78,11 @@ public class DAOPessoa {
             stmt.setInt(2, pessoa.getTipo());
             stmt.setString(3, pessoa.getNome());
             stmt.setString(4, pessoa.getSexo());
-            stmt.setDate(5, new java.sql.Date(pessoa.getDataNascimento().getTime()));
+            if(pessoa.getDataNascimento() != null){
+                stmt.setDate(5, new java.sql.Date(pessoa.getDataNascimento().getTime()));
+            } else{
+                stmt.setDate(5, null);
+            }
             stmt.setString(6, pessoa.getCpfCnpj());
             stmt.setString(7, pessoa.getEndereco());
             stmt.setString(8, pessoa.getBairro());
@@ -113,7 +117,12 @@ public class DAOPessoa {
             
             stmt.setString(1, pessoa.getNome());
             stmt.setString(2, pessoa.getSexo());
-            stmt.setDate(3, new java.sql.Date(pessoa.getDataNascimento().getTime()));
+            if(pessoa.getDataNascimento() != null){
+                stmt.setDate(3, new java.sql.Date(pessoa.getDataNascimento().getTime()));
+            } else{
+                stmt.setDate(3, null);
+            }
+            
             stmt.setString(4, pessoa.getEndereco());
             stmt.setString(5, pessoa.getBairro());
             stmt.setString(6, pessoa.getComplemento());

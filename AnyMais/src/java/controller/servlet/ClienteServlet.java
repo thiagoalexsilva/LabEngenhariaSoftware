@@ -43,7 +43,7 @@ public class ClienteServlet extends HttpServlet {
     private Pessoa user_active = null;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException {
         
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/usuario")){
@@ -57,14 +57,20 @@ public class ClienteServlet extends HttpServlet {
             
         } else if(uri.equals("/AnyMais/usuario/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
-            SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
             
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
-            
             String data = request.getParameter("dataNascimento");
-            java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
+            java.sql.Date dataNascimento;
+            
+            try{
+                dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
+            }
+            catch(ParseException e){
+                dataNascimento = null;
+            }
             
             String cpfCnpj = request.getParameter("cpfCnpj");
             String endereco = request.getParameter("endereco");
@@ -131,9 +137,15 @@ public class ClienteServlet extends HttpServlet {
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
-            
             String data = request.getParameter("dataNascimento");
-            java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
+            java.sql.Date dataNascimento;
+            
+            try{
+                dataNascimento= new java.sql.Date(sdf.parse(data).getTime());
+            }
+            catch(ParseException e){
+                dataNascimento = null;
+            }
             
             String cpfCnpj = request.getParameter("cpfCnpj");
             String endereco = request.getParameter("endereco");
@@ -171,11 +183,7 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
@@ -189,11 +197,7 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
