@@ -5,11 +5,10 @@
  */
 package controller.servlet;
 
-import controller.GerenciarClientes;
 import controller.GerenciarPetShop;
-import controller.GerenciarRacas;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.Pessoa;
-import model.entity.PetShop;
-import model.entity.Usuario;
 /**
  *
  * @author Erica
@@ -27,7 +24,7 @@ import model.entity.Usuario;
 @WebServlet(name = "PetShopServlet", urlPatterns = {"/apetshop/*"}) 
 public class PetShopServlet extends HttpServlet {
     
-    private PetShop petshop_active = null;
+    private Pessoa petshop_active = null;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,93 +37,129 @@ public class PetShopServlet extends HttpServlet {
      */
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/petshop/cadastrar")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
-            dispatcher.forward(request, response);
-        } else if(uri.equals("/AnyMais/petshop/cadastrado")){
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String confirmacao_email = request.getParameter("confirma-email");
-            String confirmacao_senha = request.getParameter("confirma-senha");
-            String nome = request.getParameter("nome");
-            String endereco = request.getParameter("endereco");
-            String bairro = request.getParameter("bairro");
-            String complemento = request.getParameter("complemento");
-            String cidade = request.getParameter("cidade");
-            String cep = request.getParameter("cep");
-            String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");
-            String telefone2 = request.getParameter("telefone2");
-            String cnpj = request.getParameter("cpf-cnpj");
+        switch (uri) {
+            case "/AnyMais/petshop":
+                {
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-petshop.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                }
+            case "/AnyMais/petshop/cadastrar":
+                {
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                }
+            case "/AnyMais/petshop/cadastrado":
+                {
+                    String cadastrar = request.getParameter("cadastrar");
+                    SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
             
-            //Validações de Verificações
-            if(email.isEmpty() || senha.isEmpty() || confirmacao_senha.isEmpty() || nome.isEmpty() || confirmacao_email.isEmpty() || endereco.isEmpty()
-                    || bairro.isEmpty() || cidade.isEmpty() || cep.isEmpty() || uf.isEmpty() || cnpj.isEmpty()
-                    || !senha.equals(confirmacao_senha) || !email.equals(confirmacao_email) || cnpj.length() < 14 || senha.length() < 8
-                    || confirmacao_senha.length() < 8)
-                request.getSession().setAttribute("status", "falha");
+                    int tipoPessoa = Integer.parseInt(request.getParameter("tipoPessoa"));
+                    String nome = request.getParameter("nome");
+                    String sexo = request.getParameter("sexo");
             
-            petshop_active = new PetShop(0, cnpj, 0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, telefone2, 2);
-            if(GerenciarPetShop.getInstance().adicionarPetShop(petshop_active))
-                request.getSession().setAttribute("status", "sucesso");
-            else
-                request.getSession().setAttribute("status", "falha");
+                    String data = request.getParameter("dataNascimento");
+                    java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
             
-            response.sendRedirect("/AnyMais/petshop");
-        } else if(uri.equals("/AnyMais/petshop/atualizar")){
-            request.getSession(true).setAttribute("petshop", petshop_active);
+                    String cpfCnpj = request.getParameter("cpfCnpj");
+                    String endereco = request.getParameter("endereco");
+                    String bairro = request.getParameter("bairro");
+                    String complemento = request.getParameter("complemento");
+                    String cep = request.getParameter("cep");
+                    String cidade = request.getParameter("cidade");
+                    String uf = request.getParameter("uf");
+                    String telefone = request.getParameter("telefone");
+                    String telefone2 = request.getParameter("telefone2");
+                    String email = request.getParameter("email");
+                    String senha = request.getParameter("senha");
+                    String imagem = request.getParameter("imagem");
+                    String descricao = request.getParameter("descricao");
             
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/editar-cadastro-petshop.jsp");
-            dispatcher.forward(request, response);
+                    Pessoa newPetShop = new Pessoa(1, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
             
-            request.getSession().removeAttribute("status");
-        }else if(uri.equals("/AnyMais/petshop/atualizado")){
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String confirmacao_email = request.getParameter("confirma-email");
-            String confirmacao_senha = request.getParameter("confirma-senha");
-            String nome = request.getParameter("nome");
-            String endereco = request.getParameter("endereco");
-            String bairro = request.getParameter("bairro");
-            String complemento = request.getParameter("complemento");
-            String cidade = request.getParameter("cidade");
-            String cep = request.getParameter("cep");
-            String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");
-            String telefone2 = request.getParameter("telefone2");
-            String cnpj = request.getParameter("cpf-cnpj");  
-            int tipo = ((Pessoa) request.getSession(true).getAttribute("tipo-usuario")).getTipo();
+                    if(GerenciarPetShop.getInstance().adicionarPetShop(newPetShop))
+                        request.getSession().setAttribute("status", "sucesso");
+                    else
+                        request.getSession().setAttribute("status", "falha");
+                    response.sendRedirect("/AnyMais/petshop");
+                    break;
+                }
+            case "/AnyMais/petshop/atualizar":
+                {
+                    String atualizado = request.getParameter("atualizado");
+                    if(atualizado != null){
+                        int idpetshop = Integer.parseInt(atualizado);
+                        Pessoa[] petshops = GerenciarPetShop.getInstance().selecionarPetShop();
+                        Pessoa petshopAtualizacao = null;
+                        for(Pessoa petshop : petshops){
+                            if(petshop.getIdPessoa() == idpetshop){
+                                petshopAtualizacao = petshop;
+                                break;
+                            }
+                        }
+                        request.getSession(true).setAttribute("petshop", petshopAtualizacao);
+                    }
+                    else{
+                        request.getSession(true).removeAttribute("petshop");
+                    }
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                }
+            case "/AnyMais/petshop/atualizado":
+                {
+                    int idPetshop = ((Pessoa) request.getSession(true).getAttribute("petshop")).getIdPessoa();
+                    SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+                    int tipoPessoa = Integer.parseInt(request.getParameter("tipoPessoa"));
+                    String nome = request.getParameter("nome");
+                    String sexo = request.getParameter("sexo");
             
-            if(email.isEmpty() || senha.isEmpty() || confirmacao_senha.isEmpty() || nome.isEmpty() || confirmacao_email.isEmpty() || endereco.isEmpty()
-                    || bairro.isEmpty() || cidade.isEmpty() || cep.isEmpty() || uf.isEmpty() || cnpj.isEmpty()
-                    || !senha.equals(confirmacao_senha) || !email.equals(confirmacao_email) || cnpj.length() < 14 || senha.length() < 8
-                    || confirmacao_senha.length() < 8 )
-                request.getSession().setAttribute("status", "falha");
+                    String data = request.getParameter("dataNascimento");
+                    java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
             
-            petshop_active = new PetShop(0, cnpj, 0, email, senha, nome, endereco, bairro, complemento, cidade, cep, uf, telefone, telefone2, tipo);
-            if(GerenciarPetShop.getInstance().atualizarPetShop(petshop_active))
-                request.getSession().setAttribute("status", "sucesso");
-            else
-                request.getSession().setAttribute("status", "falha");
+                    String cpfCnpj = request.getParameter("cpfCnpj");
+                    String endereco = request.getParameter("endereco");
+                    String bairro = request.getParameter("bairro");
+                    String complemento = request.getParameter("complemento");
+                    String cep = request.getParameter("cep");
+                    String cidade = request.getParameter("cidade");
+                    String uf = request.getParameter("uf");
+                    String telefone = request.getParameter("telefone");
+                    String telefone2 = request.getParameter("telefone2");
+                    String email = request.getParameter("email");
+                    String senha = request.getParameter("senha");
+                    String imagem = request.getParameter("imagem");
+                    String descricao = request.getParameter("descricao");
             
-            response.sendRedirect("/AnyMais/petshop");
-        }else if(uri.equals("/AnyMais/petshop/excluido")){
-            String excluido = request.getParameter("excluido");
-            if(excluido != null){
-                if(GerenciarPetShop.getInstance().excluirPetShop(petshop_active.getId()))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
-            }
-            
-            response.sendRedirect("/AnyMais/petshop");
-        }else if(uri.equals("/AnyMais/petshop/)")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-petshop.jsp");
-            dispatcher.forward(request, response);
+                    Pessoa petshopAtualizada = new Pessoa(idPetshop, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+                    
+                    if(GerenciarPetShop.getInstance().atualizarPetShop(petshopAtualizada))
+                        request.getSession().setAttribute("status", "sucesso");
+                    else
+                        request.getSession().setAttribute("status", "falha");
 
+                    response.sendRedirect("/AnyMais/petshop");
+                    break;
+                }
+            case "/AnyMais/petshop/excluido":
+                String excluido = request.getParameter("excluido");
+                if(excluido != null){
+                    if(GerenciarPetShop.getInstance().excluirPetShop(petshop_active.getIdPessoa()))
+                        request.getSession().setAttribute("status", "sucesso");
+                    else
+                        request.getSession().setAttribute("status", "falha");
+                }   response.sendRedirect("/AnyMais/petshop");
+                break;
+            case "/AnyMais/petshop/)":
+                {
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-petshop.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                }
         }
     }
 }

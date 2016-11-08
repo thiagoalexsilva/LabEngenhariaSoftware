@@ -5,7 +5,9 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import model.dao.DAOPessoa;
+import model.entity.Pessoa;
 import model.entity.Pessoa;
 /**
  *
@@ -26,10 +28,25 @@ public class GerenciarPetShop {
         return instance;
     }
     
-    public Pessoa selecionarPetShop(String email, String nome){
-        return daoPetShop.select(email, nome);
+    public Pessoa[] selecionarPetShop(){
+        return daoPetShop.selectAll();
     }
-    
+    public Pessoa[] selecionaPetShopComFiltro(String nome, String email){
+        Pessoa[] todasPetShops = daoPetShop.selectAll();
+        
+        ArrayList<Pessoa> filtroPetshop = new ArrayList<>();
+        
+        for(Pessoa petshop : todasPetShops){
+            if(!nome.isEmpty() && petshop.getNome().equals(nome)){
+                filtroPetshop.add(petshop);
+            }
+            else if (!email.isEmpty() && petshop.getEmail().equals(email)){
+                filtroPetshop.add(petshop);
+            }
+        } 
+        
+        return filtroPetshop.toArray(new Pessoa[filtroPetshop.size()]);
+    }
     public boolean adicionarPetShop(Pessoa petshop){
         return daoPetShop.insert(petshop);
     }
