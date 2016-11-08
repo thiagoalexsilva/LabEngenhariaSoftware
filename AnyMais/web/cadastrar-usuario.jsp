@@ -1,5 +1,7 @@
-<!DOCTYPE html>
+<%@page import="model.entity.Pessoa"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Any+</title>
@@ -33,10 +35,10 @@
                     <table>
                         <tr>
                           <th colspan="2" class="tipo-usuario">
-                              <input type="radio" name="tipoPessoa" value="PF" required> Pessoa FÌsica<br>
+                              <input type="radio" name="tipo" value="1" required> Pessoa F√≠sica<br>
                           </th>
                           <th class="tipo-usuario">
-                              <input type="radio" name="tipoPessoa" value="PJ" required> Pessoa JurÌdica<br>
+                              <input type="radio" name="tipo" value="2" required> Pessoa Jur√≠dica<br>
                           </th>
                           <th colspan="3"></th>
                         </tr>
@@ -58,7 +60,7 @@
                           </td>
                           <td class="cadastrar-field">Data Nascimento </td>
                           <td class="cadastrar-field">
-                              <input type="date" name="dataNascimento" class="coluna2" required>
+                              <input type="date" name="dataNascimento" class="coluna2">
                           </td>
                           <td class="cadastrar-field">CPF/CNPJ </td>
                           <td class="cadastrar-field">
@@ -66,7 +68,7 @@
                           </td>
                         </tr>
                         <tr>
-                          <td class="cadastrar-field">EndereÁo </td>
+                          <td class="cadastrar-field">Endere√ßo </td>
                           <td colspan="5" class="cadastrar-field">
                               <input type="text" class="label-field" name="endereco" required>
                           </td>
@@ -78,7 +80,7 @@
                           </td>
                           <td class="cadastrar-field">Complemento </td>
                           <td colspan="2" class="cadastrar-field">
-                              <input type="text" class="label-field coluna2" name="complemento" required>
+                              <input type="text" class="label-field coluna2" name="complemento">
                           </td>
                         </tr>
                         <tr>
@@ -92,7 +94,7 @@
                           </td>
                           <td class="cadastrar-field">UF</td>
                           <td class="cadastrar-field">
-                              <select name="uf" required class="cadastro-uf">
+                              <select name="uf" required class="cadastro-uf" required>
                                 <option></option>
                                 <option value="AC">AC</option>
                                 <option value="AL">AL</option>
@@ -156,8 +158,8 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="cadastrar-field">
-                                <input type="submit" class="button-cancelar" value="Cancelar">
-                                <input type="submit" class="button-cadastrar" value="Cadastrar">
+                                <input type="submit" name="cancelar" class="button-cancelar" value="Cancelar">
+                                <input type="submit" name="cadastrar" class="button-cadastrar" value="Cadastrar">
                             </td>
                         </tr>
                     </table>
@@ -169,5 +171,30 @@
         <div class="container c-footer">
             <footer></footer>
         </div>
+        
+        <script>
+            function load(){
+                var cadastrar = document.getElementsByName("cadastrar")[0];
+                var cancelar = document.getElementsByName("cancelar")[0];
+                
+                cadastrar.addEventListener("submit", function(e){
+                    if(e.target.value === "Cadastrar"){
+                        document.getElementById("formCadastrarUsuario").submit();
+                    }
+                    
+                });
+                
+                cancelar.addEventListener("click", function(e){
+                    var confirma = window.confirm("Deseja confirmar cancelamento? Os dados preenchidos ser√£o perdidos.");
+                    if(confirma){
+                        document.getElementById("formCadastrarUsuario").action = "/AnyMais/usuario/cadastrar-usuario.jsp";
+                        document.getElementById("formCadastrarUsuario").submit();
+                    }
+                });
+
+            }
+            
+            load();
+        </script>
     </body>
 </html>

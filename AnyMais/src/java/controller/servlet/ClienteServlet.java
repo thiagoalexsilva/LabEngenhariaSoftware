@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.entity.Pessoa;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -82,7 +84,7 @@ public class ClienteServlet extends HttpServlet {
             else
                 request.getSession().setAttribute("status", "falha");
             
-            response.sendRedirect("/AnyMais/usuario");
+            response.sendRedirect("/AnyMais/cadastrar-usuario.jsp");
         } else if(uri.equals("/AnyMais/usuario/excluido")){
             String excluido = request.getParameter("excluido");
             
@@ -97,8 +99,8 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("/AnyMais/usuario");
         } else if(uri.equals("/AnyMais/usuario/atualizar")){
             String atualizado = request.getParameter("atualizado");
-            String email = request.getParameter("email");
-            String nome = request.getParameter("nome");
+            //String email = request.getParameter("email");
+            //String nome = request.getParameter("nome");
             
             if(atualizado != null){
                 int idPessoa = Integer.parseInt(atualizado);
@@ -119,10 +121,41 @@ public class ClienteServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
         }else if(uri.equals("/AnyMais/usuario/atualizado")){
+            SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
             
+            int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
+            int tipo = Integer.parseInt(request.getParameter("tipo"));
+            String nome = request.getParameter("nome");
+            String sexo = request.getParameter("sexo");
+            
+            String data = request.getParameter("dataNascimento");
+            java.sql.Date dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
+            
+            String cpfCnpj = request.getParameter("cpfCnpj");
+            String endereco = request.getParameter("endereco");
+            String bairro = request.getParameter("bairro");
+            String complemento = request.getParameter("complemento");
+            String cep = request.getParameter("cep");
+            String cidade = request.getParameter("cidade");
+            String uf = request.getParameter("uf");
+            String telefone = request.getParameter("telefone");
+            String telefone2 = request.getParameter("telefone2");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String imagem = request.getParameter("imagem");
+            String descricao = request.getParameter("descricao");            
+
+            Pessoa pessoaAtualizada = new Pessoa(idPessoa, tipo, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+            if(GerenciarClientes.getInstance().atualizarCliente(pessoaAtualizada))
+                request.getSession().setAttribute("status", "sucesso");
+            else
+                request.getSession().setAttribute("status", "falha");
+
+            response.sendRedirect("/AnyMais/usuario");
         }
     }
 
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -135,7 +168,11 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -149,7 +186,11 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -56,7 +56,7 @@
                         <input type="image" name="procura-veterinario" src="/AnyMais/images/search.png" class="search-button" />
                         <input type="image" name="adicionar-veterinario" src="/AnyMais/images/stethoscope.png" class="adicionar-pet-button" />
                         <br>
-                        
+                        <br>
                         <table border="1" class="table-racas">
                             <tr>
                                 <th class="table-raca-title">Nome</th>
@@ -76,10 +76,10 @@
                                             <td><%= v.getNome() %></td>
                                             <td><%= v.getCrmv() %><br></td>
                                             <td>
-                                                <center><input name="excluir" id="<%= v.getIdVeterinario() %>" type="image" src="/AnyMais/images/excluir.png" class="excluir-button"></center>
+                                                <center><center><input name="atualizar" id="<%= v.getIdVeterinario() %>" type="image" src="/AnyMais/images/edit.png" class="excluir-button"></center>
                                             </td>
                                             <td>
-                                                <center><input name="atualizar" id="<%= v.getIdVeterinario() %>" type="image" src="/AnyMais/images/edit.png" class="excluir-button"></center>
+                                                <center><input name="excluir" id="<%= v.getIdVeterinario() %>" type="image" src="/AnyMais/images/excluir.png" class="excluir-button"></center>
                                             </td>
 
                                         </tr>
