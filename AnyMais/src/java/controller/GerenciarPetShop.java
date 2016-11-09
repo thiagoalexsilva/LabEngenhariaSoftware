@@ -31,6 +31,7 @@ public class GerenciarPetShop {
     public Pessoa[] selecionarPetShop(){
         return daoPetShop.selectAll();
     }
+    
     public Pessoa[] selecionaPetShopComFiltro(String nome, String email){
         Pessoa[] todasPetShops = daoPetShop.selectAll();
         
@@ -47,6 +48,21 @@ public class GerenciarPetShop {
         
         return filtroPetshop.toArray(new Pessoa[filtroPetshop.size()]);
     }
+    
+    public Pessoa[] selecionaPetShopComFiltro(String bairro){
+        Pessoa[] todasPetShops = daoPetShop.selectAll();
+        
+        ArrayList<Pessoa> filtroPetshop = new ArrayList<>();
+        
+        if(bairro.isEmpty()) return todasPetShops;
+            
+        for(Pessoa petshop : todasPetShops)
+            if (petshop.getBairro().equals(bairro))
+                filtroPetshop.add(petshop);
+        
+        return filtroPetshop.toArray(new Pessoa[filtroPetshop.size()]);
+    }
+    
     public boolean adicionarPetShop(Pessoa petshop){
         return daoPetShop.insert(petshop);
     }

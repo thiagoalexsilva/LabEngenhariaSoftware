@@ -22,7 +22,15 @@
                 <img src="images/logo.png" class="img-responsive logo-header"/>
             </header>
         </div>
-        
+        <div>
+            <% if (session.getAttribute("status") != null)
+                    if (session.getAttribute("status").toString().equals("sucesso")) { %>
+            Bem vindo ((Pessoa) session.getAttribute("usuario")).getNome().toUpperCase() : "");
+            <% } else if (session.getAttribute("status").equals("falha")) { %>
+            Falha!
+            <% }
+            %>
+        </div>
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">

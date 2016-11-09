@@ -135,7 +135,7 @@ public class DAOAnimal {
         return false;
     } 
 
-    public Animal[] select() {
+    public Animal[] selectAll() {
         con = conexao.openConexao();
         ArrayList<Animal> animais = new ArrayList<Animal>();
         Animal[] arrayAnimais;

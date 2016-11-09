@@ -6,6 +6,7 @@
 
 package controller;
 
+import java.util.ArrayList;
 import model.dao.DAOPessoa;
 import model.entity.Pessoa;
 
@@ -37,6 +38,18 @@ public class GerenciarClientes {
     
     public Pessoa selecionaCliente(int idPessoa){
         return daoUsuario.select(idPessoa);
+    }
+    
+    public Pessoa selecionarClienteLogin(String email, String senha){
+        Pessoa[] todasPessoas = daoUsuario.selectAll();
+        
+        for(Pessoa pessoa : todasPessoas){
+            if(pessoa.getSenha().equals(senha) && pessoa.getEmail().equals(email)){
+                return pessoa;
+            }
+        } 
+        
+        return null;
     }
     
     public boolean adicionarCliente(Pessoa cliente){

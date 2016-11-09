@@ -30,14 +30,14 @@
             <div class="col-md-8">
                 <div class="menu menu-petshop">
                     <img src="images/profile-image.png" class="menu-profile-image"/><br>
-                    <a href="editar-cadastro-petshop.jsp"><input type="image" src="images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
-                    <a href="servicos.html"><input type="image" src="images/servicos-button.png" class="menu-servicos" /></a><br>
-                    <a href="mensagens-cliente.html"><input type="image" src="images/mensagens-button.png" class="menu-mensagens" /></a><br>
-                    <a href="agendamentos-cliente.html"><input type="image" src="images/agendamento-button.png" class="menu-agendamento" /></a><br>
-                    <input type="image" src="images/logout-button.png" class="logout-button" />
+                    <a href="editar-cadastro-petshop.jsp"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="servicos.html"><input type="image" src="/AnyMais/images/servicos-button.png" class="menu-servicos" /></a><br>
+                    <a href="mensagens-cliente.html"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="agendamentos-cliente.html"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
                 </div>
-                <a href="home-petshop.jsp"><input type="image" src="images/home-button2.png" class="menu2-home2" /></a>
-                <a href="avaliacoes.html"><input type="image" src="images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>
+                <a href="home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home2" /></a>
+                <a href="avaliacoes.html"><input type="image" src="/AnyMais/images/avaliacoes-button.png" class="menu2-avaliacoes" /></a>
                 <div class="principal principal-petshop">
                     <h4 class="title">Editar Perfil</h4>
                     
@@ -50,7 +50,7 @@
                                      value="<% out.print(session.getAttribute("petshop") != null ? ((PetShop) session.getAttribute("petshop")).getNome().toUpperCase() : ""); %>">>
                           </td>
                           <td>
-                              <img class="editar-foto" src="images/profile-image.png"/><br>
+                              <img class="editar-foto" src="/AnyMais/images/profile-image.png"/><br>
                               <u class="selecionar-foto">Selecionar foto...</u>
                           </td>
                         </tr>
