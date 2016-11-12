@@ -24,8 +24,12 @@ public class DAOPessoa {
     private Connection con;
     
     private final String INSERT_SQL = "INSERT INTO PESSOA VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-    private final String SELECT_SQL = "SELECT * FROM PESSOA WHERE IDPESSOA=?;";
-    //private final String SELECT_SQL_EMAIL = "SELECT * FROM PESSOA WHERE EMAIL=?;";
+    
+    private final String SELECT_SQL = "SELECT * FROM PESSOA;";
+    
+    private final String SELECT_SQL_ID = "SELECT * FROM PESSOA WHERE IDPESSOA=?;";
+    
+    private final String SELECT_SQL_EMAIL = "SELECT * FROM PESSOA WHERE EMAIL=?;";
     
     private final String UPDATE_SQL = "UPDATE PESSOA SET NOME=?, SEXO=?, DATANASCIMENTO=?, ENDERECO=?,"
                                     + "BAIRRO=?, COMPLEMENTO=?, CEP=?, CIDADE=?, UF=?, TELEFONE=?, TELEFONE2=?, EMAIL=?, SENHA=?, IMAGEM=?, DESCRICAO=?"
@@ -173,7 +177,7 @@ public class DAOPessoa {
         ResultSet rs;
         
         try{   
-            stmt = con.prepareStatement(SELECT_SQL);
+            stmt = con.prepareStatement(SELECT_SQL_ID);
                 
             stmt.setInt(1, pessoa.getIdPessoa());
             rs = stmt.executeQuery();

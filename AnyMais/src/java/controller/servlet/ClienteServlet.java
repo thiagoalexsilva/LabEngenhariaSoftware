@@ -52,7 +52,7 @@ public class ClienteServlet extends HttpServlet {
             dispatcher.forward(request, response);
             
         } else if(uri.equals("/AnyMais/usuario/cadastrar")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
             dispatcher.forward(request, response);
             
         } else if(uri.equals("/AnyMais/usuario/cadastrado")){

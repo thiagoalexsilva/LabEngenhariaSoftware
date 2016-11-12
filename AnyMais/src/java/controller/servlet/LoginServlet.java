@@ -20,6 +20,7 @@ import model.entity.Pessoa;
  *
  * @author ThiagoAlexandre
  */
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login","/logout"})
 public class LoginServlet extends HttpServlet{
    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,12 +43,20 @@ public class LoginServlet extends HttpServlet{
             if(pessoa != null){
                 if (pessoa.getTipo() == 1){
                     request.getSession(true).setAttribute("usuario", pessoa);
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
-                    dispatcher.forward(request, response);
+                    response.sendRedirect("/AnyMais/usuario");
+                }
+                else if (pessoa.getTipo() == 2){
+                    request.getSession(true).setAttribute("petshop", pessoa);
+                    response.sendRedirect("/AnyMais/petshop");
+                }
+                else if(pessoa.getTipo() == 3){
+                    // ADM
                 }
                 else{
-                    request.getSession(true).setAttribute("petshop", pessoa);
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-petshop.jsp");
+                    request.getSession().setAttribute("status", "falha");
+                    request.getSession(true).removeAttribute("cliente");
+                    request.getSession(true).removeAttribute("petshop");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                     dispatcher.forward(request, response);
                 }
             }
@@ -55,6 +64,8 @@ public class LoginServlet extends HttpServlet{
                 request.getSession().setAttribute("status", "falha");
                 request.getSession(true).removeAttribute("cliente");
                 request.getSession(true).removeAttribute("petshop");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                dispatcher.forward(request, response);
             }
             
         } 

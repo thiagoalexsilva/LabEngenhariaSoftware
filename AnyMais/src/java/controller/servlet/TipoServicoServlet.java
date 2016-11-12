@@ -24,7 +24,7 @@ import model.entity.TipoServico;
  *
  * @author Gustavo
  */
-@WebServlet(name = "TiposServicoServlet", urlPatterns = {"/petshop/servicos/*"})
+@WebServlet(name = "TiposServicoServlet", urlPatterns = {"/petshop-servicos/*"})
 public class TipoServicoServlet extends HttpServlet {
 
     /**

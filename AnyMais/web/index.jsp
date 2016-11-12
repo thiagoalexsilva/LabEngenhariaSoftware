@@ -17,12 +17,27 @@
     <link rel="stylesheet" type="text/css" href="/AnyMais/styles/style.css">
 </head>
 <body class="body-home">
+    <%  
+        boolean sucesso = false;
+        boolean falha = false;
+
+        if (session.getAttribute("status") != null){
+            if (session.getAttribute("status").toString().equals("sucesso")) { 
+                sucesso = true;
+            } else if (session.getAttribute("status").equals("falha")) { 
+                falha = true;
+            }
+        }
+    %>
+    <div class="mensagem <%=sucesso ? "sucesso" : falha ? "falha" : ""%>">
+        <%=sucesso ? "Sucesso!" : falha ? "Falha!" : ""%>
+    </div>
     <div class="container">
         <div class="col-md-4"></div>
         <div class="col-md-4 area-login">
             <img src="/AnyMais/images/logo.png" class="img-responsive center-block"/>
             <br><br>
-            <form action="/Anymais/login">
+            <form action="/AnyMais/login" method="post">
                 <input type="text" class="label-field" name="email" placeholder="E-mail" required>
                 <br><br>
                 <input type="password" class="label-field" name="senha" placeholder="Senha" required>
