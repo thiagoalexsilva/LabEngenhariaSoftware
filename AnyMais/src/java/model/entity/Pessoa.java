@@ -8,8 +8,6 @@ import java.sql.Date;
 
 public class Pessoa{
     
-    private int idPessoa;
-    private int tipo;
     private String nome;
     private String sexo;
     private Date dataNascimento;
@@ -22,16 +20,12 @@ public class Pessoa{
     private String uf;
     private String telefone;
     private String telefone2;
-    private String email;
-    private String senha;
     private String imagem;
     private String descricao;
 
-    public Pessoa(int idPessoa, int tipo, String nome, String sexo, Date dataNascimento, String cpfCnpj, String endereco, 
+    public Pessoa(String nome, String sexo, Date dataNascimento, String cpfCnpj, String endereco, 
             String bairro, String complemento, String cep, String cidade, String uf, String telefone, String telefone2, 
-            String email, String senha, String imagem, String descricao) {
-        this.idPessoa = idPessoa;
-        this.tipo = tipo;
+            String imagem, String descricao) {
         this.nome = nome;
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
@@ -44,29 +38,11 @@ public class Pessoa{
         this.uf = uf;
         this.telefone = telefone;
         this.telefone2 = telefone2;
-        this.email = email;
-        this.senha = senha;
         this.imagem = imagem;
         this.descricao = descricao;
     }
 
     public Pessoa() {}
-
-    public int getIdPessoa() {
-        return idPessoa;
-    }
-
-    public void setIdPessoa(int idPessoa) {
-        this.idPessoa = idPessoa;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
 
     public String getNome() {
         return nome;
@@ -162,22 +138,6 @@ public class Pessoa{
 
     public void setTelefone2(String telefone2) {
         this.telefone2 = telefone2;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getImagem() {

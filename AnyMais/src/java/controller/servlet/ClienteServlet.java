@@ -6,7 +6,7 @@
 
 package controller.servlet;
 
-import controller.GerenciarClientes;
+import controller.GerenciarUsuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -16,11 +16,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entity.Pessoa;
+import model.entity.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.entity.Conta;
+import model.entity.Pessoa;
 
 /**
  *
@@ -40,7 +42,7 @@ public class ClienteServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private Pessoa user_active = null;
+    private Usuario user_active = null;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -86,9 +88,12 @@ public class ClienteServlet extends HttpServlet {
             String imagem = request.getParameter("imagem");
             String descricao = request.getParameter("descricao");
             
-            Pessoa newPessoa = new Pessoa(1, tipo, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
+            Usuario newUsuario = new Usuario(1, tipo, 
+                    new Pessoa(nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, imagem, descricao),
+                    new Conta(email, senha)
+            );
             
-            if(GerenciarClientes.getInstance().adicionarCliente(newPessoa))
+            if(GerenciarUsuarios.getInstance().adicionarUsuario(newUsuario))
                 request.getSession().setAttribute("status", "sucesso");
             else
                 request.getSession().setAttribute("status", "falha");
@@ -99,8 +104,8 @@ public class ClienteServlet extends HttpServlet {
             String excluido = request.getParameter("excluido");
             
             if(excluido != null){
-                int idPessoa = Integer.parseInt(excluido);
-                if(GerenciarClientes.getInstance().excluirCliente(idPessoa))
+                int idUsuario = Integer.parseInt(excluido);
+                if(GerenciarUsuarios.getInstance().excluirUsuario(idUsuario))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
@@ -109,19 +114,19 @@ public class ClienteServlet extends HttpServlet {
             response.sendRedirect("/AnyMais/usuario");
         } else if(uri.equals("/AnyMais/usuario/atualizar")){
             String atualizado = request.getParameter("atualizado");
-            int id = Integer.parseInt(request.getParameter("idPessoa"));
+            int id = Integer.parseInt(request.getParameter("idUsuario"));
             
             if(id != 0)
-                request.getSession(true).setAttribute("idPessoa", id);
+                request.getSession(true).setAttribute("idUsuario", id);
             
-            Pessoa cliente = GerenciarClientes.getInstance().selecionaCliente(id);
+            Usuario cliente = GerenciarUsuarios.getInstance().selecionaUsuario(id);
             request.getSession(true).setAttribute("usuario", cliente); 
             
             if(atualizado != null){
                 int idPessoa = Integer.parseInt(atualizado);
-                Pessoa[] clientes = GerenciarClientes.getInstance().selecionaClientes();
-                Pessoa clienteAtualizacao = null;
-                for(Pessoa p : clientes){
+                Usuario[] clientes = GerenciarUsuarios.getInstance().selecionaUsuarios();
+                Usuario clienteAtualizacao = null;
+                for(Usuario p : clientes){
                     if(p.getIdPessoa()== idPessoa){
                         clienteAtualizacao = p;
                         break;
@@ -138,7 +143,7 @@ public class ClienteServlet extends HttpServlet {
         }else if(uri.equals("/AnyMais/usuario/atualizado")){
             SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
             
-            int idPessoa = Integer.parseInt(request.getParameter("idPessoa"));
+            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
@@ -166,8 +171,10 @@ public class ClienteServlet extends HttpServlet {
             String imagem = request.getParameter("imagem");
             String descricao = request.getParameter("descricao");            
 
-            Pessoa pessoaAtualizada = new Pessoa(idPessoa, tipo, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao);
-            if(GerenciarClientes.getInstance().atualizarCliente(pessoaAtualizada))
+            Usuario usuarioAtualizada = new Usuario(idUsuario, tipo, 
+                    new Pessoa(nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, imagem, descricao),
+                    new Conta(email, senha));
+            if(GerenciarUsuarios.getInstance().atualizarUsuario(usuarioAtualizada))
                 request.getSession().setAttribute("status", "sucesso");
             else
                 request.getSession().setAttribute("status", "falha");

@@ -6,19 +6,20 @@
 package controller;
 
 import java.util.ArrayList;
-import model.dao.DAOPessoa;
+import model.dao.DAOUsuario;
 import model.entity.Pessoa;
 import model.entity.Pessoa;
+import model.entity.Usuario;
 /**
  *
  * @author Erica
  */
 public class GerenciarPetShop {
     private static GerenciarPetShop instance;
-    private DAOPessoa daoPetShop;
+    private DAOUsuario daoPetShop;
     
     private GerenciarPetShop(){
-        daoPetShop = new DAOPessoa();
+        daoPetShop = new DAOUsuario();
     }    
     
     public static GerenciarPetShop getInstance(){
@@ -28,54 +29,23 @@ public class GerenciarPetShop {
         return instance;
     }
     
-    public Pessoa[] selecionarPetShop(){
-        return daoPetShop.selectAll();
+    public Usuario[] selecionarPetShops(){
+        return GerenciarUsuarios.getInstance().selecionaPetShops();
+    }
+       
+    public Usuario[] selecionaPetShopComFiltro(String nome, String email, String bairro){
+        Usuario[] todasPetShops = GerenciarUsuarios.getInstance().selecionaPetShops();
+        
+        ArrayList<Usuario> filtroPetshop = new ArrayList<Usuario>();
+        
+        for(Usuario petshop : todasPetShops){
+            if (bairro.isEmpty() || petshop.getPessoa().getBairro().contains(bairro))
+                if (nome.isEmpty() || petshop.getPessoa().getNome().contains(nome))
+                    if (email.isEmpty() || petshop.getConta().getEmail().contains(email))
+                        filtroPetshop.add(petshop);
+        }
+        
+        return filtroPetshop.toArray(new Usuario[filtroPetshop.size()]);
     }
     
-    public Pessoa[] selecionaPetShopComFiltro(String nome, String email){
-        Pessoa[] todasPetShops = daoPetShop.selectAll();
-        
-        ArrayList<Pessoa> filtroPetshop = new ArrayList<>();
-        
-        for(Pessoa petshop : todasPetShops){
-            if(!nome.isEmpty() && petshop.getNome().equals(nome)){
-                filtroPetshop.add(petshop);
-            }
-            else if (!email.isEmpty() && petshop.getEmail().equals(email)){
-                filtroPetshop.add(petshop);
-            }
-        } 
-        
-        return filtroPetshop.toArray(new Pessoa[filtroPetshop.size()]);
-    }
-    
-    public Pessoa[] selecionaPetShopComFiltro(String bairro){
-        Pessoa[] todasPetShops = daoPetShop.selectAll();
-        
-        ArrayList<Pessoa> filtroPetshop = new ArrayList<>();
-        
-        if(bairro.isEmpty()) return todasPetShops;
-            
-        for(Pessoa petshop : todasPetShops)
-            if (petshop.getBairro().equals(bairro))
-                filtroPetshop.add(petshop);
-        
-        return filtroPetshop.toArray(new Pessoa[filtroPetshop.size()]);
-    }
-    
-    public boolean adicionarPetShop(Pessoa petshop){
-        return daoPetShop.insert(petshop);
-    }
-    
-    public boolean atualizarPetShop(Pessoa petshop){
-        return daoPetShop.update(petshop);
-    }
-    
-    public boolean excluirPetShop(int idPetShop){
-        return daoPetShop.delete(idPetShop);
-    }
-    
-    public boolean verificarCNPJ_Email(String cnpj, String email){
-        return daoPetShop.checkCNPJ_Email(cnpj, email);
-    }
 }

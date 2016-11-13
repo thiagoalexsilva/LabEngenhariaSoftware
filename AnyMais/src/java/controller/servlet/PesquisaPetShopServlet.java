@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller.servlet;
 
+import controller.GerenciarPetShop;
 import controller.GerenciarUsuarios;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,11 +19,12 @@ import model.entity.Usuario;
 
 /**
  *
- * @author ThiagoAlexandre
+ * @author Gustavo
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login","/logout"})
-public class LoginServlet extends HttpServlet{
-   /**
+@WebServlet(name = "PesquisaPetShopServlet", urlPatterns = {"/pesquisapetshops/*"})
+public class PesquisaPetShopServlet extends HttpServlet {
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -33,45 +35,39 @@ public class LoginServlet extends HttpServlet{
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/login")){
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
+        if(uri.equals("/AnyMais/pesquisapetshops")){
+            String nome = request.getParameter("nome-usuario") != null ? request.getParameter("nome-usuario") : "";
+            String email = request.getParameter("email-usuario") != null ? request.getParameter("email-usuario") : "";
+            String bairro = request.getParameter("bairro-usuario") != null ? request.getParameter("bairro-usuario") : "";
             
-            Usuario usuario = GerenciarUsuarios.getInstance().selecionarUsuarioLogin(email, senha);
-            if(usuario != null){
-                if (usuario.getTipo() == 1){
-                    request.getSession(true).setAttribute("usuario", usuario);
-                    response.sendRedirect("/AnyMais/usuario");
-                }
-                else if (usuario.getTipo() == 2){
-                    request.getSession(true).setAttribute("petshop", usuario);
-                    response.sendRedirect("/AnyMais/petshop");
-                }
-                else if(usuario.getTipo() == 3){
-                    // ADM
-                }
-                else{
-                    request.getSession().setAttribute("status", "falha");
-                    request.getSession(true).removeAttribute("cliente");
-                    request.getSession(true).removeAttribute("petshop");
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                    dispatcher.forward(request, response);
-                }
-            }
-            else{
-                request.getSession().setAttribute("status", "falha");
-                request.getSession(true).removeAttribute("cliente");
-                request.getSession(true).removeAttribute("petshop");
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            Usuario[] petshops = GerenciarPetShop.getInstance().selecionaPetShopComFiltro(nome, email, bairro);
+
+            request.getSession(true).setAttribute("petshops", petshops);
+            request.getSession(true).setAttribute("nome-usuario", nome);
+            request.getSession(true).setAttribute("email-usuario", email);
+            request.getSession(true).setAttribute("bairro-usuario", bairro);
+                        
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-petshops.jsp");
+            dispatcher.forward(request, response);
+        }
+        else{
+            String[] parts = uri.split("/");
+            int idPetshop = Integer.parseInt(parts[parts.length-1]);
+            Usuario petshop = GerenciarUsuarios.getInstance().selecionaUsuario(idPetshop);
+            if(petshop != null){
+                request.getSession(true).setAttribute("petshop", petshop);
+                //TODO: Página da petshop
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-petshop.jsp");
                 dispatcher.forward(request, response);
             }
-            
-        } 
+            else{
+                request.getSession().setAttribute("status", "falha");                
+            }
+        }
     }
-    
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -83,7 +79,7 @@ public class LoginServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

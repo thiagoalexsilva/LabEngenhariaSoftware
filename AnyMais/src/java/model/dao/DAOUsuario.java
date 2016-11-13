@@ -10,16 +10,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.entity.Conta;
 import model.entity.Pessoa;
+import model.entity.Usuario;
 
 /**
  *
- * @author ThiagoAlexandre
+ * @author Gustavo
  */
-public class DAOPessoa {
+public class DAOUsuario {
     private Conexao conexao;
     private Connection con;
     
@@ -49,7 +50,7 @@ public class DAOPessoa {
                                             + "WHERE P.CPFCNPJ=?"
                                             + "OR P.PESSOA=?";
 
-    public DAOPessoa(){
+    public DAOUsuario(){
         conexao = new Conexao();
     }
     
@@ -72,14 +73,17 @@ public class DAOPessoa {
         return 0;
     }
     
-    public boolean insert(Pessoa pessoa){
+    public boolean insert(Usuario usuario){
         
         con = conexao.openConexao();
         PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(INSERT_SQL);
+            Pessoa pessoa = usuario.getPessoa();
+            Conta conta = usuario.getConta();
+            
             stmt.setInt(1, nextId());
-            stmt.setInt(2, pessoa.getTipo());
+            stmt.setInt(2, usuario.getTipo());
             stmt.setString(3, pessoa.getNome());
             stmt.setString(4, pessoa.getSexo());
             if(pessoa.getDataNascimento() != null){
@@ -96,8 +100,8 @@ public class DAOPessoa {
             stmt.setString(12, pessoa.getUf());
             stmt.setString(13, pessoa.getTelefone());
             stmt.setString(14, pessoa.getTelefone2());
-            stmt.setString(15, pessoa.getEmail());
-            stmt.setString(16, pessoa.getSenha());
+            stmt.setString(15, conta.getEmail());
+            stmt.setString(16, conta.getSenha());
             stmt.setString(17, pessoa.getImagem());
             stmt.setString(18, pessoa.getDescricao());
             
@@ -105,19 +109,22 @@ public class DAOPessoa {
             
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         conexao.closeConexao();
         return false;
     }
     
-    public boolean update(Pessoa pessoa){
+    public boolean update(Usuario usuario){
         
         con = conexao.openConexao();
         PreparedStatement stmt;
         try {
             stmt = con.prepareStatement(UPDATE_SQL);
+            
+            Pessoa pessoa = usuario.getPessoa();
+            Conta conta = usuario.getConta();
             
             stmt.setString(1, pessoa.getNome());
             stmt.setString(2, pessoa.getSexo());
@@ -135,17 +142,17 @@ public class DAOPessoa {
             stmt.setString(9, pessoa.getUf());
             stmt.setString(10, pessoa.getTelefone());
             stmt.setString(11, pessoa.getTelefone2());
-            stmt.setString(12, pessoa.getEmail());
-            stmt.setString(13, pessoa.getSenha());
+            stmt.setString(12, conta.getEmail());
+            stmt.setString(13, conta.getSenha());
             stmt.setString(14, pessoa.getImagem());
             stmt.setString(15, pessoa.getDescricao());
-            stmt.setInt(16, nextId());
+            stmt.setInt(16, usuario.getIdPessoa());
             
             stmt.execute();
             
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         conexao.closeConexao();
@@ -163,29 +170,32 @@ public class DAOPessoa {
             
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         conexao.closeConexao();
         return false;
     } 
 
-    public Pessoa select(int idPessoa) {
+    public Usuario select(int idPessoa) {
         con = conexao.openConexao();
+        Usuario usuario = null;
         Pessoa pessoa = null;
+        Conta conta = null;
         PreparedStatement stmt;
         ResultSet rs;
         
         try{   
             stmt = con.prepareStatement(SELECT_SQL_ID);
                 
-            stmt.setInt(1, pessoa.getIdPessoa());
+            stmt.setInt(1, idPessoa);
             rs = stmt.executeQuery();
             
+            usuario = new Usuario();
+            usuario.setIdPessoa(rs.getInt(1));
+            usuario.setTipo(rs.getInt(2));
             
             pessoa = new Pessoa();
-            pessoa.setIdPessoa(rs.getInt(1));
-            pessoa.setTipo(rs.getInt(2));
             pessoa.setNome(rs.getString(3));
             pessoa.setSexo(rs.getString(4));
             
@@ -204,21 +214,26 @@ public class DAOPessoa {
             pessoa.setUf(rs.getString(12));
             pessoa.setTelefone(rs.getString(13));
             pessoa.setTelefone2(rs.getString(14));
-            pessoa.setEmail(rs.getString(15));
-            pessoa.setSenha(rs.getString(16));
             pessoa.setImagem(rs.getString(17));
             pessoa.setDescricao(rs.getString(18));
+            
+            conta = new Conta();
+            conta.setEmail(rs.getString(15));
+            conta.setSenha(rs.getString(16));
+            
+            usuario.setPessoa(pessoa);
+            usuario.setConta(conta);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         conexao.closeConexao();
-        return pessoa;
+        return usuario;
     }
     
-    public Pessoa[] selectAll(){
-        ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-        Pessoa[] arrayPessoas;
+    public Usuario[] selectAll(){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        Usuario[] arrayUsuarios;
         PreparedStatement stmt;
         try {
             con = conexao.openConexao();
@@ -226,22 +241,22 @@ public class DAOPessoa {
             
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                pessoas.add(getPessoa(rs));
+                usuarios.add(getUsuario(rs));
             }
             
             
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        arrayPessoas = new Pessoa[pessoas.size()];
+        arrayUsuarios = new Usuario[usuarios.size()];
         
-        for(int i=0; i<arrayPessoas.length; i++){
-            arrayPessoas[i] = pessoas.get(i);
+        for(int i=0; i<arrayUsuarios.length; i++){
+            arrayUsuarios[i] = usuarios.get(i);
         }
         
         conexao.closeConexao();
-        return arrayPessoas;
+        return arrayUsuarios;
     }
     
     public boolean checkCNPJ_Email(String cnpj, String email) {
@@ -259,7 +274,7 @@ public class DAOPessoa {
             
             return qntd != 0;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         conexao.closeConexao();
         return false;
@@ -280,13 +295,13 @@ public class DAOPessoa {
             
             return qntd != 0;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         conexao.closeConexao();
         return false;
     }
     
-    private Pessoa getPessoa(ResultSet rs){
+    private Usuario getUsuario(ResultSet rs){
         try {
             int idPessoa = rs.getInt(1);
             int tipoPessoa = rs.getInt(2);
@@ -306,9 +321,13 @@ public class DAOPessoa {
             String senha = rs.getString(16);
             String imagem = rs.getString(17);
             String descricao = rs.getString(18);
-            return new Pessoa(idPessoa, tipoPessoa, nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, email, senha, imagem, descricao); 
+            
+            Pessoa pessoa = new Pessoa(nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, imagem, descricao);
+            Conta conta = new Conta(email, senha);
+            Usuario usuario = new Usuario(idPessoa, tipoPessoa, pessoa, conta);
+            return usuario; 
         } catch (SQLException ex) {
-            Logger.getLogger(DAOPessoa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;
