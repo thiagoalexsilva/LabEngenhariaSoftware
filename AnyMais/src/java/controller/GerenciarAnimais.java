@@ -27,7 +27,7 @@ public class GerenciarAnimais {
         return instance;
     }
         
-    public Animal[] selecionaAnimaiss(){
+    public Animal[] selecionaAnimais(){
         return daoAnimais.selectAll();
     }
     

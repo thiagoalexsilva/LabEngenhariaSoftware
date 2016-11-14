@@ -5,6 +5,8 @@
  */
 package model.dao;
 
+import controller.GerenciarRacas;
+import controller.GerenciarTiposAnimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,7 @@ import model.entity.Animal;
 import java.sql.Date;
 import java.util.ArrayList;
 import model.entity.Raca;
+import model.entity.TipoAnimal;
 
 
 /**
@@ -66,12 +69,12 @@ public class DAOAnimal {
         try {
             stmt = con.prepareStatement(INSERT_SQL);
             stmt.setInt(1, nextId());
-            stmt.setInt(2, animal.getTipoAnimal());
+            stmt.setInt(2, animal.getTipoAnimal().getIdTipoAnimal());
             stmt.setString(3, animal.getNome());
             stmt.setInt(4, animal.getRaca().getIdRaca());
             stmt.setDate(5, new java.sql.Date(animal.getDataNascimento().getTime()));
-            stmt.setFloat(6, animal.getPeso());
-            stmt.setFloat(7, animal.getTamanho());
+            stmt.setDouble(6, animal.getPeso());
+            stmt.setDouble(7, animal.getTamanho());
             stmt.setString(8, animal.getCor());
             stmt.setString(9, animal.getSexo());
             stmt.setString(10, animal.getDescricao());
@@ -98,8 +101,8 @@ public class DAOAnimal {
             stmt.setString(1, animal.getNome());
             stmt.setInt(2, animal.getRaca().getIdRaca());
             stmt.setDate(3, new java.sql.Date(animal.getDataNascimento().getTime()));
-            stmt.setFloat(4, animal.getPeso());
-            stmt.setFloat(5, animal.getTamanho());
+            stmt.setDouble(4, animal.getPeso());
+            stmt.setDouble(5, animal.getTamanho());
             stmt.setString(6, animal.getCor());
             stmt.setString(7, animal.getSexo());
             stmt.setString(8, animal.getDescricao());
@@ -164,21 +167,16 @@ public class DAOAnimal {
         private Animal getAnimal(ResultSet rs){
         try {
             DAORaca daoRaca = new DAORaca();
-            Raca [] racas = null;
+            TipoAnimal tipoAnimal = null;
             Raca raca = null;
             
             int idAnimal = rs.getInt(1);
-            int tipoAnimal = rs.getInt(2);
+            int idTipoAnimal = rs.getInt(2);
+            tipoAnimal = GerenciarTiposAnimal.getInstance().selecionaTiposAnimalPorId(idTipoAnimal);
             String nome = rs.getString(3);
             
             int idRaca = rs.getInt(4);
-            racas = daoRaca.selectAll(); 
-            for(Raca r: racas){ //Tipo [variável] : vetor
-                if(r.getIdRaca() == idRaca){
-                    raca = r;
-                    break;
-                }
-            }
+            raca = GerenciarRacas.getInstance().selecionaRaca(idRaca);
                     
             Date dataNascimento = rs.getDate(5);
             float peso = rs.getFloat(6);

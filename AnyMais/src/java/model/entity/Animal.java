@@ -9,18 +9,18 @@ import java.util.Date;
 public class Animal {
     
     private int idAnimal;
-    private int tipoAnimal;
+    private TipoAnimal tipoAnimal;
     private String nome;
     private Raca raca;
     private Date dataNascimento;
-    private float peso;
-    private float tamanho;
+    private double peso;
+    private double tamanho;
     private String cor;
     private String sexo;
     private String descricao;
     private String imagem;
 
-    public Animal(int idAnimal, int tipoAnimal, String nome, Raca raca, Date dataNascimento, float peso, float tamanho,
+    public Animal(int idAnimal, TipoAnimal tipoAnimal, String nome, Raca raca, Date dataNascimento, double peso, double tamanho,
             String cor, String sexo, String descricao, String imagem) {
         this.idAnimal = idAnimal;
         this.tipoAnimal = tipoAnimal;
@@ -43,11 +43,11 @@ public class Animal {
         this.idAnimal = idAnimal;
     }
 
-    public int getTipoAnimal() {
+    public TipoAnimal getTipoAnimal() {
         return tipoAnimal;
     }
 
-    public void setTipoAnimal(int tipoAnimal) {
+    public void setTipoAnimal(TipoAnimal tipoAnimal) {
         this.tipoAnimal = tipoAnimal;
     }
 
@@ -75,19 +75,19 @@ public class Animal {
         this.dataNascimento = dataNascimento;
     }
 
-    public float getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(float peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
-    public float getTamanho() {
+    public double getTamanho() {
         return tamanho;
     }
 
-    public void setTamanho(float tamanho) {
+    public void setTamanho(double tamanho) {
         this.tamanho = tamanho;
     }
 

@@ -8,10 +8,10 @@ public class Avaliacao {
     
     private Pessoa usuario;
     private Pessoa petshop;
-    private int nota;
+    private double nota;
     private String mensagem;
 
-    public Avaliacao(Pessoa usuario, Pessoa petshop, int nota, String mensagem){
+    public Avaliacao(Pessoa usuario, Pessoa petshop, double nota, String mensagem){
         this.usuario = usuario;
         this.petshop = petshop;
         this.nota = nota;
@@ -34,11 +34,11 @@ public class Avaliacao {
         this.petshop = petshop;
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 

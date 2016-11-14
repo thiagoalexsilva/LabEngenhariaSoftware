@@ -3,8 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/GerenciarUsuarios.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/PesquisaPetShopServlet.java</file>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/dao/DAOAnimal.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/LoginServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/PetShopServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/ClienteServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/index.jsp</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/model/dao/DAORaca.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/TipoServicoServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/VacinasMedicamentosServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/home-cliente.jsp</file>
             <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/GerenciarAnimais.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/ver-petshops.jsp</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/servlet/VeterinarioServlet.java</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/web/home-petshop.jsp</file>
+            <file>file:/C:/Users/Gustavo/Dropbox/CEFET-MG/7o%20Período/LAB%20ES/github/LabEngenhariaSoftware/AnyMais/src/java/controller/GerenciarPetShop.java</file>
         </group>
     </open-files>
 </project-private>

@@ -33,6 +33,18 @@ public class GerenciarRacas {
         return daoRaca.selectAll();
     }
     
+    public Raca selecionaRaca(int idRaca){
+        Raca[] todasRacas = daoRaca.selectAll();
+        
+        for(Raca raca : todasRacas){
+            if(raca.getIdRaca() == idRaca){
+                return raca;
+            }
+        }
+        
+        return null;
+    }
+    
     public Raca[] selecionaRacasComFiltro(String nome, boolean cachorro, boolean gato, boolean pequeno, boolean medio, boolean grande){
         Raca[] todasRacas = daoRaca.selectAll();
         
