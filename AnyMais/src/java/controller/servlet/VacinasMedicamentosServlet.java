@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.TipoAnimal;
 import model.entity.TipoVacinaMedicamento;
+import model.entity.Usuario;
 import model.entity.VacinasMedicamentos;
 
 /**
@@ -44,6 +45,14 @@ public class VacinasMedicamentosServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
+        /*
+        TODO: Descomentar trava de sessão sem usuário admin.
+        Usuario usuario = ((Usuario) request.getSession().getAttribute("admin"));
+        if(usuario == null){
+            response.sendRedirect("/AnyMais/erro");
+            return;
+        }
+        */
         
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/vacinasMedicamentos")){

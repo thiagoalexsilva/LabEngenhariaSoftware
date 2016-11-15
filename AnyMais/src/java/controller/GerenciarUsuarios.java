@@ -8,6 +8,7 @@ package controller;
 
 import java.util.ArrayList;
 import model.dao.DAOUsuario;
+import model.entity.Animal;
 import model.entity.Conta;
 import model.entity.Pessoa;
 import model.entity.Usuario;
@@ -19,7 +20,7 @@ import model.entity.Usuario;
 public class GerenciarUsuarios {
    private static GerenciarUsuarios instance;
     private DAOUsuario daoUsuario;
-
+    
     private GerenciarUsuarios(){
         daoUsuario = new DAOUsuario();
     }
@@ -89,6 +90,18 @@ public class GerenciarUsuarios {
     
     public boolean excluirUsuario(int id){
         return daoUsuario.delete(id);
-    } 
+    }
+    
+    public boolean encerrarCliente(int id){
+        boolean sucesso = true;
+        Animal[] animais = GerenciarAnimais.getInstance().selecionaAnimais(id);
+        for(Animal a : animais){
+            sucesso = GerenciarAnimais.getInstance().excluirAnimais(a.getIdAnimal()) && sucesso;
+        }
+        
+        sucesso = excluirUsuario(id) && sucesso;
+        
+        return sucesso;
+    }
     
 }

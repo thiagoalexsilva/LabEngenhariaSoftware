@@ -40,7 +40,14 @@ public class PetShopServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        
+        /*
+        TODO: Descomentar trava de sessão sem usuário de petshop
+        Usuario usuario = ((Usuario) request.getSession().getAttribute("petshop"));
+        if(usuario == null){
+            response.sendRedirect("/AnyMais/erro");
+            return;
+        }
+        */
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/petshop")){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-petshop.jsp");

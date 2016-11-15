@@ -49,10 +49,18 @@ public class ClienteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
+        Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+        if(usuario == null){
+            response.sendRedirect("/AnyMais/erro");
+            return;
+        }
+        
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/usuario")){
-            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+            //Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
+            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
             
         } else if(uri.equals("/AnyMais/usuario/cadastrar")){
@@ -115,38 +123,13 @@ public class ClienteServlet extends HttpServlet {
             
             response.sendRedirect("/AnyMais/usuario");
         } else if(uri.equals("/AnyMais/usuario/atualizar")){
-            String atualizado = request.getParameter("atualizado");
-            int id = Integer.parseInt(request.getParameter("idUsuario"));
-            
-            if(id != 0)
-                request.getSession(true).setAttribute("idUsuario", id);
-            
-            Usuario cliente = GerenciarUsuarios.getInstance().selecionaUsuario(id);
-            request.getSession(true).setAttribute("usuario", cliente); 
-            
-            if(atualizado != null){
-                int idPessoa = Integer.parseInt(atualizado);
-                Usuario[] clientes = GerenciarUsuarios.getInstance().selecionaUsuarios();
-                Usuario clienteAtualizacao = null;
-                for(Usuario p : clientes){
-                    if(p.getIdPessoa()== idPessoa){
-                        clienteAtualizacao = p;
-                        break;
-                    }
-                }
-                request.getSession(true).setAttribute("cliente", clienteAtualizacao);
-            }
-            else{
-                request.getSession(true).removeAttribute("cliente");
-            }
-            
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/atualizar-usuario.jsp");
             dispatcher.forward(request, response);
         }else if(uri.equals("/AnyMais/usuario/atualizado")){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             
-            int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-            int tipo = Integer.parseInt(request.getParameter("tipo"));
+            int idUsuario = usuario.getIdPessoa();
+            int tipo = usuario.getTipo();
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
             String data = request.getParameter("dataNascimento");
@@ -159,7 +142,7 @@ public class ClienteServlet extends HttpServlet {
                 dataNascimento = null;
             }
             
-            String cpfCnpj = request.getParameter("cpfCnpj");
+            String cpfCnpj = usuario.getPessoa().getCpfCnpj();
             String endereco = request.getParameter("endereco");
             String bairro = request.getParameter("bairro");
             String complemento = request.getParameter("complemento");
@@ -168,8 +151,8 @@ public class ClienteServlet extends HttpServlet {
             String uf = request.getParameter("uf");
             String telefone = request.getParameter("telefone");
             String telefone2 = request.getParameter("telefone2");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
+            String email = usuario.getConta().getEmail();
+            String senha = usuario.getConta().getSenha();
             String imagem = request.getParameter("imagem");
             String descricao = request.getParameter("descricao");            
 
@@ -182,6 +165,15 @@ public class ClienteServlet extends HttpServlet {
                 request.getSession().setAttribute("status", "falha");
 
             response.sendRedirect("/AnyMais/usuario");
+        }
+        else if(uri.equals("/AnyMais/usuario/encerrar")){
+            boolean encerrado = GerenciarUsuarios.getInstance().excluirUsuario(usuario.getIdPessoa());
+            
+            if(encerrado){
+                request.getSession().invalidate();
+                response.sendRedirect("/AnyMais");
+            }
+            
         }
     }
     

@@ -5,8 +5,6 @@
  */
 package controller.servlet;
 
-import controller.GerenciarPetShop;
-import controller.GerenciarUsuarios;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -15,14 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.entity.Usuario;
 
 /**
  *
  * @author Gustavo
  */
-@WebServlet(name = "PesquisaPetShopServlet", urlPatterns = {"/pesquisapetshops/*"})
-public class PesquisaPetShopServlet extends HttpServlet {
+@WebServlet(name = "ErroServlet", urlPatterns = {"/erro"})
+public class ErroServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +35,15 @@ public class PesquisaPetShopServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
-        if(usuario == null){
-            response.sendRedirect("/AnyMais/erro");
-            return;
-        }
-        
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/pesquisapetshops")){
-            String nome = request.getParameter("nome-usuario") != null ? request.getParameter("nome-usuario") : "";
-            String email = request.getParameter("email-usuario") != null ? request.getParameter("email-usuario") : "";
-            String bairro = request.getParameter("bairro-usuario") != null ? request.getParameter("bairro-usuario") : "";
-            
-            Usuario[] petshops = GerenciarPetShop.getInstance().selecionaPetShopComFiltro(nome, email, bairro);
-
-            request.getSession(true).setAttribute("petshops", petshops);
-            request.getSession(true).setAttribute("nome-usuario", nome);
-            request.getSession(true).setAttribute("email-usuario", email);
-            request.getSession(true).setAttribute("bairro-usuario", bairro);
-                        
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-petshops.jsp");
+        
+        if(uri.equals("/AnyMais/erro")){
+            request.getSession().invalidate();
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/erro.jsp");
             dispatcher.forward(request, response);
         }
-        else{
-            String[] parts = uri.split("/");
-            int idPetshop = Integer.parseInt(parts[parts.length-1]);
-            Usuario petshop = GerenciarUsuarios.getInstance().selecionaUsuario(idPetshop);
-            if(petshop != null){
-                request.getSession(true).setAttribute("petshop", petshop);
-                //TODO: Página da petshop
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-petshop.jsp");
-                dispatcher.forward(request, response);
-            }
-            else{
-                request.getSession().setAttribute("status", "falha");                
-            }
+        else if(uri.equals("/AnyMais/redireciona")){
+            response.sendRedirect("/AnyMais");
         }
     }
 

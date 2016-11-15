@@ -45,15 +45,20 @@ public class AnimaisServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        // MOCK
-        request.getSession().setAttribute("usuario", GerenciarUsuarios.getInstance().selecionaUsuario(1));
-            
+        Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+        if(usuario == null){
+            response.sendRedirect("/AnyMais/erro");
+            return;
+        }
         
         String uri = request.getRequestURI();
         //System.out.println("Chegou: " + uri);
         if(uri.equals("/AnyMais/usuario/animais")){
         
-            Animal[] animais = GerenciarAnimais.getInstance().selecionaAnimais();
+            Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+            int idPessoa = u.getIdPessoa();
+                        
+            Animal[] animais = GerenciarAnimais.getInstance().selecionaAnimais(idPessoa);
             request.getSession(true).setAttribute("animais", animais); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-animais.jsp");

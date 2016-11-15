@@ -14,13 +14,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.Conta;
 import model.entity.Usuario;
 
 /**
  *
  * @author ThiagoAlexandre
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login","/logout"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/logout", "/atualizarlogin", "/loginatualizado"})
 public class LoginServlet extends HttpServlet{
    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -71,7 +72,70 @@ public class LoginServlet extends HttpServlet{
                 dispatcher.forward(request, response);
             }
             
-        } 
+        }
+        else if(uri.equals("/AnyMais/logout")){
+            request.getSession().invalidate();
+            response.sendRedirect("/AnyMais");
+        }
+        else if(uri.equals("/AnyMais/atualizarlogin")){
+            // TODO: Editar Login
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/atualizar-login.jsp");
+            dispatcher.forward(request, response);
+        }
+        else if(uri.equals("/AnyMais/loginatualizado")){
+            String email = request.getParameter("email");
+            String confirmarEmail = request.getParameter("confirmarEmail");
+            String senha = request.getParameter("senha");
+            String confirmarSenha = request.getParameter("confirmarSenha");
+            
+            boolean invalido = false;
+            Usuario[] usuarios = GerenciarUsuarios.getInstance().selecionaUsuarios();
+            if(email.equals(confirmarEmail) && senha.equals(confirmarSenha)){
+                for(Usuario u : usuarios){
+                    if(email.equals(u.getConta().getEmail())){
+                        invalido = true;
+                        break;
+                    }
+                }
+            }
+            else{
+                invalido = true;
+            }
+            
+            if(invalido){
+                request.getSession().setAttribute("status", "falha");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/atualizar-login.jsp");
+                dispatcher.forward(request, response);
+            }
+            else{
+                Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+                if(u == null){
+                    u = (Usuario) request.getSession().getAttribute("petshop");
+                    if(u == null){
+                        u = (Usuario) request.getSession().getAttribute("admin");
+                        if(u == null){
+
+                        }
+                    }
+                }
+                
+                if(u != null){
+                    u.setConta(new Conta(email, senha));
+                    
+                    boolean atualizado = GerenciarUsuarios.getInstance().atualizarUsuario(u);
+                    if(atualizado){
+                        request.getSession().setAttribute("status", "sucesso");
+                        response.sendRedirect("/AnyMais/usuario/atualizar");
+                    }
+                    else{
+                        request.getSession().setAttribute("status", "falha");
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/atualizar-login.jsp");
+                        dispatcher.forward(request, response);
+                    }
+                }
+            }
+            
+        }
     }
     
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

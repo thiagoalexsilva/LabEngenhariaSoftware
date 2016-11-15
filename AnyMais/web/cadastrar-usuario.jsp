@@ -1,3 +1,4 @@
+<%@page import="model.entity.Usuario"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="model.entity.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -36,7 +37,7 @@
                     <table>
                         <tr>
                           <th colspan="2" class="tipo-usuario">
-                              <input type="radio" name="tipo" value="1" required> Pessoa Física<br>
+                              <input type="radio" name="tipo" value="1" <%= session.getAttribute("usuario")  %> required> Pessoa Física<br>
                           </th>
                           <th class="tipo-usuario">
                               <input type="radio" name="tipo" value="2" required> Pessoa Jurídica<br>
@@ -159,7 +160,7 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="cadastrar-field">
-                                <input type="submit" name="cancelar" class="button-cancelar" value="Cancelar">
+                                <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
                                 <input type="submit" name="cadastrar" class="button-cadastrar" value="Cadastrar">
                             </td>
                         </tr>
