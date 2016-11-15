@@ -46,6 +46,8 @@ public class ClienteServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/usuario")){
@@ -54,12 +56,12 @@ public class ClienteServlet extends HttpServlet {
             dispatcher.forward(request, response);
             
         } else if(uri.equals("/AnyMais/usuario/cadastrar")){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
             
         } else if(uri.equals("/AnyMais/usuario/cadastrado")){
             String cadastrar = request.getParameter("cadastrar");
-            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             String nome = request.getParameter("nome");
@@ -81,8 +83,8 @@ public class ClienteServlet extends HttpServlet {
             String cep = request.getParameter("cep");
             String cidade = request.getParameter("cidade");
             String uf = request.getParameter("uf");
-            String telefone = request.getParameter("telefone");
-            String telefone2 = request.getParameter("telefone2");
+            String telefone = request.getParameter("telefone").replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
+            String telefone2 = request.getParameter("telefone2").replace("(", "").replace(")", "").replace(" ", "").replace("-", "");
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             String imagem = request.getParameter("imagem");
@@ -98,7 +100,7 @@ public class ClienteServlet extends HttpServlet {
             else
                 request.getSession().setAttribute("status", "falha");
             
-            response.sendRedirect("/AnyMais/usuario/cadastrar");
+            response.sendRedirect("/AnyMais");
             
         } else if(uri.equals("/AnyMais/usuario/excluido")){
             String excluido = request.getParameter("excluido");
@@ -141,7 +143,7 @@ public class ClienteServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
         }else if(uri.equals("/AnyMais/usuario/atualizado")){
-            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
             int tipo = Integer.parseInt(request.getParameter("tipo"));

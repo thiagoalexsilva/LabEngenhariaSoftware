@@ -4,6 +4,8 @@
     Author     : Erica
 --%>
 
+<%@page import="model.entity.Usuario"%>
+<%@page import="model.entity.Pessoa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,7 +27,7 @@
         <div>
             <% if (session.getAttribute("status") != null)
                     if (session.getAttribute("status").toString().equals("sucesso")) { %>
-            Bem vindo ((Pessoa) session.getAttribute("usuario")).getNome().toUpperCase() : "");
+                    Bem vindo, <%= ((Usuario) session.getAttribute("usuario")) != null ? ((Usuario) session.getAttribute("usuario")).getPessoa().getNome() : "" %>.
             <% } else if (session.getAttribute("status").equals("falha")) { %>
             Falha!
             <% }

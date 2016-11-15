@@ -124,6 +124,7 @@
                 var cancelar = document.getElementsByName("cancelar")[0];
                 var tipoAnimal1 = document.getElementsByName("tipoAnimal")[0];
                 var tipoAnimal2 = document.getElementsByName("tipoAnimal")[1];
+                var form = document.getElementById("formAnimais");
                 
                 tipoAnimal1.addEventListener("click", function(e){
                     if(cadastrar.value === 'Cadastrar')
@@ -141,7 +142,7 @@
                     document.getElementById("formAnimais").submit();
                 });
         
-                cadastrar.addEventListener("submit", function(e){
+                /*cadastrar.addEventListener("submit", function(e){
                     if(e.target.value === "Cadastrar"){
                         var confirma = window.confirm("Deseja confirmar inserção de dados?");
                         if(confirma){
@@ -154,6 +155,29 @@
                         if(confirma){
                             document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/atualizado";
                             document.getElementById("formAnimais").submit();
+                        }
+                    }
+                });*/
+                
+                form.addEventListener("submit", function(e){
+                    if(cadastrar.value === "Cadastrar"){
+                        var confirma = window.confirm("Deseja confirmar inserção de dados?");
+                        if(confirma){
+                            document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrado";
+                            document.getElementById("formAnimais").submit();
+                        }
+                        else{
+                            e.preventDefault();
+                        }
+                    }
+                    else if(cadastrar.value === "Atualizar"){
+                        var confirma = window.confirm("Deseja confirmar atualização de dados?");
+                        if(confirma){
+                            document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/atualizado";
+                            document.getElementById("formAnimais").submit();
+                        }
+                        else{
+                            e.preventDefault();
                         }
                     }
                 });

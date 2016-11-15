@@ -81,15 +81,19 @@
             function load(){
                 var cadastrar = document.getElementsByName("cadastrar")[0];
                 var cancelar = document.getElementsByName("cancelar")[0];
+                var form = document.getElementById("formRacas");
                 
-                cadastrar.addEventListener("submit", function(e){
-                    if(e.target.value === "Cadastrar"){
+                form.addEventListener("submit", function(e){
+                    if(cadastrar.value === "Cadastrar"){
                         document.getElementById("formRacas").submit();
                     }
-                    else if(e.target.value === "Atualizar"){
+                    else if(cadastrar.value === "Atualizar"){
                         var confirma = window.confirm("Deseja confirmar atualização de dados?");
                         if(confirma){
                             document.getElementById("formRacas").submit();
+                        }
+                        else{
+                            e.preventDefault();
                         }
                     }
                 });

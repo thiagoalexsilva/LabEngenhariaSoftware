@@ -96,8 +96,23 @@
             function load(){
                 var cadastrar = document.getElementsByName("cadastrar")[0];
                 var cancelar = document.getElementsByName("cancelar")[0];
+                var form = document.getElementById("formVacinasMedicamentos");
                 
-                cadastrar.addEventListener("click", function(e){
+                form.addEventListener("submit", function(e){
+                    if(cadastrar.value === "Cadastrar"){
+                        document.getElementById("formVacinasMedicamentos").submit();
+                    }
+                    else if(cadastrar.value === "Atualizar"){
+                        var confirma = window.confirm("Deseja confirmar atualização de dados?");
+                        if(confirma){
+                            document.getElementById("formVacinasMedicamentos").submit();
+                        }
+                        else{
+                            e.preventDefault();
+                        }
+                    }
+                });
+                /*cadastrar.addEventListener("click", function(e){
                     if(e.target.value == "Cadastrar"){
                         document.getElementById("formVacinasMedicamentos").submit();
                     }
@@ -107,7 +122,7 @@
                             document.getElementById("formVacinasMedicamentos").submit();
                         }
                     }
-                });
+                });*/
                 
                 cancelar.addEventListener("click", function(e){
                     var confirma = window.confirm("Deseja mesmo cancelar? Os dados preenchidos serão perdidos.");

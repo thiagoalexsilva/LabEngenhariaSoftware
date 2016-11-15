@@ -174,6 +174,14 @@
         </div>
         
         <script>
+            function mascaraCpf(e){
+                mascaraNumero(e, 11);
+            }
+    
+            function mascaraCnpj(e){
+                mascaraNumero(e, 14);
+            }
+    
             function load(){
                 var cadastrar = document.getElementsByName("cadastrar")[0];
                 var cancelar = document.getElementsByName("cancelar")[0];
@@ -188,6 +196,7 @@
                 var dataNascimentoCel2 = document.getElementById("dataNascimentoCel2");
                 var sexo = document.getElementsByName("sexo")[0];
                 var dataNascimento = document.getElementsByName("dataNascimento")[0];
+                var form = document.getElementById("formCadastrarUsuario");
                 
                 tipo1.addEventListener("click", function(e){
                     var cpfCnpj = document.getElementsByName("cpfCnpj")[0];
@@ -206,6 +215,9 @@
                     cpfCnpj.classList.remove("cnpj");
                     cpfCnpj.classList.add("cpf");
                     cpfCnpjTitulo.innerHTML = "CPF";
+                                        
+                    cpfCnpj.removeEventListener('keypress', mascaraCnpj);
+                    cpfCnpj.addEventListener('keypress', mascaraCpf);
                     
                 });
                 
@@ -226,15 +238,35 @@
                     cpfCnpj.classList.remove("cpf");
                     cpfCnpj.classList.add("cnpj");
                     cpfCnpjTitulo.innerHTML = "CNPJ";
+
+                    cpfCnpj.removeEventListener('keypress', mascaraCpf);
+                    cpfCnpj.addEventListener('keypress', mascaraCnpj);
                     
                 });
                 
+                                
+                
+                form.addEventListener("submit", function(e){
+                    if(cadastrar.value === "Cadastrar"){
+                        document.getElementById("formCadastrarUsuario").submit();
+                    }
+                    else if(cadastrar.value === "Atualizar"){
+                        var confirma = window.confirm("Deseja confirmar atualização de dados?");
+                        if(confirma){
+                            document.getElementById("formCadastrarUsuario").submit();
+                        }
+                        else{
+                            e.preventDefault();
+                        }
+                    }
+                });
+                /*
                 cadastrar.addEventListener("submit", function(e){
                     if(e.target.value === "Cadastrar"){
                         document.getElementById("formCadastrarUsuario").submit();
                     }
                     
-                });
+                });*/
                 
                 cancelar.addEventListener("click", function(e){
                     var confirma = window.confirm("Deseja confirmar cancelamento? Os dados preenchidos serão perdidos.");

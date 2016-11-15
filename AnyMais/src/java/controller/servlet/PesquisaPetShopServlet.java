@@ -35,6 +35,10 @@ public class PesquisaPetShopServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        
         String uri = request.getRequestURI();
         if(uri.equals("/AnyMais/pesquisapetshops")){
             String nome = request.getParameter("nome-usuario") != null ? request.getParameter("nome-usuario") : "";

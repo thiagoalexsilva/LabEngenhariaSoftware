@@ -24,7 +24,7 @@ import model.entity.TipoServico;
  *
  * @author Gustavo
  */
-@WebServlet(name = "TiposServicoServlet", urlPatterns = {"/petshop-servicos/*"})
+@WebServlet(name = "TiposServicoServlet", urlPatterns = {"/petshop/servicos/*"})
 public class TipoServicoServlet extends HttpServlet {
 
     /**
@@ -38,6 +38,9 @@ public class TipoServicoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
         String uri = request.getRequestURI();
         //System.out.println("Chegou: " + uri);

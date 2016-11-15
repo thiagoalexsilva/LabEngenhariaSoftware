@@ -81,8 +81,24 @@
             function load(){
                 var cadastrar = document.getElementsByName("cadastrar")[0];
                 var cancelar = document.getElementsByName("cancelar")[0];
+                var form = document.getElementById("formservico");
                 
-                cadastrar.addEventListener("submit", function(e){
+                form.addEventListener("submit", function(e){
+                    if(cadastrar.value === "Cadastrar"){
+                        document.getElementById("formservico").submit();
+                    }
+                    else if(cadastrar.value === "Atualizar"){
+                        var confirma = window.confirm("Deseja confirmar atualização de dados?");
+                        if(confirma){
+                            document.getElementById("formservico").submit();
+                        }
+                        else{
+                            e.preventDefault();
+                        }
+                    }
+                });
+                
+                /*cadastrar.addEventListener("submit", function(e){
                     if(e.target.value === "Cadastrar"){
                         document.getElementById("formservico").submit();
                     }
@@ -92,7 +108,7 @@
                             document.getElementById("formservico").submit();
                         }
                     }
-                });
+                });*/
                 
                 cancelar.addEventListener("click", function(e){
                     var confirma = window.confirm("Deseja confirmar cancelamento? Os dados preenchidos serão perdidos.");

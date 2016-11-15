@@ -340,7 +340,7 @@ for(i=0; i<telefones.length; i++){
         
         telefones[i].addEventListener('focus', function(e){
 		var telefone = e.target.value;
-                e.target.value = telefone.split('(').join('').split(')').join('').split('-').join('');
+                e.target.value = telefone.split('(').join('').split(')').join('').split(' ').join('').split('-').join('');
 	});
         
         telefones[i].addEventListener('blur', function(e){
@@ -365,7 +365,7 @@ for(i=0; i<celulares.length; i++){
         
         celulares[i].addEventListener('focus', function(e){
 		var celular = e.target.value;
-                e.target.value = celular.split('(').join('').split(')').join('').split('-').join('');
+                e.target.value = celular.split('(').join('').split(')').join('').split(' ').join('').split('-').join('');
 	});
         
         celulares[i].addEventListener('blur', function(e){
@@ -407,6 +407,18 @@ for(i=0; i<datas.length; i++){
 for(i=0; i<emails.length; i++){
 	emails[i].addEventListener('keypress', function(e){
 		mascaraEmail(e);
+	});
+}
+
+for(i=0; i<ceps.length; i++){
+	ceps[i].addEventListener('keypress', function(e){
+		mascaraNumero(e, 8);                
+	});
+}
+
+for(i=0; i<senhas.length; i++){
+	senhas[i].addEventListener('keypress', function(e){
+		//mascaraAlfaNumero(e, 14);                
 	});
 }
 

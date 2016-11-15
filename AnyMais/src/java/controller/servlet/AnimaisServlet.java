@@ -43,6 +43,7 @@ public class AnimaisServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
         // MOCK
         request.getSession().setAttribute("usuario", GerenciarUsuarios.getInstance().selecionaUsuario(1));
