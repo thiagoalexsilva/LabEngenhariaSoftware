@@ -164,3 +164,6 @@ CREATE  TABLE `anymais`.`tipoServico` (
   UNIQUE KEY (`nomeTipoServico`)
   
   );
+  
+  alter table animal add column idPessoa int;
+alter table animal add constraint foreign key animal(idPessoa) references pessoa(idPessoa);

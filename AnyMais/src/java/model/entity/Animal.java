@@ -19,9 +19,10 @@ public class Animal {
     private String sexo;
     private String descricao;
     private String imagem;
-
+    private int idDono;
+    
     public Animal(int idAnimal, TipoAnimal tipoAnimal, String nome, Raca raca, Date dataNascimento, double peso, double tamanho,
-            String cor, String sexo, String descricao, String imagem) {
+            String cor, String sexo, String descricao, String imagem, int idDono) {
         this.idAnimal = idAnimal;
         this.tipoAnimal = tipoAnimal;
         this.nome = nome;
@@ -33,6 +34,7 @@ public class Animal {
         this.sexo = sexo;
         this.descricao = descricao;
         this.imagem = imagem;
+        this.idDono = idDono;
     }
 
     public int getIdAnimal() {
@@ -121,6 +123,14 @@ public class Animal {
 
     public void setImagem(String imagem) {
         this.imagem = imagem;
+    }
+
+    public int getIdDono() {
+        return idDono;
+    }
+
+    public void setIdDono(int idDono) {
+        this.idDono = idDono;
     }
     
     

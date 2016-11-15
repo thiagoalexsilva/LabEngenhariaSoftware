@@ -102,6 +102,8 @@ CREATE  TABLE `anymais`.`animal` (
   `descricao` VARCHAR(256) NULL ,
 
   `imagem` VARCHAR(256) NULL ,
+  
+  `idPessoa` INT(11) NOT NULL ,
 
   PRIMARY KEY (`idAnimal`) ,
   
@@ -109,7 +111,14 @@ CREATE  TABLE `anymais`.`animal` (
 
   ON DELETE NO ACTION
 
-  ON UPDATE NO ACTION );
+  ON UPDATE NO ACTION 
+  
+  FOREIGN KEY (`idPessoa`) REFERENCES `anymais`.`pessoa` (`idPessoa`)
+
+  ON DELETE NO ACTION
+
+  ON UPDATE NO ACTION 
+  );
   
 CREATE  TABLE `anymais`.`tipoVacinaMedicamento` (
 

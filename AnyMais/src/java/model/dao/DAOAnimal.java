@@ -28,10 +28,10 @@ public class DAOAnimal {
     private Conexao conexao;
     private Connection con;
     
-    private final String INSERT_SQL = "INSERT INTO ANIMAL VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    private final String INSERT_SQL = "INSERT INTO ANIMAL VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private final String SELECT_SQL = "SELECT * FROM ANIMAL;";
     
-    private final String UPDATE_SQL = "UPDATE ANIMAL SET NOME=?, IDRACA=?, DATANASCIEMENTO=?, PESO=?, TAMANHO=?, COR=?, SEXO=?, DESCRICAO=?, IMAGEM=?"
+    private final String UPDATE_SQL = "UPDATE ANIMAL SET NOME=?, IDRACA=?, DATANASCIMENTO=?, PESO=?, TAMANHO=?, COR=?, SEXO=?, DESCRICAO=?, IMAGEM=?, IDPESSOA=? "
                                     + "WHERE IDANIMAL=?;";
     
     private final String DELETE_SQL = "DELETE FROM ANIMAL WHERE IDANIMAL=?;";
@@ -79,7 +79,8 @@ public class DAOAnimal {
             stmt.setString(9, animal.getSexo());
             stmt.setString(10, animal.getDescricao());
             stmt.setString(11, animal.getImagem());
-            
+            stmt.setInt(12, animal.getIdDono());
+                    
             stmt.execute();
             
             return true;
@@ -107,7 +108,8 @@ public class DAOAnimal {
             stmt.setString(7, animal.getSexo());
             stmt.setString(8, animal.getDescricao());
             stmt.setString(9, animal.getImagem());
-            stmt.setInt(10, nextId());
+            stmt.setInt(10, animal.getIdDono());
+            stmt.setInt(11, animal.getIdAnimal());
             
             stmt.execute();
             
@@ -185,7 +187,9 @@ public class DAOAnimal {
             String sexo = rs.getString(9);
             String descricao = rs.getString(10);
             String imagem = rs.getString(11);
-            return new Animal(idAnimal, tipoAnimal, nome, raca, dataNascimento, peso, tamanho, cor, sexo, descricao, imagem);
+            int idPessoa = rs.getInt(12);
+            
+            return new Animal(idAnimal, tipoAnimal, nome, raca, dataNascimento, peso, tamanho, cor, sexo, descricao, imagem, idPessoa);
         } catch (SQLException ex) {
             Logger.getLogger(DAOAnimal.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -4,6 +4,7 @@
     Author     : Gustavo
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.entity.Raca"%>
 <%@page import="controller.GerenciarRacas"%>
 <%@page import="java.util.Calendar"%>
@@ -27,7 +28,13 @@
             </header>
         </div>
         <%  
-            Raca[] racas = ((Raca[]) session.getAttribute("racas"));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            
+            Raca[] racas = null;
+            if(session.getAttribute("racas") == null)
+                racas = new Raca[0];
+            else
+                racas = ((Raca[]) session.getAttribute("racas"));
             
             Animal animal = null;
             if(session.getAttribute("animal") != null){
@@ -65,33 +72,35 @@
                         <p class="cadastra-raca">Raça:
                             <select name="racaAnimal" class="seleciona-porte" required>
                                 <option value="-" disabled <%= session.getAttribute("racaAnimal") != null ? session.getAttribute("racaAnimal") : animal == null ? "selected" : ""%> >-</option>
-                                <%  for(Raca raca : racas){
-                                        boolean racaSelecionada = (animal != null && animal.getRaca().getTipoAnimal().getIdTipoAnimal() == raca.getTipoAnimal().getIdTipoAnimal());
-                                        if((session.getAttribute("tipoAnimal") != null && session.getAttribute("tipoAnimal").toString().toUpperCase().equals(raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase()))){ 
+                                <%  
+                                    if(racas != null)
+                                        for(Raca raca : racas){
+                                            boolean racaSelecionada = (animal != null && animal.getRaca().getIdRaca() == raca.getIdRaca());
+                                            if((session.getAttribute("tipoAnimal") != null && session.getAttribute("tipoAnimal").toString().toUpperCase().equals(raca.getTipoAnimal().getNomeTipoAnimal().toUpperCase()))){ 
                                 %>
-                                            <option value="<%= raca.getIdRaca() %>" <%= session.getAttribute("racaAnimal") != null ? session.getAttribute("racaAnimal") : animal != null && animal.getRaca().getIdRaca() == raca.getIdRaca() ? "selected" : "" %> <%=racaSelecionada ? "required" : "" %>><%= raca.getNomeRaca()%></option>
+                                                <option value="<%= raca.getIdRaca() %>" <%= session.getAttribute("racaAnimal") != null ? session.getAttribute("racaAnimal") : animal != null && animal.getRaca().getIdRaca() == raca.getIdRaca() ? "selected" : "" %> <%=racaSelecionada ? "required" : "" %>><%= raca.getNomeRaca()%></option>
                                 <%      
+                                            }
                                         }
-                                    }
                                 %>
                             </select> </p>
                         <p class="cadastra-raca">Data de Nascimento:
                             <input type="text" class="label-field-raca data" name="dataNascimentoAnimal" required 
-                                   value="<%= session.getAttribute("dataNascimentoAnimal") != null ? session.getAttribute("dataNascimentoAnimal") : animal != null ? animal.getDataNascimento(): "" %>"> </p>
+                                   value="<%= session.getAttribute("dataNascimentoAnimal") != null ? session.getAttribute("dataNascimentoAnimal") : animal != null ? sdf.format(animal.getDataNascimento()): "" %>"> </p>
                         <p class="cadastra-raca">Peso:
-                            <input type="text" class="label-field-raca" name="pesoAnimal" required 
+                            <input type="text" class="label-field-raca flutuante" name="pesoAnimal" required 
                                    value="<%= session.getAttribute("pesoAnimal") != null ? session.getAttribute("pesoAnimal") : animal != null ? animal.getPeso(): "" %>"> </p>
                         <p class="cadastra-raca numero">Tamanho:
-                            <input type="text" class="label-field-raca" name="tamanhoAnimal" required 
-                                   value="<%= session.getAttribute("tamanhoAnimal") != null ? session.getAttribute("tamanhoAnimal") : animal != null ? animal.getTamanho(): "" %>"> </p>                        <p class="cadastra-raca">Data de Nascimento:
+                            <input type="text" class="label-field-raca flutuante" name="tamanhoAnimal" required 
+                                   value="<%= session.getAttribute("tamanhoAnimal") != null ? session.getAttribute("tamanhoAnimal") : animal != null ? animal.getTamanho(): "" %>"> </p>
                         <p class="cadastra-raca">Cor:
                             <input type="text" class="label-field-raca" name="corAnimal" required 
                                    value="<%= session.getAttribute("corAnimal") != null ? session.getAttribute("corAnimal") : animal != null ? animal.getCor(): "" %>"> </p>
                         <p class="cadastra-raca">Sexo:
-                            <input type="radio" name="sexoAnimal" value="femea" class="cadastra-raca" required 
-                               <%= session.getAttribute("sexoAnimal") != null ? session.getAttribute("sexoAnimal") : animal != null && animal.getSexo().toUpperCase().equals("FEMEA") ? "checked" : "" %> > Fêmea
-                            <input type="radio" name="sexoAnimal" value="macho" required
-                                   <%= session.getAttribute("sexoAnimal") != null ? session.getAttribute("sexoAnimal") : animal != null && animal.getSexo().toUpperCase().equals("MACHO") ? "checked" : "" %> > Macho<br>
+                            <input type="radio" name="sexoAnimal" value="F" class="cadastra-raca" required 
+                                   <%= session.getAttribute("sexoAnimal") != null ? (session.getAttribute("sexoAnimal").toString().toUpperCase().equals("F") ? "checked" : "") : animal != null && animal.getSexo().toUpperCase().equals("F") ? "checked" : "" %> > Fêmea
+                            <input type="radio" name="sexoAnimal" value="M" class="cadastra-raca" required
+                                   <%= session.getAttribute("sexoAnimal") != null ? (session.getAttribute("sexoAnimal").toString().toUpperCase().equals("M") ? "checked" : "") : animal != null && animal.getSexo().toUpperCase().equals("M") ? "checked" : "" %> > Macho<br>
                          </p>
                         <p class="cadastra-raca">Descrição:
                             <input type="text" class="label-field-raca" name="descricaoAnimal" required 
@@ -117,19 +126,28 @@
                 var tipoAnimal2 = document.getElementsByName("tipoAnimal")[1];
                 
                 tipoAnimal1.addEventListener("click", function(e){
-                    document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrar/carregaracas";
+                    if(cadastrar.value === 'Cadastrar')
+                        document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrar/carregaracas";
+                    else if(cadastrar.value === 'Atualizar')
+                        document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/atualizar/carregaracas";
                     document.getElementById("formAnimais").submit();
                 });
 
                 tipoAnimal2.addEventListener("click", function(e){
-                    document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrar/carregaracas";
+                    if(cadastrar.value === 'Cadastrar')
+                        document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrar/carregaracas";
+                    else if(cadastrar.value === 'Atualizar')
+                        document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/atualizar/carregaracas";
                     document.getElementById("formAnimais").submit();
                 });
         
                 cadastrar.addEventListener("submit", function(e){
                     if(e.target.value === "Cadastrar"){
-                        document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrado";
-                        document.getElementById("formAnimais").submit();
+                        var confirma = window.confirm("Deseja confirmar inserção de dados?");
+                        if(confirma){
+                            document.getElementById("formAnimais").action = "/AnyMais/usuario/animais/cadastrado";
+                            document.getElementById("formAnimais").submit();
+                        }
                     }
                     else if(e.target.value === "Atualizar"){
                         var confirma = window.confirm("Deseja confirmar atualização de dados?");

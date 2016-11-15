@@ -191,38 +191,42 @@ public class DAOUsuario {
             stmt.setInt(1, idPessoa);
             rs = stmt.executeQuery();
             
-            usuario = new Usuario();
-            usuario.setIdPessoa(rs.getInt(1));
-            usuario.setTipo(rs.getInt(2));
+            if(rs.next()){
             
-            pessoa = new Pessoa();
-            pessoa.setNome(rs.getString(3));
-            pessoa.setSexo(rs.getString(4));
-            
-            if(pessoa.getDataNascimento() != null){
-                pessoa.setDataNascimento(new java.sql.Date(rs.getDate(5).getTime()));
-            } else{
-                pessoa.setDataNascimento(null);
+                usuario = new Usuario();
+                usuario.setIdPessoa(rs.getInt(1));
+                usuario.setTipo(rs.getInt(2));
+
+                pessoa = new Pessoa();
+                pessoa.setNome(rs.getString(3));
+                pessoa.setSexo(rs.getString(4));
+                
+                java.sql.Date data = rs.getDate(5);
+                if(data != null){
+                    pessoa.setDataNascimento(new java.sql.Date(data.getTime()));
+                } else{
+                    pessoa.setDataNascimento(null);
+                }
+
+                pessoa.setCpfCnpj(rs.getString(6));
+                pessoa.setEndereco(rs.getString(7));
+                pessoa.setBairro(rs.getString(8));
+                pessoa.setComplemento(rs.getString(9));
+                pessoa.setCep(rs.getString(10));
+                pessoa.setCidade(rs.getString(11));
+                pessoa.setUf(rs.getString(12));
+                pessoa.setTelefone(rs.getString(13));
+                pessoa.setTelefone2(rs.getString(14));
+                pessoa.setImagem(rs.getString(17));
+                pessoa.setDescricao(rs.getString(18));
+
+                conta = new Conta();
+                conta.setEmail(rs.getString(15));
+                conta.setSenha(rs.getString(16));
+
+                usuario.setPessoa(pessoa);
+                usuario.setConta(conta);
             }
-            
-            pessoa.setCpfCnpj(rs.getString(6));
-            pessoa.setEndereco(rs.getString(7));
-            pessoa.setBairro(rs.getString(8));
-            pessoa.setComplemento(rs.getString(9));
-            pessoa.setCep(rs.getString(10));
-            pessoa.setCidade(rs.getString(11));
-            pessoa.setUf(rs.getString(12));
-            pessoa.setTelefone(rs.getString(13));
-            pessoa.setTelefone2(rs.getString(14));
-            pessoa.setImagem(rs.getString(17));
-            pessoa.setDescricao(rs.getString(18));
-            
-            conta = new Conta();
-            conta.setEmail(rs.getString(15));
-            conta.setSenha(rs.getString(16));
-            
-            usuario.setPessoa(pessoa);
-            usuario.setConta(conta);
         } catch (SQLException ex) {
             Logger.getLogger(DAOUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import model.dao.DAOAnimal;
 import model.entity.Animal;
 
@@ -41,5 +42,19 @@ public class GerenciarAnimais {
     
     public boolean excluirAnimais(int idanimal){
         return daoAnimais.delete(idanimal);
-    }    
+    }
+
+    public Animal[] selecionaAnimais(int idPessoa){
+        ArrayList<Animal> animaisPessoa = new ArrayList<Animal>();
+        
+        Animal[] animais = selecionaAnimais();
+        
+        for(Animal a : animais){
+            if(a.getIdDono() == idPessoa){
+                animaisPessoa.add(a);
+            }
+        }
+        
+        return animaisPessoa.toArray(new Animal[animaisPessoa.size()]);
+    }
 }

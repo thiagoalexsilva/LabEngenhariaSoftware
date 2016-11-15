@@ -44,48 +44,15 @@ public class AnimaisServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        // MOCK
+        request.getSession().setAttribute("usuario", GerenciarUsuarios.getInstance().selecionaUsuario(1));
+            
+        
         String uri = request.getRequestURI();
         //System.out.println("Chegou: " + uri);
-/*        if(uri.equals("/AnyMais/animais")){
+        if(uri.equals("/AnyMais/usuario/animais")){
         
-            String nomeAnimal = request.getParameter("nome-animal") != null ? request.getParameter("nome-animal") : "";
-            boolean tipoPetC = request.getParameter("tipo-pet-c") != null;
-            boolean tipoPetG = request.getParameter("tipo-pet-g") != null;
-            boolean portePetP = request.getParameter("porte-pet-p") != null;
-            boolean portePetM = request.getParameter("porte-pet-m") != null;
-            boolean portePetG = request.getParameter("porte-pet-g") != null;
-            
-            if(primeiraExecucao){
-                tipoPetC = true;
-                tipoPetG = true;
-                portePetP = true;
-                portePetM = true;
-                portePetG = true;
-                primeiraExecucao = false;
-                
-            }
-            
-            request.getSession(true).removeAttribute("nome-animal");
-            request.getSession(true).removeAttribute("tipo-pet-c");
-            request.getSession(true).removeAttribute("tipo-pet-g");
-            request.getSession(true).removeAttribute("porte-pet-p");
-            request.getSession(true).removeAttribute("porte-pet-m");
-            request.getSession(true).removeAttribute("porte-pet-g");
-            
-            if(nomeAnimal != null)
-                request.getSession(true).setAttribute("nomeAnimal", nomeAnimal);
-            if(tipoPetC)
-                request.getSession(true).setAttribute("tipo-pet-c", tipoPetC);
-            if(tipoPetG)
-                request.getSession(true).setAttribute("tipo-pet-g", tipoPetG);
-            if(portePetP)
-                request.getSession(true).setAttribute("porte-pet-p", portePetP);
-            if(portePetM)
-                request.getSession(true).setAttribute("porte-pet-m", portePetM);
-            if(portePetG)
-                request.getSession(true).setAttribute("porte-pet-g", portePetG);
-            
-            Animal[] animais = GerenciarAnimais.getInstance().selecionaAnimaisComFiltro(nomeAnimal, tipoPetC, tipoPetG, portePetP, portePetM, portePetG);
+            Animal[] animais = GerenciarAnimais.getInstance().selecionaAnimais();
             request.getSession(true).setAttribute("animais", animais); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-animais.jsp");
@@ -94,21 +61,17 @@ public class AnimaisServlet extends HttpServlet {
             request.getSession().removeAttribute("animal");
             request.getSession().removeAttribute("status");
         }
-        else */if(uri.equals("/AnyMais/usuario/animais/cadastrar")){
+        else if(uri.equals("/AnyMais/usuario/animais/cadastrar")){
             request.getSession().removeAttribute("atualizar");
-            
-            // MOCK
-            request.getSession().setAttribute("usuario", GerenciarUsuarios.getInstance().selecionaUsuario(1));
             
             request.getSession().setAttribute("racas", GerenciarRacas.getInstance().selecionaRacas());
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-animais.jsp");
             dispatcher.forward(request, response);
         }
-        else if(uri.equals("/AnyMais/usuario/animais/cadastrar/carregaracas")){
+        else if(uri.equals("/AnyMais/usuario/animais/cadastrar/carregaracas") || uri.equals("/AnyMais/usuario/animais/atualizar/carregaracas")){
             request.setAttribute("carregaracas", true);
             
-            // MOCK
             request.getSession().setAttribute("racas", GerenciarRacas.getInstance().selecionaRacas());
             
             
@@ -154,7 +117,7 @@ public class AnimaisServlet extends HttpServlet {
             int idracaAnimal = Integer.parseInt(request.getParameter("racaAnimal"));
             Raca racaAnimal = GerenciarRacas.getInstance().selecionaRaca(idracaAnimal);
             
-            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String data = request.getParameter("dataNascimentoAnimal");
             java.sql.Date dataNascimentoAnimal;
             try{
@@ -171,7 +134,10 @@ public class AnimaisServlet extends HttpServlet {
             String descricao = request.getParameter("descricaoAnimal");            
             String imagem = null;
             
-            Animal novoAnimal = new Animal(1, tipoAnimal, nomeAnimal, racaAnimal, dataNascimentoAnimal, peso, tamanho, cor, sexo, descricao, imagem); //id mock
+            Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+            int idPessoa = u.getIdPessoa();
+            
+            Animal novoAnimal = new Animal(1, tipoAnimal, nomeAnimal, racaAnimal, dataNascimentoAnimal, peso, tamanho, cor, sexo, descricao, imagem, idPessoa); //id mock
             if(GerenciarAnimais.getInstance().adicionarAnimais(novoAnimal))
                 request.getSession().setAttribute("status", "sucesso");
             else
@@ -179,20 +145,22 @@ public class AnimaisServlet extends HttpServlet {
             
             response.sendRedirect("/AnyMais/usuario/animais");
         }
-        /*else if(uri.equals("/AnyMais/animais/excluido")){
+        else if(uri.equals("/AnyMais/usuario/animais/excluido")){
             String excluido = request.getParameter("excluido");
             if(excluido != null){
                 int idanimal = Integer.parseInt(excluido);
-                if(GerenciarAnimais.getInstance().excluirAnimal(idanimal))
+                if(GerenciarAnimais.getInstance().excluirAnimais(idanimal))
                     request.getSession().setAttribute("status", "sucesso");
                 else
                     request.getSession().setAttribute("status", "falha");
             }
             
-            response.sendRedirect("/AnyMais/animais");
-        }*/
+            response.sendRedirect("/AnyMais/usuario/animais");
+        }
         else if(uri.equals("/AnyMais/usuario/animais/atualizar")){
             request.getSession().setAttribute("atualizar", true);
+            
+            request.getSession().setAttribute("racas", GerenciarRacas.getInstance().selecionaRacas());
             
             String atualizado = request.getParameter("atualizado");
             if(atualizado != null){
@@ -205,6 +173,8 @@ public class AnimaisServlet extends HttpServlet {
                         break;
                     }
                 }
+                if(animalAtualizacao != null)
+                    request.getSession().setAttribute("tipoAnimal", animalAtualizacao.getTipoAnimal().getNomeTipoAnimal());
                 request.getSession(true).setAttribute("animal", animalAtualizacao);
             }
             else{
@@ -225,7 +195,7 @@ public class AnimaisServlet extends HttpServlet {
             int idracaAnimal = Integer.parseInt(request.getParameter("racaAnimal"));
             Raca racaAnimal = GerenciarRacas.getInstance().selecionaRaca(idracaAnimal);
             
-            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String data = request.getParameter("dataNascimentoAnimal");
             java.sql.Date dataNascimentoAnimal;
             try{
@@ -242,7 +212,10 @@ public class AnimaisServlet extends HttpServlet {
             String descricao = request.getParameter("descricaoAnimal");            
             String imagem = null;
             
-            Animal animalAtualizado = new Animal(idAnimal, tipoAnimal, nomeAnimal, racaAnimal, dataNascimentoAnimal, peso, tamanho, cor, sexo, descricao, imagem); //id mock
+            Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+            int idPessoa = u.getIdPessoa();
+            
+            Animal animalAtualizado = new Animal(idAnimal, tipoAnimal, nomeAnimal, racaAnimal, dataNascimentoAnimal, peso, tamanho, cor, sexo, descricao, imagem, idPessoa); //id mock
             if(GerenciarAnimais.getInstance().atualizarAnimais(animalAtualizado))
                 request.getSession().setAttribute("status", "sucesso");
             else
