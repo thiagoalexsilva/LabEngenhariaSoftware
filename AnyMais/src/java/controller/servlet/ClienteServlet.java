@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller.servlet;
 
 import controller.GerenciarUsuarios;
@@ -32,7 +31,7 @@ import model.entity.Pessoa;
 public class ClienteServlet extends HttpServlet {
 
     private boolean primeiraExecucao = true;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,47 +42,40 @@ public class ClienteServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private Usuario user_active = null;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
-        if(usuario == null){
-            response.sendRedirect("/AnyMais/erro");
-            return;
-        }
-        
+
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/usuario")){
+        if (uri.equals("/AnyMais/usuario")) {
             //Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
 
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/home-cliente.jsp");
             //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
-            
-        } else if(uri.equals("/AnyMais/usuario/cadastrar")){
+
+        } else if (uri.equals("/AnyMais/usuario/cadastrar")) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
-            
-        } else if(uri.equals("/AnyMais/usuario/cadastrado")){
+
+        } else if (uri.equals("/AnyMais/usuario/cadastrado")) {
             String cadastrar = request.getParameter("cadastrar");
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            
+
             int tipo = Integer.parseInt(request.getParameter("tipo"));
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
             String data = request.getParameter("dataNascimento");
             java.sql.Date dataNascimento;
-            
-            try{
+
+            try {
                 dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
-            }
-            catch(ParseException e){
+            } catch (ParseException e) {
                 dataNascimento = null;
             }
-            
+
             String cpfCnpj = request.getParameter("cpfCnpj");
             String endereco = request.getParameter("endereco");
             String bairro = request.getParameter("bairro");
@@ -97,51 +89,70 @@ public class ClienteServlet extends HttpServlet {
             String senha = request.getParameter("senha");
             String imagem = request.getParameter("imagem");
             String descricao = request.getParameter("descricao");
-            
-            Usuario newUsuario = new Usuario(1, tipo, 
+
+            Usuario newUsuario = new Usuario(1, tipo,
                     new Pessoa(nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, imagem, descricao),
                     new Conta(email, senha)
             );
-            
-            if(GerenciarUsuarios.getInstance().adicionarUsuario(newUsuario))
+
+            if (GerenciarUsuarios.getInstance().adicionarUsuario(newUsuario)) {
                 request.getSession().setAttribute("status", "sucesso");
-            else
+            } else {
                 request.getSession().setAttribute("status", "falha");
-            
-            response.sendRedirect("/AnyMais");
-            
-        } else if(uri.equals("/AnyMais/usuario/excluido")){
-            String excluido = request.getParameter("excluido");
-            
-            if(excluido != null){
-                int idUsuario = Integer.parseInt(excluido);
-                if(GerenciarUsuarios.getInstance().excluirUsuario(idUsuario))
-                    request.getSession().setAttribute("status", "sucesso");
-                else
-                    request.getSession().setAttribute("status", "falha");
             }
-            
+
+            response.sendRedirect("/AnyMais");
+
+        } else if (uri.equals("/AnyMais/usuario/excluido")) {
+            Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+            if (usuario == null) {
+                response.sendRedirect("/AnyMais/erro");
+                return;
+            }
+
+            String excluido = request.getParameter("excluido");
+
+            if (excluido != null) {
+                int idUsuario = Integer.parseInt(excluido);
+                if (GerenciarUsuarios.getInstance().excluirUsuario(idUsuario)) {
+                    request.getSession().setAttribute("status", "sucesso");
+                } else {
+                    request.getSession().setAttribute("status", "falha");
+                }
+            }
+
             response.sendRedirect("/AnyMais/usuario");
-        } else if(uri.equals("/AnyMais/usuario/atualizar")){
+        } else if (uri.equals("/AnyMais/usuario/atualizar")) {
+            Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+            if (usuario == null) {
+                response.sendRedirect("/AnyMais/erro");
+                return;
+            }
+
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/atualizar-usuario.jsp");
             dispatcher.forward(request, response);
-        }else if(uri.equals("/AnyMais/usuario/atualizado")){
+        } else if (uri.equals("/AnyMais/usuario/atualizado")) {
+            Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+            if (usuario == null) {
+                response.sendRedirect("/AnyMais/erro");
+                return;
+            }
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            
+
             int idUsuario = usuario.getIdPessoa();
             int tipo = usuario.getTipo();
             String nome = request.getParameter("nome");
             String sexo = request.getParameter("sexo");
             String data = request.getParameter("dataNascimento");
             java.sql.Date dataNascimento;
-            
-            try{
-                dataNascimento= new java.sql.Date(sdf.parse(data).getTime());
-            }
-            catch(ParseException e){
+
+            try {
+                dataNascimento = new java.sql.Date(sdf.parse(data).getTime());
+            } catch (ParseException e) {
                 dataNascimento = null;
             }
-            
+
             String cpfCnpj = usuario.getPessoa().getCpfCnpj();
             String endereco = request.getParameter("endereco");
             String bairro = request.getParameter("bairro");
@@ -154,30 +165,36 @@ public class ClienteServlet extends HttpServlet {
             String email = usuario.getConta().getEmail();
             String senha = usuario.getConta().getSenha();
             String imagem = request.getParameter("imagem");
-            String descricao = request.getParameter("descricao");            
+            String descricao = request.getParameter("descricao");
 
-            Usuario usuarioAtualizada = new Usuario(idUsuario, tipo, 
+            Usuario usuarioAtualizada = new Usuario(idUsuario, tipo,
                     new Pessoa(nome, sexo, dataNascimento, cpfCnpj, endereco, bairro, complemento, cep, cidade, uf, telefone, telefone2, imagem, descricao),
                     new Conta(email, senha));
-            if(GerenciarUsuarios.getInstance().atualizarUsuario(usuarioAtualizada))
+            if (GerenciarUsuarios.getInstance().atualizarUsuario(usuarioAtualizada)) {
                 request.getSession().setAttribute("status", "sucesso");
-            else
+            } else {
                 request.getSession().setAttribute("status", "falha");
+            }
 
             response.sendRedirect("/AnyMais/usuario");
-        }
-        else if(uri.equals("/AnyMais/usuario/encerrar")){
+        } else if (uri.equals("/AnyMais/usuario/encerrar")) {
+            Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+            if (usuario == null) {
+                response.sendRedirect("/AnyMais/erro");
+                return;
+            }
+
             boolean encerrado = GerenciarUsuarios.getInstance().excluirUsuario(usuario.getIdPessoa());
-            
-            if(encerrado){
+
+            if (encerrado) {
                 request.getSession().invalidate();
                 response.sendRedirect("/AnyMais");
             }
-            
+
         }
     }
-    
-     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -189,7 +206,7 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
