@@ -311,7 +311,8 @@ public class DAOUsuario {
             int tipoPessoa = rs.getInt(2);
             String nome = rs.getString(3);
             String sexo = rs.getString(4);
-            java.sql.Date dataNascimento = new java.sql.Date(rs.getDate(5).getTime());
+            //java.sql.Date dataNascimento = new java.sql.Date(rs.getDate(5).getTime());
+            java.sql.Date dataNascimento = rs.getDate(5);
             String cpfCnpj = rs.getString(6);
             String endereco = rs.getString(7);
             String bairro = rs.getString(8);

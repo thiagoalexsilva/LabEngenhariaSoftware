@@ -43,14 +43,20 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="menu">
-                    <a href="/AnyMais/racas"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="/AnyMais/vacinasMedicamentos"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
+                    <img src="/AnyMais/images/profile-image.png" class="menu-profile-image"/><br>
+                    <a href="/AnyMais/usuario/atualizar"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="/AnyMais/usuario/animais"><input type="image" src="/AnyMais/images/meus-pets-button.png" class="menu-meus-pets" /></a><br>
+                    <a href="mensagens-cliente.html"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="agendamentos-cliente.html"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="minhas-avaliacoes.html"><input type="image" src="/AnyMais/images/minhas-avaliacoes-button.png" class="menu-minhas-avaliacoes" /></a><br>
+                    <a href="/AnyMais/usuario/encerrar"><input id="encerrar" type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a>
                 </div>
-                <div class="principal-usuarios">
+                <a href="/AnyMais/home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
+                
+                <div class="principal-usuario">
                     <form id="formanimais" action="/AnyMais/usuario/animais" method="post">
-                        <h3 class="title">Animais</h3>
-                        <input type="image" name="adicionar-animal" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
+                        <h3 class="title">Meus Pets</h3>
+                        <input type="image" class="add-pet-button" name="adicionar-animal" src="/AnyMais/images/adicionar-pet.png" class="adicionar-pet-button" />
                         <br><br>
 
                         <table border="1" class="table-racas">
