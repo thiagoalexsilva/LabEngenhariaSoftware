@@ -46,11 +46,11 @@ public class TipoServicoServlet extends HttpServlet {
         /*
         TODO: Descomentar trava de sessão sem usuário de petshop.
         */
-        Usuario usuario = ((Usuario) request.getSession().getAttribute("petshop"));
+        /*Usuario usuario = ((Usuario) request.getSession().getAttribute("petshop"));
         if(usuario == null){
             response.sendRedirect("/AnyMais/erro");
             return;
-        }
+        }*/
         
         String uri = request.getRequestURI();
         //System.out.println("Chegou: " + uri);

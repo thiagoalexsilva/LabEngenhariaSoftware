@@ -41,20 +41,28 @@
         <div class="container">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="menu">
-                    <a href="/AnyMais/racas"><input type="image" src="/AnyMais/images/racas-button.png" class="menu-racas-button" /></a><br>
-                    <a href="/AnyMais/vacinasMedicamentos"><input type="image" src="/AnyMais/images/vacinas-medicamentos-button.png" class="menu-vacinas-button" /></a><br>
-                    <input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" />
+                <div class="menu menu-cliente">
+                    <img src="/AnyMais/images/profile-image.png" class="menu-profile-image-usuario"/><br>
+                    <a href="/AnyMais/usuario/atualizar"><input type="image" src="/AnyMais/images/editar-perfil-button.png" class="menu-editar-perfil" /></a><br>
+                    <a href="/AnyMais/usuario/animais"><input type="image" src="/AnyMais/images/meus-pets-button.png" class="menu-meus-pets" /></a><br>
+                    <a href="mensagens-cliente.html"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
+                    <a href="agendamentos-cliente.html"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
+                    <a href="minhas-avaliacoes.html"><input type="image" src="/AnyMais/images/minhas-avaliacoes-button.png" class="menu-minhas-avaliacoes" /></a><br>
+                    <a href="/AnyMais/logout"><input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a><br>
+                    <a href="/AnyMais/usuario/encerrar"><input id="encerrar" type="image" src="/AnyMais/images/excluir-button.png" class="logout-button" /></a>
                 </div>
-                <div class="principal-usuarios">
+                <a href="home-cliente.html"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home-usuario" /></a>
+                <a href="amigos.html"><input type="image" src="/AnyMais/images/amigos-button.png" class="menu2-amigos-usuario" /></a>
+                <a href="petshop.html"><input type="image" src="/AnyMais/images/petshop-button.png" class="menu2-petshop-usuario" /></a><br>
+                
+                <div class="principal principal-cliente">
                     <form id="formusuarios" action="/AnyMais/pesquisapetshops" method="post">
-                        <h3 class="title">Petshops</h3>
-                        Nome: <input type="text" name="nome-usuario" class="label-field-racas" value="<%= session.getAttribute("nome-usuario") != null ? session.getAttribute("nome-usuario") : "" %>"> <br/>
-                        E-mail: <input type="text" name="email-usuario" class="label-field-racas" value="<%= session.getAttribute("email-usuario") != null ? session.getAttribute("email-usuario") : "" %>"> <br/>
-                        Bairro: <input type="text" name="bairro-usuario" class="label-field-racas" value="<%= session.getAttribute("bairro-usuario") != null ? session.getAttribute("bairro-usuario") : "" %>">
-                        <input type="image" name="procuraPetshops" src="/AnyMais/images/search.png" class="search-button" />
+                        <h3 class="title">Procurar PetShops</h3>
+                        <p class="text-procura-petshop"> Nome: <input type="text" name="nome-usuario" class="label-field-procura-petshop" value="<%= session.getAttribute("nome-usuario") != null ? session.getAttribute("nome-usuario") : "" %>"> </p>
+                        <p class="text-procura-petshop"> E-mail: <input type="text" name="email-usuario" class="label-field-procura-petshop" value="<%= session.getAttribute("email-usuario") != null ? session.getAttribute("email-usuario") : "" %>"> </p>
+                        <p class="text-procura-petshop"> Bairro: <input type="text" name="bairro-usuario" class="label-field-procura-petshop" value="<%= session.getAttribute("bairro-usuario") != null ? session.getAttribute("bairro-usuario") : "" %>"> 
+                            <input type="image" name="procuraPetshops" src="/AnyMais/images/search.png" class="search-button" /></p>
                         <br>
-                        <br><br>
 
                         <table border="1" class="table-racas">
                             <tr>

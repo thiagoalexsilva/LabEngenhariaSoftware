@@ -402,10 +402,25 @@ body{
 	margin-top: -30px;
 }
 
+.menu-profile-image-usuario{
+	width: 150px;
+	opacity: 0.8;
+	padding-bottom: 8px;
+	margin-top: -75px;
+}
+
 .menu2-home{
 	position: absolute;
 	width: 125px;	
 	margin-top: 10px;
+	margin-left: 35px;
+	z-index: 1;
+}
+
+.menu2-home-usuario{
+	position: absolute;
+	width: 125px;	
+	margin-top: -10px;
 	margin-left: 35px;
 	z-index: 1;
 }
@@ -434,6 +449,14 @@ body{
 	z-index: -1;
 }
 
+.menu2-amigos-usuario{
+	position: absolute;
+	width: 125px;	
+	margin-top: -10px;
+	margin-left: 155px;
+	z-index: -1;
+}
+
 .menu2-avaliacoes{
 	position: absolute;
 	width: 125px;	
@@ -450,13 +473,26 @@ body{
 	z-index: -1;
 }
 
+.menu2-petshop-usuario{
+	position: absolute;
+	width: 125px;	
+	margin-top: -10px;
+	margin-left: 275px;
+	z-index: -1;
+}
+
 .principal-cliente{
 	position: relative;
+	margin-top: -5px !important;
 }
 
 .principal-petshop{
 	position: relative;
 	margin-top: 50px;
+}
+
+.saudacao-cliente{
+	margin-left: 15px;
 }
 
 .menu-cliente{
@@ -495,4 +531,12 @@ body{
 
 .hide{
         display: none;
+}
+.label-field-procura-petshop{
+	width: 150px;
+	margin-left: 10px;
+}
+
+.text-procura-petshop{
+	margin-left: 15px;
 }

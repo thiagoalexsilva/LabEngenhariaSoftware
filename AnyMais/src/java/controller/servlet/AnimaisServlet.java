@@ -45,11 +45,11 @@ public class AnimaisServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
+        /*Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
         if(usuario == null){
             response.sendRedirect("/AnyMais/erro");
             return;
-        }
+        }*/
         
         String uri = request.getRequestURI();
         //System.out.println("Chegou: " + uri);

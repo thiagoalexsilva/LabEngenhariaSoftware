@@ -52,7 +52,8 @@
                     <a href="mensagens-cliente.html"><input type="image" src="/AnyMais/images/mensagens-button.png" class="menu-mensagens" /></a><br>
                     <a href="agendamentos-cliente.html"><input type="image" src="/AnyMais/images/agendamento-button.png" class="menu-agendamento" /></a><br>
                     <a href="minhas-avaliacoes.html"><input type="image" src="/AnyMais/images/minhas-avaliacoes-button.png" class="menu-minhas-avaliacoes" /></a><br>
-                    <a href="/AnyMais/usuario/encerrar"><input id="encerrar" type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a>
+                    <a href="/AnyMais/logout"><input type="image" src="/AnyMais/images/logout-button.png" class="logout-button" /></a><br>
+                    <a href="/AnyMais/usuario/encerrar"><input id="encerrar" type="image" src="/AnyMais/images/excluir-button.png" class="logout-button" /></a>
                 </div>
                 <a href="/AnyMais/home-petshop.jsp"><input type="image" src="/AnyMais/images/home-button2.png" class="menu2-home" /></a>
                 
@@ -64,7 +65,10 @@
                             else{ %>
                             <h3 class="title">Atualizar Pet</h3>
                         <% } %>
-
+                        <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
+                        <input type="submit" name="cadastrar" class="button-cadastrar" 
+                               value="<%=animal == null ? "Cadastrar" : "Atualizar"%>">
+                        <br>
                         <input type="radio" id="tipoAnimal" name="tipoAnimal" value="Cachorro" class="cadastra-raca" required 
                                <%= session.getAttribute("tipoAnimal") != null ? (session.getAttribute("tipoAnimal").toString().toUpperCase().equals("CACHORRO") ? "checked" : "")
                                        : (animal != null && animal.getTipoAnimal().getNomeTipoAnimal().toUpperCase().equals("CACHORRO") ? "checked" : "") %> > Cachorro
@@ -115,9 +119,7 @@
                             <input type="text" class="label-field-raca" name="descricaoAnimal" required 
                                    value="<%= session.getAttribute("descricaoAnimal") != null ? session.getAttribute("descricaoAnimal") : animal != null ? animal.getDescricao(): "" %>"> </p>
                         <br><br>
-                        <input type="button" name="cancelar" class="button-cancelar" value="Cancelar">
-                        <input type="submit" name="cadastrar" class="button-cadastrar" 
-                               value="<%=animal == null ? "Cadastrar" : "Atualizar"%>">
+                        
                         <br>
                     </form> 
                 </div>
