@@ -29,12 +29,12 @@ public class GerenciarTiposServico {
         return instance;
     }
         
-    public TipoServico[] selecionaTiposServico(){
-        return daoTipoServico.selectAll();
+    public TipoServico[] selecionaTiposServico(int idPetshop){
+        return daoTipoServico.selectAll(idPetshop);
     }
     
-    public TipoServico[] selecionaTiposServicoComFiltro(String nome){
-        TipoServico[] todasTiposServico = daoTipoServico.selectAll();
+    public TipoServico[] selecionaTiposServicoComFiltro(int idPetshop, String nome){
+        TipoServico[] todasTiposServico = daoTipoServico.selectAll(idPetshop);
         
         ArrayList<TipoServico> filtroTiposServico = new ArrayList<TipoServico>();
         

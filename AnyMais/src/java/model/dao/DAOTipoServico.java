@@ -24,8 +24,8 @@ public class DAOTipoServico {
     
     private Conexao conexao;
     private Connection con;
-    public String INSERT_SQL = "INSERT INTO TIPOSERVICO VALUES (?, ?, ?, ?, ?);";
-    public String SELECT_SQL = "SELECT * FROM TIPOSERVICO;";
+    public String INSERT_SQL = "INSERT INTO TIPOSERVICO VALUES (?, ?, ?, ?, ?, ?);";
+    public String SELECT_SQL = "SELECT * FROM TIPOSERVICO WHERE IDPETSHOP = ?;";
     public String UPDATE_SQL = "UPDATE TIPOSERVICO SET NOMETIPOSERVICO=?, DURACAO=?, VALOR=?, OBSERVACAO=? WHERE IDTIPOSERVICO=?;";
     public String DELETE_SQL = "DELETE FROM TIPOSERVICO WHERE IDTIPOSERVICO=?;";
 
@@ -66,6 +66,7 @@ public class DAOTipoServico {
             stmt.setInt(3, tipoServico.getDuracao());
             stmt.setDouble(4, tipoServico.getValor());
             stmt.setString(5, tipoServico.getObservacao());
+            stmt.setInt(6, tipoServico.getIdPetshop());
             
             stmt.execute();
         } catch (SQLException ex) {
@@ -77,7 +78,7 @@ public class DAOTipoServico {
         return true;
     }
     
-    public TipoServico[] selectAll(){
+    public TipoServico[] selectAll(int idPetshop){
         
         ArrayList<TipoServico> tipoServicos = new ArrayList<TipoServico>();
         TipoServico[] arrayTipoServicos;
@@ -85,7 +86,8 @@ public class DAOTipoServico {
         try {
             con = conexao.openConexao();
             stmt = con.prepareStatement(SELECT_SQL);
-            
+            stmt.setInt(1, idPetshop);
+                        
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 tipoServicos.add(getTipoServico(rs));
@@ -154,7 +156,8 @@ public class DAOTipoServico {
             int duracao = rs.getInt(3);
             double valor = rs.getDouble(4);
             String observacao = rs.getString(5);
-            return new TipoServico(id, nome, duracao, valor, observacao);
+            int idPetshop = rs.getInt(6);
+            return new TipoServico(id, nome, duracao, valor, observacao, idPetshop);
         } catch (SQLException ex) {
             Logger.getLogger(DAOTipoServico.class.getName()).log(Level.SEVERE, null, ex);
             return null;

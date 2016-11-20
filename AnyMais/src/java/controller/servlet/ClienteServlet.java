@@ -56,10 +56,6 @@ public class ClienteServlet extends HttpServlet {
             //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
             dispatcher.forward(request, response);
 
-        } else if (uri.equals("/AnyMais/usuario/cadastrar")) {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
-            dispatcher.forward(request, response);
-
         } else if (uri.equals("/AnyMais/usuario/cadastrado")) {
             String cadastrar = request.getParameter("cadastrar");
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -116,12 +112,17 @@ public class ClienteServlet extends HttpServlet {
                 int idUsuario = Integer.parseInt(excluido);
                 if (GerenciarUsuarios.getInstance().excluirUsuario(idUsuario)) {
                     request.getSession().setAttribute("status", "sucesso");
+                    response.sendRedirect("/AnyMais");
                 } else {
                     request.getSession().setAttribute("status", "falha");
+                    response.sendRedirect("/AnyMais/usuario");
                 }
             }
+            else{
+                request.getSession().setAttribute("status", "falha");
+                response.sendRedirect("/AnyMais/usuario");
+            }
 
-            response.sendRedirect("/AnyMais/usuario");
         } else if (uri.equals("/AnyMais/usuario/atualizar")) {
             Usuario usuario = ((Usuario) request.getSession().getAttribute("usuario"));
             if (usuario == null) {

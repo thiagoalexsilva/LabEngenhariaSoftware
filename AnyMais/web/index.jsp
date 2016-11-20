@@ -45,7 +45,7 @@
                 <input type="submit" class="label-field" value="Login">
                 <br>
                 <center>
-                    <a href="/AnyMais/usuario/cadastrar" class="cadastrar-link">Cadastre-se</a> |
+                    <a href="/AnyMais/cadastrar" class="cadastrar-link">Cadastre-se</a> |
                     <a href="" class="senha-link">Esqueci a senha</a>
                 </center>
             </form> 

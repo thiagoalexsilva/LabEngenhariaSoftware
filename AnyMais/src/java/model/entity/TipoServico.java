@@ -16,13 +16,15 @@ public class TipoServico {
     private String nome;
     private String observacao;
     private double valor;
+    private int idPetshop;
 
-    public TipoServico(int idTipoServico, String nome, int duracao, double valor, String observacao) {
+    public TipoServico(int idTipoServico, String nome, int duracao, double valor, String observacao, int idPetshop) {
         this.idTipoServico = idTipoServico;
         this.nome = nome;
         this.duracao = duracao;
         this.valor = valor;
         this.observacao = observacao;
+        this.idPetshop = idPetshop;
     }
 
     public int getDuracao() {
@@ -63,6 +65,14 @@ public class TipoServico {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public int getIdPetshop() {
+        return idPetshop;
+    }
+
+    public void setIdPetshop(int idPetshop) {
+        this.idPetshop = idPetshop;
     }
     
 }

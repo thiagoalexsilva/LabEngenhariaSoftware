@@ -40,7 +40,9 @@ CREATE  TABLE `anymais`.`pessoa` (
   
   `descricao` VARCHAR(256) ,
 
-  PRIMARY KEY (`idPessoa`) );
+  PRIMARY KEY (`idPessoa`) ,
+  
+  UNIQUE KEY (`email`) );
 
 
 CREATE  TABLE `anymais`.`tipoAnimal` (
@@ -170,9 +172,13 @@ CREATE  TABLE `anymais`.`tipoServico` (
 
   `observacao` VARCHAR(256) NULL ,
 
+  `idPetshop` INT NOT NULL ,
+  
   PRIMARY KEY (`idTipoServico`) ,
   
-  UNIQUE KEY (`nomeTipoServico`)
+  FOREIGN KEY (`idPetshop`) ,
+  
+  UNIQUE KEY (`nomeTipoServico`, `idPetshop`)
   
   );
 

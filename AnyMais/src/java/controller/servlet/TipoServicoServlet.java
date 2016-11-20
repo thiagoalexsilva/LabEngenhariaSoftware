@@ -46,16 +46,17 @@ public class TipoServicoServlet extends HttpServlet {
         /*
         TODO: Descomentar trava de sessão sem usuário de petshop.
         */
-        /*Usuario usuario = ((Usuario) request.getSession().getAttribute("petshop"));
+        Usuario usuario = ((Usuario) request.getSession().getAttribute("petshop"));
         if(usuario == null){
             response.sendRedirect("/AnyMais/erro");
             return;
-        }*/
+        }
         
         String uri = request.getRequestURI();
         //System.out.println("Chegou: " + uri);
         if(uri.equals("/AnyMais/petshop/servicos")){
-        
+            int idPetshop = usuario.getIdPessoa();
+            
             String nomeTipoServico = request.getParameter("nomeServico") != null ? request.getParameter("nomeServico") : "";
             
             request.getSession(true).removeAttribute("nomeServico");
@@ -63,7 +64,7 @@ public class TipoServicoServlet extends HttpServlet {
             if(nomeTipoServico != null)
                 request.getSession(true).setAttribute("nomeServico", nomeTipoServico);
             
-            TipoServico[] tiposServico = GerenciarTiposServico.getInstance().selecionaTiposServicoComFiltro(nomeTipoServico);
+            TipoServico[] tiposServico = GerenciarTiposServico.getInstance().selecionaTiposServicoComFiltro(idPetshop, nomeTipoServico);
             request.getSession(true).setAttribute("servicos", tiposServico); 
             
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ver-tipos-servico.jsp");
@@ -85,8 +86,9 @@ public class TipoServicoServlet extends HttpServlet {
             String valorStr = request.getParameter("valor");
             double valor = Double.parseDouble(valorStr);
             String observacao = request.getParameter("observacao");            
-
-            TipoServico novoTipoServico = new TipoServico(1, nome, duracao, valor, observacao); //id mock
+            int idPetshop = usuario.getIdPessoa();
+            
+            TipoServico novoTipoServico = new TipoServico(1, nome, duracao, valor, observacao, idPetshop); //id mock
             if(GerenciarTiposServico.getInstance().adicionarTipoServico(novoTipoServico))
                 request.getSession().setAttribute("status", "sucesso");
             else
@@ -107,10 +109,12 @@ public class TipoServicoServlet extends HttpServlet {
             response.sendRedirect("/AnyMais/petshop/servicos");
         }
         else if(uri.equals("/AnyMais/petshop/servicos/atualizar")){
+            int idPetshop = usuario.getIdPessoa();
+                        
             String atualizado = request.getParameter("atualizado");
             if(atualizado != null){
                 int idTipoServico = Integer.parseInt(atualizado);
-                TipoServico[] tiposServico = GerenciarTiposServico.getInstance().selecionaTiposServico();
+                TipoServico[] tiposServico = GerenciarTiposServico.getInstance().selecionaTiposServico(idPetshop);
                 TipoServico tipoServicoAtualizacao = null;
                 for(TipoServico tipoServico : tiposServico){
                     if(tipoServico.getIdTipoServico() == idTipoServico){
@@ -134,8 +138,9 @@ public class TipoServicoServlet extends HttpServlet {
             String valorStr = request.getParameter("valor");
             double valor = Double.parseDouble(valorStr);
             String observacao = request.getParameter("observacao");            
-
-            TipoServico tipoServicoAtualizado = new TipoServico(idTipoServico, nome, duracao, valor, observacao);
+            int idPetshop = usuario.getIdPessoa();
+            
+            TipoServico tipoServicoAtualizado = new TipoServico(idTipoServico, nome, duracao, valor, observacao, idPetshop);
             if(GerenciarTiposServico.getInstance().atualizarTipoServico(tipoServicoAtualizado))
                 request.getSession().setAttribute("status", "sucesso");
             else

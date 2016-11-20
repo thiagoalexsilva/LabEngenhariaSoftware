@@ -21,7 +21,7 @@ import model.entity.Usuario;
  *
  * @author ThiagoAlexandre
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/logout", "/atualizarlogin", "/loginatualizado"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/logout", "/atualizarlogin", "/loginatualizado", "/cadastrar", "/", ""})
 public class LoginServlet extends HttpServlet{
    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,7 +39,11 @@ public class LoginServlet extends HttpServlet{
         request.setCharacterEncoding("UTF-8");
         
         String uri = request.getRequestURI();
-        if(uri.equals("/AnyMais/login")){
+        if(uri.equals("/AnyMais/") || uri.equals("/AnyMais")){
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+        }
+        else if(uri.equals("/AnyMais/login")){
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             
@@ -136,6 +140,11 @@ public class LoginServlet extends HttpServlet{
             }
             
         }
+        else if (uri.equals("/AnyMais/cadastrar")) {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/cadastrar-usuario.jsp");
+            dispatcher.forward(request, response);
+
+        } 
     }
     
      // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
