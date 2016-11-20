@@ -21,7 +21,7 @@ import model.entity.Usuario;
  *
  * @author ThiagoAlexandre
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/logout", "/atualizarlogin", "/loginatualizado", "/cadastrar", "/", ""})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/logout", "/atualizarlogin", "/loginatualizado", "/cadastrar", ""})
 public class LoginServlet extends HttpServlet{
    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

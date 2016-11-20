@@ -196,3 +196,20 @@ CREATE TABLE `anymais`.`veterinario`(
   
   UNIQUE KEY (`crmv`)
 );
+
+CREATE TABLE `anymais`.`mensagem`(
+  `idMensagem` INT NOT NULL ,
+
+  `assunto` VARCHAR(80) NOT NULL ,
+  
+  `mensagem` VARCHAR(500) NOT NULL,
+
+  `idRemetente` INT NOT NULL ,
+
+  `idDestinatario` INT NOT NULL ,
+
+  `dataEnvio` DATE NOT NULL ,
+
+  PRIMARY KEY (`idMensagem`)
+  
+);
